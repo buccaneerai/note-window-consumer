@@ -1,0 +1,18 @@
+{
+  "libs": [
+    "browser",
+    "react",
+    "underscore",
+    "chai"
+  ],
+  "plugins": {
+     "node": {},
+     "modules": {},
+     "requirejs": {},
+     "es_modules": {},
+     "mocha": {},
+     "webpack": {}
+  },
+  "ecmaVersion": 6,
+  "dontLoad": ["node_modules/**"]
+}

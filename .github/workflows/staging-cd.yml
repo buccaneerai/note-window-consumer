@@ -1,0 +1,65 @@
+name: Staging deployment
+on:
+  push:
+    branches: [ dev ]
+env:
+  STAGE: local
+  SERVICE_NAME: note-window-consumer
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+          registry-url: 'https://npm.pkg.github.com/'
+          scope: '@buccaneerai'
+          always-auth: true
+      - name: Setup private npm auth
+        run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Run tests
+        run: JWT_SECRET=alohomora yarn test
+      - name: copy .npmrc (so Docker can install private npm packages)
+        run: |
+          echo "@buccaneerai:registry=https://npm.pkg.github.com/" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" >> .npmrc
+      - name: Build Docker image and push to GitHub Packages Registry
+        uses: docker/build-push-action@v1
+        id: docker_build
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: buccaneerai/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}
+          tags: dev,${{ github.sha }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Login to AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build and push docker image to AWS
+        run: |
+          docker build -t $ECR_REGISTRY/staging-$SERVICE_NAME:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/staging-$SERVICE_NAME:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        env:
+          SERVICE_NAME: ${{ env.SERVICE_NAME }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+      - name: Tag AWS container as latest
+        run: |
+          docker build -t $ECR_REGISTRY/staging-$SERVICE_NAME:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/staging-$SERVICE_NAME:$IMAGE_TAG
+        env:
+          SERVICE_NAME: ${{ env.SERVICE_NAME }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: staging

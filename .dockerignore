@@ -1,0 +1,6 @@
+node_modules/
+docker/
+*.md
+npm-debug*
+.circleci
+.github
