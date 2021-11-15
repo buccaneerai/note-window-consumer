@@ -40,6 +40,8 @@
     "lodash": "^4.17.11",
     "luxon": "^1.25.0",
     "randomstring": "^1.1.5",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
     "round-to": "^4.1.0",
     "rxjs": "^6.3.3",
     "sqs-consumer": "^5.5.0"
