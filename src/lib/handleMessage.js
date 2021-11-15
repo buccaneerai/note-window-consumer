@@ -1,22 +1,38 @@
-const {of} = require('rxjs');
+const pick = require('lodash/pick');
+const {of,zip} = require('rxjs');
 const {map,mergeMap} = require('rxjs/operators');
 
-const mapMessageToEvent = require('./mapMessageToEvent');
-const parseFlatDataTypesFromEvent = require('./parseFlatDataTypesFromEvent');
-const parseJSON = require('./parseJSON');
-const storeFlatDataToS3 = require('./storeFlatDataToS3');
+const toPredictions = '../operators/toPredictions';
+const fetchWordsForWindow = './fetchWordsForWindow';
+const updateWorkStatus = './updateWorkStatus';
 
-const handleMessage = message => {
+// this should return an observable
+const handleMessage = (
+  message,
+  context,
+  _fetchWordForWindow = fetchWordsForWindow,
+  // _getPatternMatchingPredictions = getPatternMatchingPredictions,
+  _updateWorkStatus = updateWorkStatus,
+  _toPredictions = toPredictions,
+  // _storePredictions = storePredictions,
+) => {
   const done$ = of(message).pipe(
-    // tap(d => console.log('received message with MessageId: ', message.MessageId)),
-    mergeMap(parseJSON()),
-    // tap(d => console.log('parsedJson', d)),
-    map(mapMessageToEvent()),
-    // tap(d => console.log('event', d)),
-    map(parseFlatDataTypesFromEvent()),
-    // tap(d => console.log('flatData', d)),
-    mergeMap(storeFlatDataToS3()),
-    // tap(d => console.log('Finished message with MessageId', message.MessageId)),
+    mergeMap(message => zip(
+      of(message),
+      _fetchWordsForWindow({noteWindowId: message.noteWindowId}),
+    )),
+    mergeMap(([message, words]) => zip(
+      of(message),
+      of({message, words}).pipe(_toPredictions()),
+    )),
+    // mergeMap(([message, predictions]) => zip(
+    //   of(message),
+    //   _storePredictions({noteWindowId, predictions}) // TODO
+    // )),
+    mergeMap(([message]) => _updateWorkStatus({
+      noteWindowId: message.noteWindowId,
+      workStatus: 'readyToAnnotate',
+    })),
   );
   return done$;
 };
