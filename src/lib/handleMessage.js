@@ -1,38 +1,50 @@
-const pick = require('lodash/pick');
+const get = require('lodash/get');
 const {of,zip} = require('rxjs');
-const {map,mergeMap} = require('rxjs/operators');
+const {mergeMap} = require('rxjs/operators');
 
+const validateJob = './validateJob';
 const toPredictions = '../operators/toPredictions';
 const fetchWordsForWindow = './fetchWordsForWindow';
+const storePredictions = './storePredictions';
 const updateWorkStatus = './updateWorkStatus';
 
 // this should return an observable
 const handleMessage = (
   message,
-  context,
-  _fetchWordForWindow = fetchWordsForWindow,
-  // _getPatternMatchingPredictions = getPatternMatchingPredictions,
-  _updateWorkStatus = updateWorkStatus,
-  _toPredictions = toPredictions,
-  // _storePredictions = storePredictions,
+  {
+    _fetchWordsForWindow = fetchWordsForWindow,
+    // _getPatternMatchingPredictions = getPatternMatchingPredictions,
+    _updateWorkStatus = updateWorkStatus,
+    _toPredictions = toPredictions,
+    _storePredictions = storePredictions,
+    _validateJob = validateJob,
+  } = {}
 ) => {
+  const shouldUpdateWorkStatus = get(message, 'updateWorkStatus', true);
+  const shouldStorePredictions = get(message, 'storePredictions', true);
   const done$ = of(message).pipe(
-    mergeMap(message => zip(
-      of(message),
-      _fetchWordsForWindow({noteWindowId: message.noteWindowId}),
+    mergeMap(_validateJob()),
+    mergeMap(m => zip(
+      of(m),
+      _fetchWordsForWindow({noteWindowId: m.noteWindowId}),
     )),
-    mergeMap(([message, words]) => zip(
-      of(message),
-      of({message, words}).pipe(_toPredictions()),
+    mergeMap(([m, words]) => zip(
+      of(m),
+      of({message: m, words}).pipe(_toPredictions()),
     )),
-    // mergeMap(([message, predictions]) => zip(
-    //   of(message),
-    //   _storePredictions({noteWindowId, predictions}) // TODO
-    // )),
-    mergeMap(([message]) => _updateWorkStatus({
-      noteWindowId: message.noteWindowId,
-      workStatus: 'readyToAnnotate',
-    })),
+    mergeMap(([m, predictions]) => zip(
+      of(m),
+      shouldStorePredictions
+      ? _storePredictions()({predictions})
+      : of(predictions),
+    )),
+    mergeMap(([m]) =>
+      shouldUpdateWorkStatus
+      ? _updateWorkStatus({
+        noteWindowId: m.noteWindowId,
+      })
+      : of(m)
+    ),
   );
   return done$;
 };

@@ -2,15 +2,19 @@ const {merge} = require('rxjs');
 const {map} = require('rxjs/operators');
 
 const toInfoRetrievalModel = '../operators/toInfoRetrievalModel';
-const toPatternMatchingModel = '../operators/toPatternMatchingModel';
+const toSpacyModel = '../operators/toSpacyModel';
 
 const pipelines = {
   infoRetrieval: {
-    options: {},
+    options: () => ({
+      graphqlUrl: process.env.GRAPHQL_URL,
+    }),
     operator: toInfoRetrievalModel,
   },
   spacy: {
-    options: {},
+    options: () => ({
+      spacyUrl: process.env.NLP_SERVICE_URL,
+    }),
     operator: toSpacyModel,
   },
   // recSys: {
@@ -41,14 +45,10 @@ const pipelines = {
 
 const toPredictions = (_pipelines = pipelines) => ({message, words}) => {
   const observables = Object.keys(_pipelines).map(key => of(words).pipe(
-    _pipelines[key].operator(_pipelines[key].options),
-    map(predictions.map(p => ({...p, pipeline: key}))),
+    _pipelines[key].operator(_pipelines[key].options())
   ));
   const predictions$ = merge(...observables);
   return predictions$;
 };
 
 module.exports = toPredictions;
-      // _getPatternMatchingPredictions()(), // TODO
-      // _getRecSysPredictions
-      // _getTopicModelPredictions
