@@ -38,7 +38,7 @@
     "joi": "^14.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
-    "luxon": "^1.25.0",
+    "luxon": "^2.1.1",
     "randomstring": "^1.1.5",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
