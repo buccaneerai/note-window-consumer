@@ -2,7 +2,7 @@ const {DateTime} = require('luxon');
 
 const {client} = require('@buccaneerai/graphql-sdk');
 
-const timestamp = () => (new DateTime()).now().toISO();
+const timestamp = () => DateTime.now().toISO();
 
 const updateWorkStatus = ({
   noteWindowId,
@@ -14,6 +14,7 @@ const updateWorkStatus = ({
     docId: noteWindowId,
     set: {
       workStatus: 'readyToAnnotate',
+      predictionsDone: true,
       timePredictionsDone: timestamp(),
       timeReadyToAnnotate: timestamp(),
     },
