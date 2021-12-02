@@ -5,7 +5,9 @@ const {mergeMap} = require('rxjs/operators');
 const schema = Joi.object().keys({
   noteWindowId: Joi.string().alphanum().required(),
   runId: Joi.string().alphanum().required(),
-  practitionerId: Joi.string().alphanum().required(),
+  storePredictions: Joi.boolean().default(true),
+  updateWorkStatus: Joi.boolean().default(true),
+  // practitionerId: Joi.string().alphanum().required(),
 });
 
 const processValidationOrThrow = () => validations => (
@@ -17,12 +19,14 @@ const processValidationOrThrow = () => validations => (
 const validateJob = (
   _schema = schema,
   _processValidationOrThrow = processValidationOrThrow
-) => job => {
-  const validations = _schema.validate(job);
-  const jobOrThrow$ = of(validations).pipe(
-    mergeMap(_processValidationOrThrow())
-  );
-  return jobOrThrow$;
-};
+) => (
+  job => {
+    const validations = _schema.validate(job);
+    const jobOrThrow$ = of(validations).pipe(
+      mergeMap(_processValidationOrThrow())
+    );
+    return jobOrThrow$;
+  }
+);
 
 module.exports = validateJob;

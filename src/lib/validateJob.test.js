@@ -7,7 +7,7 @@ const validateJob  = require('./validateJob');
 const exampleJob = {
   noteWindowId: 'foobarid',
   runId: 'foobarid',
-  practitionerId: 'foobarid',
+  // practitionerId: 'foobarid',
 };
 
 describe('validateJob', () => {
