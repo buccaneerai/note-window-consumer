@@ -1,50 +1,57 @@
 const get = require('lodash/get');
 const {of,zip} = require('rxjs');
-const {mergeMap} = require('rxjs/operators');
+const {map,mergeMap} = require('rxjs/operators');
 
-const validateJob = './validateJob';
-const toPredictions = '../operators/toPredictions';
-const fetchWordsForWindow = './fetchWordsForWindow';
-const storePredictions = './storePredictions';
-const updateWorkStatus = './updateWorkStatus';
+const validateJob = require('./validateJob');
+const toPredictions = require('../operators/toPredictions');
+const fetchWordsForWindow = require('./fetchWordsForWindow');
+const storePredictions = require('./storePredictions');
+const updateWorkStatus = require('./updateWorkStatus');
 
 // this should return an observable
-const handleMessage = (
-  message,
-  {
-    _fetchWordsForWindow = fetchWordsForWindow,
-    // _getPatternMatchingPredictions = getPatternMatchingPredictions,
-    _updateWorkStatus = updateWorkStatus,
-    _toPredictions = toPredictions,
-    _storePredictions = storePredictions,
-    _validateJob = validateJob,
-  } = {}
-) => {
+const handleMessage = ({
+  _fetchWordsForWindow = fetchWordsForWindow,
+  // _getPatternMatchingPredictions = getPatternMatchingPredictions,
+  _updateWorkStatus = updateWorkStatus,
+  _toPredictions = toPredictions,
+  _storePredictions = storePredictions,
+  _validateJob = validateJob,
+} = {}) => message => {
   const shouldUpdateWorkStatus = get(message, 'updateWorkStatus', true);
   const shouldStorePredictions = get(message, 'storePredictions', true);
   const done$ = of(message).pipe(
     mergeMap(_validateJob()),
     mergeMap(m => zip(
       of(m),
-      _fetchWordsForWindow({noteWindowId: m.noteWindowId}),
+      _fetchWordsForWindow()({noteWindowId: m.noteWindowId}),
     )),
     mergeMap(([m, words]) => zip(
       of(m),
-      of({message: m, words}).pipe(_toPredictions()),
+      _toPredictions()({message: m, words}),
     )),
     mergeMap(([m, predictions]) => zip(
       of(m),
+      of(predictions),
       shouldStorePredictions
-      ? _storePredictions()({predictions})
+      ? _storePredictions()({
+        predictions: predictions.map(p => ({
+          ...p,
+          runId: message.runId,
+          noteWindowId: message.noteWindowId,
+        }))
+      })
       : of(predictions),
     )),
-    mergeMap(([m]) =>
+    mergeMap(([m, predictions]) => zip(
+      of(m),
+      of(predictions),
       shouldUpdateWorkStatus
       ? _updateWorkStatus({
         noteWindowId: m.noteWindowId,
       })
       : of(m)
-    ),
+    )),
+    map(([,predictions]) => predictions)
   );
   return done$;
 };

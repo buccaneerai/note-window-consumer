@@ -13,6 +13,7 @@ const fakeWords = [
 describe('handleMessage', () => {
   it('should export a function', () => {
     expect(handleMessage).to.be.a('function');
+    expect(handleMessage()).to.be.a('function');
   });
 
   it('should run its workflow correctly', marbles(m => {
@@ -29,7 +30,7 @@ describe('handleMessage', () => {
       _storePredictions: storageStub,
       _validateJob: sinon.stub().returns(m => of(m)),
     };
-    const out$ = handleMessage(message, options);
+    const out$ = handleMessage(options)(message);
     const expected$ = m.cold('(0|)', [{fake: 'response'}]);
     m.expect(out$).toBeObservable(expected$);
   }));
