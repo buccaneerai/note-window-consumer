@@ -1,6 +1,6 @@
 const get = require('lodash/get');
 const uniqBy = require('lodash/uniqBy');
-const request = require('request-promise');
+const axios = require('axios');
 const { from } = require('rxjs');
 const { map, mergeMap} = require('rxjs/operators');
 
@@ -27,17 +27,6 @@ const reduceWordsToString = () => (acc, w) => (acc ? `${acc} ${w.text}` : w.text
 //     // filter(([, done]) => done),
 //     map(words => words.reduce(wordStringReducer(), ''))
 //   );
-
-const toSpacyAPI = (url, _request = request) => text => {
-  const promise = _request({
-    uri: url,
-    method: 'POST',
-    json: true,
-    body: { text },
-  });
-  const nlpOut$ = from(promise);
-  return nlpOut$;
-};
 
 // const linkTagsToWords = () => (words, { entities, matches, tokens }) => {
 //   const wordsWithCharIndex = words.reduce(
@@ -95,6 +84,21 @@ const toSpacyAPI = (url, _request = request) => text => {
 //   return nlpOut$;
 // };
 
+const toSpacyAPI = ({url, token, _axios = axios}) => text => {
+  const promise = _axios({
+    url: `${url}/tokens`,
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { text },
+  });
+  const nlpOut$ = from(promise).pipe(
+    map(res => res.data)
+  );
+  return nlpOut$;
+};
+
 const mapSpacyResponseToPredictions = ({
   runId,
   noteWindowId,
@@ -117,12 +121,13 @@ const toSpacyModel = ({
   runId,
   noteWindowId,
   spacyUrl = process.env.NLP_SERVICE_URL,
+  token = process.env.JWT_TOKEN,
   _toSpacyAPI = toSpacyAPI,
   _mapSpacyResponseToPredictions = mapSpacyResponseToPredictions,
 } = {}) => (
   words$ => words$.pipe(
     map(words => words.reduce(reduceWordsToString(), '')),
-    mergeMap(_toSpacyAPI({url: spacyUrl})),
+    mergeMap(_toSpacyAPI({url: spacyUrl, token})),
     map(_mapSpacyResponseToPredictions({
       runId,
       noteWindowId,
