@@ -5,7 +5,7 @@
   "author": "Buccaneer LLC",
   "license": "UNLICENSED",
   "private": true,
-  "description": "🧠 Consumes new note windows from the GraphQL API and runs predictions on them",
+  "description": "🧠 Consumes note windows and runs predictions on them",
   "devDependencies": {
     "chai": "^4.2.0",
     "commander": "^6.1.0",
@@ -21,27 +21,27 @@
     "sinon": "^7.2.2"
   },
   "dependencies": {
-    "@buccaneerai/graphql-sdk": "^2.16.2",
+    "@buccaneerai/graphql-sdk": "^2.18.1",
     "@buccaneerai/logging-utils": "^1.0.12",
     "aws-sdk": "^2.438.0",
+    "axios": "^0.24.0",
     "bcrypt": "^3.0.5",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "express-jwt": "^5.3.1",
     "express-useragent": "^1.0.15",
     "flatted": "^3.1.0",
     "geoip-lite": "^1.4.2",
-    "helmet": "^4.4.1",
+    "helmet": "^4.6.0",
     "joi": "^14.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "luxon": "^2.1.1",
     "randomstring": "^1.1.5",
     "request": "^2.88.2",
-    "request-promise": "^4.2.6",
     "round-to": "^4.1.0",
     "rxjs": "^6.3.3",
     "sqs-consumer": "^5.5.0"
@@ -56,6 +56,7 @@
     "test": "START_SERVER=false SUPPRESS_LOGS=1 mocha \"./{,!(node_modules)/**/}*.test.js\" --exit",
     "test:debug": "START_SERVER=false mocha \"./{,!(node_modules)/**/}*.test.js\" --exit",
     "aws:ecr:createtoken": "node ./scripts/getEcrToken",
-    "aws:ecs:update": "node ./scripts/redeploy"
+    "aws:ecs:update": "node ./scripts/redeploy",
+    "cli": "node ./scripts/index.js"
   }
 }
