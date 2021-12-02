@@ -1,16 +1,21 @@
-const {merge} = require('rxjs');
+const isArray = require('lodash/isArray');
+const {of,merge,throwError} = require('rxjs');
 const {map} = require('rxjs/operators');
 
-const toInfoRetrievalModel = '../operators/toInfoRetrievalModel';
-const toSpacyModel = '../operators/toSpacyModel';
+// const toInfoRetrievalModel = require('../operators/toInfoRetrievalModel');
+const toSpacyModel = require('./toSpacyModel');
+
+const errors = {
+  invalidWords: () => new Error('params.words must be an array'),
+};
 
 const pipelines = {
-  infoRetrieval: {
-    options: () => ({
-      graphqlUrl: process.env.GRAPHQL_URL,
-    }),
-    operator: toInfoRetrievalModel,
-  },
+  // infoRetrieval: {
+  //   options: () => ({
+  //     graphqlUrl: process.env.GRAPHQL_URL,
+  //   }),
+  //   operator: toInfoRetrievalModel,
+  // },
   spacy: {
     options: () => ({
       spacyUrl: process.env.NLP_SERVICE_URL,
@@ -44,7 +49,10 @@ const pipelines = {
 };
 
 const toPredictions = (_pipelines = pipelines) => ({message, words}) => {
-  const observables = Object.keys(_pipelines).map(key => of(words).pipe(
+  if (!isArray(words)) return throwError(errors.invalidWords);
+  if (words.length === 0) return of(); // no predictions
+  const pipelineKeys = Object.keys(_pipelines);
+  const observables = pipelineKeys.map(key => of(words).pipe(
     _pipelines[key].operator(_pipelines[key].options())
   ));
   const predictions$ = merge(...observables);
