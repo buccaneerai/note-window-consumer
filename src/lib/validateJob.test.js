@@ -8,6 +8,8 @@ const exampleJob = {
   noteWindowId: 'foobarid',
   runId: 'foobarid',
   // practitionerId: 'foobarid',
+  storePredictions: true,
+  updateWorkStatus: true,
 };
 
 describe('validateJob', () => {
