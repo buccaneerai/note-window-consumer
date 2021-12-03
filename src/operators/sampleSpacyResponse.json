@@ -1,0 +1,306 @@
+{
+  "entities": [
+    {
+      "endI": 38,
+      "i": 31,
+      "label": "PERSON",
+      "text": "Wishart"
+    }
+  ],
+  "matches": [
+    {
+      "endI": 1,
+      "i": 0,
+      "matchId": "GREETINGS",
+      "text": "hi"
+    },
+    {
+      "endI": 3,
+      "i": 2,
+      "matchId": "GREETINGS",
+      "text": "hi"
+    },
+    {
+      "endI": 6,
+      "i": 3,
+      "matchId": "GREETINGS",
+      "text": "my name is"
+    },
+    {
+      "endI": 21,
+      "i": 20,
+      "matchId": "GREETINGS",
+      "text": "hi"
+    },
+    {
+      "endI": 31,
+      "i": 29,
+      "matchId": "HEADACHE_ACUTE",
+      "text": "bad headache"
+    },
+    {
+      "endI": 31,
+      "i": 30,
+      "matchId": "HEADACHE",
+      "text": "headache"
+    }
+  ],
+  "tokens": [
+    {
+      "dep": "ROOT",
+      "i": 0,
+      "pos": "INTJ",
+      "prob": -20.0,
+      "tag": "UH",
+      "text": "hi"
+    },
+    {
+      "dep": "punct",
+      "i": 2,
+      "pos": "PUNCT",
+      "prob": -20.0,
+      "tag": ".",
+      "text": "."
+    },
+    {
+      "dep": "intj",
+      "i": 4,
+      "pos": "INTJ",
+      "prob": -20.0,
+      "tag": "UH",
+      "text": "hi"
+    },
+    {
+      "dep": "poss",
+      "i": 7,
+      "pos": "DET",
+      "prob": -20.0,
+      "tag": "PRP$",
+      "text": "my"
+    },
+    {
+      "dep": "nsubj",
+      "i": 10,
+      "pos": "NOUN",
+      "prob": -20.0,
+      "tag": "NN",
+      "text": "name"
+    },
+    {
+      "dep": "ROOT",
+      "i": 15,
+      "pos": "AUX",
+      "prob": -20.0,
+      "tag": "VBZ",
+      "text": "is"
+    },
+    {
+      "dep": "attr",
+      "i": 18,
+      "pos": "PROPN",
+      "prob": -20.0,
+      "tag": "NNP",
+      "text": "Ein"
+    },
+    {
+      "dep": "punct",
+      "i": 21,
+      "pos": "PUNCT",
+      "prob": -20.0,
+      "tag": ".",
+      "text": "."
+    },
+    {
+      "dep": "nsubj",
+      "i": 23,
+      "pos": "PRON",
+      "prob": -20.0,
+      "tag": "PRP",
+      "text": "I"
+    },
+    {
+      "dep": "ROOT",
+      "i": 24,
+      "pos": "AUX",
+      "prob": -20.0,
+      "tag": "VBP",
+      "text": "'m"
+    },
+    {
+      "dep": "dep",
+      "i": 27,
+      "pos": "PROPN",
+      "prob": -20.0,
+      "tag": "NNP",
+      "text": "dr"
+    },
+    {
+      "dep": "attr",
+      "i": 29,
+      "pos": "PROPN",
+      "prob": -20.0,
+      "tag": "NNP",
+      "text": "."
+    },
+    {
+      "dep": "ROOT",
+      "i": 31,
+      "pos": "PROPN",
+      "prob": -20.0,
+      "tag": "NNP",
+      "text": "Wishart"
+    },
+    {
+      "dep": "punct",
+      "i": 38,
+      "pos": "PUNCT",
+      "prob": -20.0,
+      "tag": ".",
+      "text": "."
+    },
+    {
+      "dep": "advmod",
+      "i": 40,
+      "pos": "ADV",
+      "prob": -20.0,
+      "tag": "WRB",
+      "text": "how"
+    },
+    {
+      "dep": "aux",
+      "i": 44,
+      "pos": "VERB",
+      "prob": -20.0,
+      "tag": "MD",
+      "text": "can"
+    },
+    {
+      "dep": "nsubj",
+      "i": 48,
+      "pos": "PRON",
+      "prob": -20.0,
+      "tag": "PRP",
+      "text": "I"
+    },
+    {
+      "dep": "ROOT",
+      "i": 50,
+      "pos": "VERB",
+      "prob": -20.0,
+      "tag": "VB",
+      "text": "help"
+    },
+    {
+      "dep": "dobj",
+      "i": 55,
+      "pos": "PRON",
+      "prob": -20.0,
+      "tag": "PRP",
+      "text": "you"
+    },
+    {
+      "dep": "punct",
+      "i": 58,
+      "pos": "PUNCT",
+      "prob": -20.0,
+      "tag": ".",
+      "text": "?"
+    },
+    {
+      "dep": "ROOT",
+      "i": 60,
+      "pos": "INTJ",
+      "prob": -20.0,
+      "tag": "UH",
+      "text": "hi"
+    },
+    {
+      "dep": "punct",
+      "i": 62,
+      "pos": "PUNCT",
+      "prob": -20.0,
+      "tag": ".",
+      "text": "."
+    },
+    {
+      "dep": "ROOT",
+      "i": 64,
+      "pos": "INTJ",
+      "prob": -20.0,
+      "tag": "UH",
+      "text": "uh"
+    },
+    {
+      "dep": "punct",
+      "i": 66,
+      "pos": "PUNCT",
+      "prob": -20.0,
+      "tag": ".",
+      "text": "."
+    },
+    {
+      "dep": "nsubj",
+      "i": 68,
+      "pos": "PRON",
+      "prob": -20.0,
+      "tag": "PRP",
+      "text": "I"
+    },
+    {
+      "dep": "aux",
+      "i": 69,
+      "pos": "AUX",
+      "prob": -20.0,
+      "tag": "VB",
+      "text": "'ve"
+    },
+    {
+      "dep": "ROOT",
+      "i": 73,
+      "pos": "VERB",
+      "prob": -20.0,
+      "tag": "VBN",
+      "text": "got"
+    },
+    {
+      "dep": "det",
+      "i": 77,
+      "pos": "DET",
+      "prob": -20.0,
+      "tag": "DT",
+      "text": "this"
+    },
+    {
+      "dep": "amod",
+      "i": 82,
+      "pos": "ADJ",
+      "prob": -20.0,
+      "tag": "JJ",
+      "text": "crazy"
+    },
+    {
+      "dep": "amod",
+      "i": 88,
+      "pos": "ADJ",
+      "prob": -20.0,
+      "tag": "JJ",
+      "text": "bad"
+    },
+    {
+      "dep": "dobj",
+      "i": 92,
+      "pos": "NOUN",
+      "prob": -20.0,
+      "tag": "NN",
+      "text": "headache"
+    },
+    {
+      "dep": "punct",
+      "i": 100,
+      "pos": "PUNCT",
+      "prob": -20.0,
+      "tag": ".",
+      "text": "."
+    }
+  ]
+}
