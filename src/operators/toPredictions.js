@@ -1,6 +1,6 @@
 const isArray = require('lodash/isArray');
 const {of,merge,throwError} = require('rxjs');
-const {map} = require('rxjs/operators');
+// const {map} = require('rxjs/operators');
 
 // const toInfoRetrievalModel = require('../operators/toInfoRetrievalModel');
 const toSpacyModel = require('./toSpacyModel');
@@ -48,7 +48,7 @@ const pipelines = {
   // },
 };
 
-const toPredictions = (_pipelines = pipelines) => ({message, words}) => {
+const toPredictions = (_pipelines = pipelines) => ({words}) => {
   if (!isArray(words)) return throwError(errors.invalidWords);
   if (words.length === 0) return of(); // no predictions
   const pipelineKeys = Object.keys(_pipelines);
