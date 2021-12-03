@@ -22,16 +22,16 @@ describe('handleMessage', () => {
       noteWindowId: 'fakenotewindow',
     };
     const storageStub = sinon.stub().returns(() => of('foo'));
-    const predictionStub = sinon.stub().returns(source$ => of(['foo']));
+    const predictionStub = sinon.stub().returns(source$ => of(['prediction']));
     const options = {
-      _fetchWordsForWindow: sinon.stub().returns(of(fakeWords)),
+      _fetchWordsForWindow: () => sinon.stub().returns(of(fakeWords)),
       _updateWorkStatus: sinon.stub().returns(of({fake: 'response'})),
       _toPredictions: predictionStub,
       _storePredictions: storageStub,
       _validateJob: sinon.stub().returns(m => of(m)),
     };
     const out$ = handleMessage(options)(message);
-    const expected$ = m.cold('(0|)', [{fake: 'response'}]);
+    const expected$ = m.cold('(0|)', [['prediction']]);
     m.expect(out$).toBeObservable(expected$);
   }));
 });
