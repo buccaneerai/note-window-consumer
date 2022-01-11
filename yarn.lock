@@ -38,10 +38,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@buccaneerai/graphql-sdk@^2.18.1":
-  version "2.18.1"
-  resolved "https://npm.pkg.github.com/download/@buccaneerai/graphql-sdk/2.18.1/e505e45c808893a38f99ac108155d3029d86537a7e0980c76b2bfb7fdcd73e27#b66189569a012c543a169f1545179f4b67bdd686"
-  integrity sha512-obmk43sp58nWHrAvrT1s6yl7GWxhsX5Hy4V/11M6jzkcO5IFVKhIe9i67XdjveacIU6WIluP+jBhB0ZjfN2WFA==
+"@buccaneerai/graphql-sdk@^2.21.0":
+  version "2.21.0"
+  resolved "https://npm.pkg.github.com/download/@buccaneerai/graphql-sdk/2.21.0/15f5bc616c209e1d08789f693a4705724c67dab2cde53c169421c114c25999ea#0df25ad2ecb24b2e7c36b5c21a94d8b55bdb16ec"
+  integrity sha512-dBUF0+eOppxdE2E39LaAVuITArqq2clPcNrJjIWVVT9Et2nhKuiFeD8IqC1eEB9wSOM3yoV9UsPjo1HqAkPqUA==
   dependencies:
     graphql "^15.5.0"
     graphql-request "^3.4.0"

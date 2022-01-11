@@ -4,6 +4,7 @@ const {map,mergeMap} = require('rxjs/operators');
 
 const validateJob = require('./validateJob');
 const toPredictions = require('../operators/toPredictions');
+const createTask = require('./createTask');
 const fetchWordsForWindow = require('./fetchWordsForWindow');
 const storePredictions = require('./storePredictions');
 const updateWorkStatus = require('./updateWorkStatus');
@@ -14,11 +15,13 @@ const handleMessage = ({
   // _getPatternMatchingPredictions = getPatternMatchingPredictions,
   _updateWorkStatus = updateWorkStatus,
   _toPredictions = toPredictions,
+  _createTask = createTask,
   _storePredictions = storePredictions,
   _validateJob = validateJob,
 } = {}) => message => {
   const shouldUpdateWorkStatus = get(message, 'updateWorkStatus', true);
   const shouldStorePredictions = get(message, 'storePredictions', true);
+  const shouldCreateTask = get(message, 'shouldCreateTask', true);
   const done$ = of(message).pipe(
     mergeMap(_validateJob()),
     mergeMap(m => zip(
@@ -49,7 +52,10 @@ const handleMessage = ({
       ? _updateWorkStatus({
         noteWindowId: m.noteWindowId,
       })
-      : of(m)
+      : of(null),
+      shouldCreateTask
+      ? _createTask({noteWindowId: m.noteWindowId})
+      : of(null)
     )),
     map(([,predictions]) => predictions)
   );
