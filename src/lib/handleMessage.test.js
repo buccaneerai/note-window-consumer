@@ -29,6 +29,7 @@ describe('handleMessage', () => {
       _toPredictions: predictionStub,
       _storePredictions: storageStub,
       _validateJob: sinon.stub().returns(m => of(m)),
+      _createTask: sinon.stub().returns(of({_id: 'atask'})),
     };
     const out$ = handleMessage(options)(message);
     const expected$ = m.cold('(0|)', [['prediction']]);
