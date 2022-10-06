@@ -82,12 +82,6 @@ jobs:
           if [[ "${YARN_BUILD}}" == "true" ]]; then
             yarn build
           fi
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
       - name: copy .npmrc (so Docker can install private npm packages)
         run: |
           echo "@buccaneerai:registry=https://npm.pkg.github.com/" > .npmrc
@@ -100,7 +94,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: buccaneerai/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}
-          tags: latest,${{ github.sha }}
+          tags: latest,${{ needs.get-next-version.outputs.new-release-version }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
       - name: Login to AWS ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
