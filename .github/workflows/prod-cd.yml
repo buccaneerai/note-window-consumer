@@ -1,29 +1,90 @@
-name: Productions deployment
+name: Prod deployment
 on:
   push:
     branches: [ master ]
 env:
   STAGE: local
-  SERVICE_NAME: note-window-consumer
+  COMMIT_HASH: ${{ github.sha }}
+  NODE_VERSION: 16.x
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  get-next-version:
+    name: Gets the next version
+    runs-on: ubuntu-20.04
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Use node.js 16
-        uses: actions/setup-node@v1
+      -
+        name: Checkout code
+        uses: actions/checkout@v3
         with:
-          node-version: '16.x'
+          fetch-depth: 0
+          token: ${{ secrets.CI_GITHUB_TOKEN }}
+      - name: Use node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
           registry-url: 'https://npm.pkg.github.com/'
           scope: '@buccaneerai'
           always-auth: true
+          cache: yarn
+      - name: Setup private npm auth
+        run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Install dependencies
+        run: npx ci
+      - run: npx semantic-release --dry-run
+        id: get-next-version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      new-release-published: ${{ steps.get-next-version.outputs.new-release-published }}
+      new-release-version: ${{ steps.get-next-version.outputs.new-release-version }}
+  test:
+    name: 'Test'
+    runs-on: ubuntu-latest
+    needs: [ get-next-version ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: 'https://npm.pkg.github.com/'
+          scope: '@buccaneerai'
+          always-auth: true
+          cache: yarn
       - name: Setup private npm auth
         run: yarn install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Run tests
         run: JWT_SECRET=alohomora yarn test
+  deploy:
+    needs: [ get-next-version, test ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: 'https://npm.pkg.github.com/'
+          scope: '@buccaneerai'
+          always-auth: true
+          cache: yarn
+      - name: Setup private npm auth
+        run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Build the application
+        run: yarn build
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
       - name: copy .npmrc (so Docker can install private npm packages)
         run: |
           echo "@buccaneerai:registry=https://npm.pkg.github.com/" > .npmrc
@@ -36,30 +97,49 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: buccaneerai/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}
-          tags: dev,${{ github.sha }}
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          tags: latest,${{ github.sha }}
       - name: Login to AWS ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: Build and push docker image to AWS
         run: |
-          docker build -t $ECR_REGISTRY/prod-$SERVICE_NAME:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/prod-$SERVICE_NAME:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker build --build-arg sha=${COMMIT_HASH} -t $ECR_REGISTRY/$SERVICE_NAME:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$SERVICE_NAME:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$SERVICE_NAME:$IMAGE_TAG"
         env:
           SERVICE_NAME: ${{ env.SERVICE_NAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: ${{ needs.get-next-version.outputs.new-release-version }}
       - name: Tag AWS container as latest
         run: |
-          docker build -t $ECR_REGISTRY/prod-$SERVICE_NAME:$IMAGE_TAG .
+          docker build --build-arg sha=${COMMIT_HASH} -t $ECR_REGISTRY/prod-$SERVICE_NAME:$IMAGE_TAG .
           docker push $ECR_REGISTRY/prod-$SERVICE_NAME:$IMAGE_TAG
         env:
           SERVICE_NAME: ${{ env.SERVICE_NAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: latest
+  release:
+    name: 'Release'
+    needs: [ get-next-version, test, deploy ]
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CI_GITHUB_TOKEN }}
+      - name: Use node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: 'https://npm.pkg.github.com/'
+          scope: '@buccaneerai'
+          always-auth: true
+          cache: yarn
+      - name: Install dependencies
+        run: npx ci
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+        run: npx semantic-release
