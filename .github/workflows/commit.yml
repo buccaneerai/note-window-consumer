@@ -12,8 +12,21 @@ jobs:
           registry-url: 'https://npm.pkg.github.com/'
           scope: '@buccaneerai'
           always-auth: true
-      - run: yarn install
+      - name: Setup .env file
+        run: cp local.env .env
+      - name: Install packages
+        run: yarn install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - run: yarn test
-      - run: yarn lint
+      - name: Run tests
+        run: yarn test
+        env:
+          START_SERVER: 'false'
+          SUPPRESS_LOGS: '1'
+      - name: Run Linter
+        run: yarn lint
+      - name: Build
+        run: |
+          if [[ "${YARN_BUILD}}" == "true" ]]; then
+            yarn build
+          fi
