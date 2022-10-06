@@ -26,4 +26,7 @@ jobs:
       - name: Run Linter
         run: yarn lint
       - name: Build
-        run: yarn build
+        run: |
+          if [[ "${YARN_BUILD}}" == "true" ]]; then
+            yarn build
+          fi

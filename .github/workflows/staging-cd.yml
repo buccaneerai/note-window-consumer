@@ -79,7 +79,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Build the application
-        run: yarn build
+        run: |
+          if [[ "${YARN_BUILD}}" == "true" ]]; then
+            yarn build
+          fi
       - name: copy .npmrc (so Docker can install private npm packages)
         run: |
           echo "@buccaneerai:registry=https://npm.pkg.github.com/" > .npmrc
