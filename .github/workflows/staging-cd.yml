@@ -94,7 +94,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: buccaneerai/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}
+          repository: buccaneerai/${{ secrets.SERVICE_NAME }}/${{ secrets.SERVICE_NAME }}
           tags: dev,${{ needs.get-next-version.outputs.new-release-version }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -111,7 +111,7 @@ jobs:
           docker push $ECR_REGISTRY/$SERVICE_NAME:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$SERVICE_NAME:$IMAGE_TAG"
         env:
-          SERVICE_NAME: ${{ env.SERVICE_NAME }}
+          SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ needs.get-next-version.outputs.new-release-version }}
       - name: Tag AWS container as staging
@@ -119,7 +119,7 @@ jobs:
           docker build --build-arg sha=${COMMIT_HASH} -t $ECR_REGISTRY/staging-$SERVICE_NAME:$IMAGE_TAG .
           docker push $ECR_REGISTRY/staging-$SERVICE_NAME:$IMAGE_TAG
         env:
-          SERVICE_NAME: ${{ env.SERVICE_NAME }}
+          SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: staging
   release:

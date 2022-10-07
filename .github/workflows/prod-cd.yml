@@ -82,12 +82,6 @@ jobs:
           if [[ "${YARN_BUILD}}" == "true" ]]; then
             yarn build
           fi
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
       - name: copy .npmrc (so Docker can install private npm packages)
         run: |
           echo "@buccaneerai:registry=https://npm.pkg.github.com/" > .npmrc
@@ -99,8 +93,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: buccaneerai/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}
-          tags: latest,${{ github.sha }}
+          repository: buccaneerai/${{ secrets.SERVICE_NAME }}/${{ secrets.SERVICE_NAME }}
+          tags: latest,${{ needs.get-next-version.outputs.new-release-version }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
       - name: Login to AWS ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -110,7 +110,7 @@ jobs:
           docker push $ECR_REGISTRY/$SERVICE_NAME:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$SERVICE_NAME:$IMAGE_TAG"
         env:
-          SERVICE_NAME: ${{ env.SERVICE_NAME }}
+          SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ needs.get-next-version.outputs.new-release-version }}
       - name: Tag AWS container as latest
@@ -118,7 +118,7 @@ jobs:
           docker build --build-arg sha=${COMMIT_HASH} -t $ECR_REGISTRY/prod-$SERVICE_NAME:$IMAGE_TAG .
           docker push $ECR_REGISTRY/prod-$SERVICE_NAME:$IMAGE_TAG
         env:
-          SERVICE_NAME: ${{ env.SERVICE_NAME }}
+          SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: latest
   release:
