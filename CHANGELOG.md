@@ -1,3 +1,10 @@
+# [1.0.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2022-10-11)
+
+
+### Bug Fixes
+
+* THR-214 Bump version ([29d2b8d](https://github.com/buccaneerai/note-window-consumer/commit/29d2b8dc43b52fa9ff13ad7d6e2de7d33217b899))
+
 # 1.0.0-dev.1 (2022-10-07)
 
 
