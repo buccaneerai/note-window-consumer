@@ -10,7 +10,7 @@ const logger = require('@buccaneerai/logging-utils');
 const config = require('../lib/config');
 const handleMessage = require('../lib/handleMessage');
 
-const logErr = err => logger.error(`Error: ${err.message}\n  `, err.stack);
+const logErr = err => logger.error(err);
 
 // handleMessage is an observable. Wrap it in a Promise and pass params in
 // so that it works with the sqs-consumer package, which expects the handler to
