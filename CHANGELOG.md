@@ -1,3 +1,10 @@
+# [1.0.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2022-10-31)
+
+
+### Bug Fixes
+
+* **logging:** improve error logging ([848088c](https://github.com/buccaneerai/note-window-consumer/commit/848088c8f979144f393c1ffdc9df8069e68127c7))
+
 # [1.0.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2022-10-31)
 
 
