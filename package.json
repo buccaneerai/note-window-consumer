@@ -7,6 +7,8 @@
   "private": true,
   "description": "🧠 Consumes note windows and runs predictions on them",
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "chai": "^4.2.0",
     "commander": "^6.1.0",
     "eslint": "^7.22.0",
@@ -15,16 +17,14 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
-    "@semantic-release/changelog": "^6.0.1",
-    "@semantic-release/git": "^10.0.1",
-    "semantic-release-export-data": "^1.0.0",
     "mocha": "^5.2.0",
     "nodemon": "^2.0.2",
     "rxjs-marbles": "^5.0.3",
+    "semantic-release-export-data": "^1.0.0",
     "sinon": "^7.2.2"
   },
   "dependencies": {
-    "@buccaneerai/graphql-sdk": "^2.21.0",
+    "@buccaneerai/graphql-sdk": "^2.53.6",
     "@buccaneerai/logging-utils": "^1.2.0",
     "aws-sdk": "^2.438.0",
     "axios": "^0.24.0",
