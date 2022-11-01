@@ -1,3 +1,10 @@
+# [1.0.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.4...v1.0.0-dev.5) (2022-11-01)
+
+
+### Bug Fixes
+
+* **deps:** upgraded graphql-sdk ([bddfa35](https://github.com/buccaneerai/note-window-consumer/commit/bddfa35fe6195698615a33a6983f88b2a23be82e))
+
 # [1.0.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2022-10-31)
 
 
