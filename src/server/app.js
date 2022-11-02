@@ -12,13 +12,12 @@ const handleMessage = require('../lib/handleMessage');
 
 const logErr = err => logger.error(err);
 
-// handleMessage is an observable. Wrap it in a Promise and pass params in
-// so that it works with the sqs-consumer package, which expects the handler to
-// return a promise
-// const handler = message => handleMessage()(message).toPromise();
 
 logger.info('POLLING_SQS_URL', {url: config().SQS_URL});
 
+// handleMessage is an observable. Wrap it in a Promise and pass params in
+// so that it works with the sqs-consumer package, which expects the handler to
+// return a promise
 const handleSQSResponse = response => {
   try {
     const message = JSON.parse(response.Body);
@@ -82,7 +81,7 @@ const startHttpServer = ({
     cors(),
     express.json()
   );
-  // simple HTTP API
+  // simple HTTP API (so that a workflow can be tested without using SQS)
   const api = express.Router();
   api.post('/job', _createJob());
   httpApp.use('/api', api);
