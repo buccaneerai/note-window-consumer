@@ -1,3 +1,10 @@
+# [1.0.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.5...v1.0.0-dev.6) (2022-11-02)
+
+
+### Bug Fixes
+
+* triggering new release ([bf8e6c8](https://github.com/buccaneerai/note-window-consumer/commit/bf8e6c886ecad943cde45a08855e785980b4e3b1))
+
 # [1.0.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.4...v1.0.0-dev.5) (2022-11-01)
 
 
