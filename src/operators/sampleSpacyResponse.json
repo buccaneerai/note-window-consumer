@@ -35,14 +35,8 @@
     {
       "endI": 31,
       "i": 29,
-      "matchId": "HEADACHE_ACUTE",
+      "matchId": "SYMPTOM_HEADACHE",
       "text": "bad headache"
-    },
-    {
-      "endI": 31,
-      "i": 30,
-      "matchId": "HEADACHE",
-      "text": "headache"
     }
   ],
   "tokens": [

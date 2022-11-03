@@ -4,6 +4,8 @@ const axios = require('axios');
 const { from } = require('rxjs');
 const { map, mergeMap} = require('rxjs/operators');
 
+const reduceWordsToString = require('../lib/reduceWordsToString');
+
 // const isDone = words => nextWord === '.';
 
 // const wordsToString = () => (acc, nextWord) => (
@@ -11,8 +13,6 @@ const { map, mergeMap} = require('rxjs/operators');
 //   // ? [`${acc[0]} ${nextWord}`, true]
 //   // : (acc[1] ? [nextWord, false] : [`${acc[0]} ${nextWord}`, false])
 // );
-
-const reduceWordsToString = () => (acc, w) => (acc ? `${acc} ${w.text}` : w.text);
 
 // const charIndexReducer = () => (acc, [words, tags]) => [
 //   words,
@@ -84,6 +84,11 @@ const reduceWordsToString = () => (acc, w) => (acc ? `${acc} ${w.text}` : w.text
 //   return nlpOut$;
 // };
 
+const symptomPrefix = /^SYMPTOM\_/;
+const symptomFindingCode = 'BC-symptomFinding';
+
+const isSymptom = match => symptomPrefix.test(get(match, 'matchId', ''));
+
 const toSpacyAPI = ({url, token, _axios = axios}) => text => {
   const promise = _axios({
     url: `${url}/tokens`,
@@ -109,8 +114,18 @@ const mapSpacyResponseToPredictions = ({
     runId,
     noteWindowId,
     strategy,
-    findingCode: m.matchId,
-    confidence: 0.80,
+    model: 'spacy-matcher',
+    predictionTask: 'ner',
+    findingCode: isSymptom(m) ? symptomFindingCode : m.matchId,
+    values: (
+      isSymptom(m)
+      ? JSON.stringify({
+        code: get(m, 'matchId', '').replace(symptomPrefix, ''),
+        isAsserted: null,
+      })
+      : null
+    ),
+    confidence: 0.85,
     isVerified: false,
     isCorrect: false,
   }));

@@ -4,12 +4,15 @@ const {of,merge,throwError} = require('rxjs');
 
 // const toInfoRetrievalModel = require('../operators/toInfoRetrievalModel');
 const toSpacyModel = require('./toSpacyModel');
+// const toYesNoQATopicModel = require('./toYesNoQATopicModel');
+// const toRecSys = require('./toRecSys');
+// const toRasaNLU = require('./toRasaNLU');
 
 const errors = {
   invalidWords: () => new Error('params.words must be an array'),
 };
 
-const pipelines = {
+const topicPipelines = {
   // infoRetrieval: {
   //   options: () => ({
   //     graphqlUrl: process.env.GRAPHQL_URL,
@@ -22,6 +25,12 @@ const pipelines = {
     }),
     operator: toSpacyModel,
   },
+  // yesNoQATopicModel: {
+  //   options: () => ({
+  //     url: process.env.TRANSFORMER_SERVICE_URL,
+  //   }),
+  //   operator: toYesNoQATopicModel,
+  // },
   // recSys: {
   //   options: {},
   //   operator: toRecSysModel,
@@ -29,6 +38,10 @@ const pipelines = {
   // topic: {
   //   options: {},
   //   operator: toTopicModel,
+  // },
+  // macaw: {
+    // options: {},
+    // operator: toMacawModel
   // },
   // bert: {
   //   options: {},
@@ -48,12 +61,12 @@ const pipelines = {
   // },
 };
 
-const toPredictions = ({_pipelines = pipelines} = {}) => ({words}) => {
+const toPredictions = ({_topicPipelines = topicPipelines} = {}) => ({words}) => {
   if (!isArray(words)) return throwError(errors.invalidWords);
   if (words.length === 0) return of(); // no predictions
-  const pipelineKeys = Object.keys(_pipelines);
+  const pipelineKeys = Object.keys(_topicPipelines);
   const observables = pipelineKeys.map(key => of(words).pipe(
-    _pipelines[key].operator(_pipelines[key].options())
+    _topicPipelines[key].operator(_topicPipelines[key].options())
   ));
   const predictions$ = merge(...observables);
   return predictions$;
