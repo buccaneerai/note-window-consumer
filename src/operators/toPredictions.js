@@ -1,6 +1,8 @@
 const isArray = require('lodash/isArray');
-const {of,merge,throwError} = require('rxjs');
-// const {map} = require('rxjs/operators');
+const {EMPTY,of,merge,throwError} = require('rxjs');
+const {catchError} = require('rxjs/operators');
+
+const logger = require('@buccaneerai/logging-utils');
 
 // const toInfoRetrievalModel = require('../operators/toInfoRetrievalModel');
 const toSpacyModel = require('./toSpacyModel');
@@ -48,15 +50,22 @@ const pipelines = {
   // },
 };
 
-const toPredictions = ({_pipelines = pipelines} = {}) => ({words}) => {
-  if (!isArray(words)) return throwError(errors.invalidWords);
-  if (words.length === 0) return of(); // no predictions
-  const pipelineKeys = Object.keys(_pipelines);
-  const observables = pipelineKeys.map(key => of(words).pipe(
-    _pipelines[key].operator(_pipelines[key].options())
-  ));
-  const predictions$ = merge(...observables);
-  return predictions$;
-};
+const toPredictions = ({_pipelines = pipelines, _logger = logger} = {}) => (
+  ({words}) => {
+    if (!isArray(words)) return throwError(errors.invalidWords);
+    if (words.length === 0) return of(); // no predictions
+    const pipelineKeys = Object.keys(_pipelines);
+    const observables = pipelineKeys.map(key => of(words).pipe(
+      _pipelines[key].operator(_pipelines[key].options()),
+      // handle any uncaught errors in the pipelines
+      catchError(err => {
+        _logger.error(err);
+        return EMPTY;
+      })
+    ));
+    const predictions$ = merge(...observables);
+    return predictions$;
+  }
+);
 
 module.exports = toPredictions;

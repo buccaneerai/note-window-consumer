@@ -30,4 +30,25 @@ describe('toPredictions', () => {
     const expected$ = m.cold('--0--1|', [predictions0, predictions1]);
     m.expect(out$).toBeObservable(expected$);
   }));
+
+  it('should catch errors within the prediction pipelines', marbles(m => {
+    const predictions0 = [{findingCode: 'foo0'}];
+    const opStub0 = sinon.stub().returns(m.cold('--0#', [predictions0]));
+    const predictions1 = [{findingCode: 'foo1'}];
+    const opStub1 = sinon.stub().returns(m.cold('-----0|', [predictions1]));
+    const _pipelines = {
+      spacy: {
+        options: () => ({type: 'fakeconfig1'}),
+        operator: () => opStub0,
+      },
+      infoRetrieval: {
+        options: () => ({type: 'fakeconfig2'}),
+        operator: () => opStub1,
+      }
+    };
+    const words = [{text: 'foo'}, {text: 'bar'}];
+    const out$ = toPredictions({_pipelines})({words});
+    const expected$ = m.cold('--0--1|', [predictions0, predictions1]);
+    m.expect(out$).toBeObservable(expected$);
+  }));
 });
