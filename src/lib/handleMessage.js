@@ -2,6 +2,8 @@ const get = require('lodash/get');
 const {of,zip} = require('rxjs');
 const {map,mergeMap} = require('rxjs/operators');
 
+const logger = require('@buccaneerai/logging-utils');
+
 const validateJob = require('./validateJob');
 const toPredictions = require('../operators/toPredictions');
 const createTask = require('./createTask');
@@ -18,12 +20,21 @@ const handleMessage = ({
   _createTask = createTask,
   _storePredictions = storePredictions,
   _validateJob = validateJob,
+  _logger = logger
 } = {}) => message => {
   const shouldUpdateWorkStatus = get(message, 'updateWorkStatus', true);
   const shouldStorePredictions = get(message, 'storePredictions', true);
   const shouldCreateTask = get(message, 'shouldCreateTask', true);
+  _logger.info('handlingMessage', {
+    message,
+    shouldUpdateWorkStatus,
+    shouldStorePredictions,
+    shouldCreateTask
+  });
   const done$ = of(message).pipe(
+    _logger.toLog('processingJob'),
     mergeMap(_validateJob()),
+    _logger.toLog('validatedJob'),
     mergeMap(m => zip(
       of(m),
       _fetchWordsForWindow()({noteWindowId: m.noteWindowId}),
@@ -32,6 +43,7 @@ const handleMessage = ({
       of(m),
       _toPredictions()({message: m, words}),
     )),
+    _logger.toLog('createdPredictions'),
     mergeMap(([m, predictions]) => zip(
       of(m),
       of(predictions),
@@ -57,7 +69,9 @@ const handleMessage = ({
       ? _createTask({noteWindowId: m.noteWindowId})
       : of(null)
     )),
-    map(([,predictions]) => predictions)
+    _logger.toLog('completedJob'),
+    map(([,predictions]) => predictions),
+    _logger.trace()
   );
   return done$;
 };

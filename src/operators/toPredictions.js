@@ -1,6 +1,6 @@
 const isArray = require('lodash/isArray');
 const {EMPTY,of,merge,throwError} = require('rxjs');
-const {catchError} = require('rxjs/operators');
+const {catchError,defaultIfEmpty,reduce} = require('rxjs/operators');
 
 const logger = require('@buccaneerai/logging-utils');
 
@@ -63,7 +63,12 @@ const toPredictions = ({_pipelines = pipelines, _logger = logger} = {}) => (
         return EMPTY;
       })
     ));
-    const predictions$ = merge(...observables);
+    const predictions$ = merge(...observables).pipe(
+      // accumulate all predictions into a single flattened array
+      reduce((acc, next) => [...acc, ...next], []),
+      // if no predictions are emitted, then emit an empty array
+      defaultIfEmpty([])
+    );
     return predictions$;
   }
 );
