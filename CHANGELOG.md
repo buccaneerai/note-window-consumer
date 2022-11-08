@@ -1,3 +1,10 @@
+# [1.0.0-dev.7](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.6...v1.0.0-dev.7) (2022-11-03)
+
+
+### Bug Fixes
+
+* prediction pipelines no longer fail if predictions cannot be generated ([0450d46](https://github.com/buccaneerai/note-window-consumer/commit/0450d4656ab33a621ae21175b1dbe75ed774f11b))
+
 # [1.0.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.5...v1.0.0-dev.6) (2022-11-02)
 
 
