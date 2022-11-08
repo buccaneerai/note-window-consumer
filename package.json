@@ -52,7 +52,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "npx nodemon ./src/index.js",
-    "debug": "npx nodemon debug ./src/index.js --inspect",
+    "debug": "node inspect ./src/index.js",
     "lint": "eslint -c .eslintrc ./src",
     "jwt:createadmintoken": "node ./scripts/generateTempAdminToken",
     "jwt:createsecret": "node ./scripts/createJwtSecret",

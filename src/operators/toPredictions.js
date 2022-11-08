@@ -5,7 +5,7 @@ const {catchError} = require('rxjs/operators');
 const logger = require('@buccaneerai/logging-utils');
 
 // const toInfoRetrievalModel = require('../operators/toInfoRetrievalModel');
-const toSpacyModel = require('./toSpacyModel');
+// const toSpacyModel = require('./toSpacyModel');
 
 const errors = {
   invalidWords: () => new Error('params.words must be an array'),
@@ -18,12 +18,12 @@ const pipelines = {
   //   }),
   //   operator: toInfoRetrievalModel,
   // },
-  spacy: {
-    options: () => ({
-      spacyUrl: process.env.NLP_SERVICE_URL,
-    }),
-    operator: toSpacyModel,
-  },
+  // spacy: {
+  //   options: () => ({
+  //     spacyUrl: process.env.NLP_SERVICE_URL,
+  //   }),
+  //   operator: toSpacyModel,
+  // },
   // recSys: {
   //   options: {},
   //   operator: toRecSysModel,
