@@ -1,3 +1,13 @@
+# [1.0.0-dev.9](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.8...v1.0.0-dev.9) (2022-11-08)
+
+
+### Bug Fixes
+
+* **bug:** handled case where no predictions are created ([a15c73e](https://github.com/buccaneerai/note-window-consumer/commit/a15c73ebfa0bdb102fbdbafeac7d5205f54f0e9a))
+* **deps:** updated logging ([a5cee65](https://github.com/buccaneerai/note-window-consumer/commit/a5cee65e9fb48978aef59ab1886c7e8662d4ca90))
+* **logging:** added more logging to handleMessage workflow ([0171a77](https://github.com/buccaneerai/note-window-consumer/commit/0171a7788b491297a4daaf59887f674c6069f3ea))
+* **refactor:** minor update to an operator ([65d7393](https://github.com/buccaneerai/note-window-consumer/commit/65d739355b8992e76c8be9840e31d17bf4d85c96))
+
 # [1.0.0-dev.8](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.7...v1.0.0-dev.8) (2022-11-08)
 
 
