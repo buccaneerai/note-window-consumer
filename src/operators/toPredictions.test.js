@@ -52,7 +52,7 @@ describe('toPredictions', () => {
     m.expect(out$).toBeObservable(expected$);
   }));
 
-  it('should return an empty array if no predicsions are generated', marbles(m => {
+  it('should return an empty array if no predictions are generated', marbles(m => {
     const opStub0 = sinon.stub().returns(m.cold('---#', []));
     const opStub1 = sinon.stub().returns(m.cold('------|', []));
     const _pipelines = {

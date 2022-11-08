@@ -64,8 +64,10 @@ const toPredictions = ({_pipelines = pipelines, _logger = logger} = {}) => (
       })
     ));
     const predictions$ = merge(...observables).pipe(
-      defaultIfEmpty([]),
-      reduce((acc, next) => [...acc, ...next], [])
+      // accumulate all predictions into a single flattened array
+      reduce((acc, next) => [...acc, ...next], []),
+      // if no predictions are emitted, then emit an empty array
+      defaultIfEmpty([])
     );
     return predictions$;
   }
