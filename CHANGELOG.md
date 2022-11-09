@@ -1,3 +1,20 @@
+## [1.0.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0...v1.0.1) (2022-11-09)
+
+
+### Bug Fixes
+
+* **bug:** handled case where no predictions are created ([a15c73e](https://github.com/buccaneerai/note-window-consumer/commit/a15c73ebfa0bdb102fbdbafeac7d5205f54f0e9a))
+* **deps:** updated logging ([a5cee65](https://github.com/buccaneerai/note-window-consumer/commit/a5cee65e9fb48978aef59ab1886c7e8662d4ca90))
+* **deps:** upgraded graphql-sdk ([bddfa35](https://github.com/buccaneerai/note-window-consumer/commit/bddfa35fe6195698615a33a6983f88b2a23be82e))
+* **dev:** updated logging to make debugging faster ([4bb2321](https://github.com/buccaneerai/note-window-consumer/commit/4bb2321052aab90f82a7b99d86bd76ecd99953fb))
+* **logging:** added more logging to handleMessage workflow ([0171a77](https://github.com/buccaneerai/note-window-consumer/commit/0171a7788b491297a4daaf59887f674c6069f3ea))
+* **logging:** improve error logging ([848088c](https://github.com/buccaneerai/note-window-consumer/commit/848088c8f979144f393c1ffdc9df8069e68127c7))
+* prediction pipelines no longer fail if predictions cannot be generated ([0450d46](https://github.com/buccaneerai/note-window-consumer/commit/0450d4656ab33a621ae21175b1dbe75ed774f11b))
+* **refactor:** minor update to an operator ([65d7393](https://github.com/buccaneerai/note-window-consumer/commit/65d739355b8992e76c8be9840e31d17bf4d85c96))
+* store predictions ([44ee91f](https://github.com/buccaneerai/note-window-consumer/commit/44ee91fac927cf523cee2b92b6c66e47821bf95f))
+* THR-214 Bump version ([29d2b8d](https://github.com/buccaneerai/note-window-consumer/commit/29d2b8dc43b52fa9ff13ad7d6e2de7d33217b899))
+* triggering new release ([bf8e6c8](https://github.com/buccaneerai/note-window-consumer/commit/bf8e6c886ecad943cde45a08855e785980b4e3b1))
+
 # [1.0.0-dev.9](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.8...v1.0.0-dev.9) (2022-11-08)
 
 
