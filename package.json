@@ -1,12 +1,14 @@
 {
   "name": "note-window-consumer",
-  "version": "1.0.0",
+  "version": "1.0.0-dev.9",
   "main": "src/index.js",
   "author": "Buccaneer LLC",
   "license": "UNLICENSED",
   "private": true,
   "description": "🧠 Consumes note windows and runs predictions on them",
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "chai": "^4.2.0",
     "commander": "^6.1.0",
     "eslint": "^7.22.0",
@@ -18,11 +20,12 @@
     "mocha": "^5.2.0",
     "nodemon": "^2.0.2",
     "rxjs-marbles": "^5.0.3",
+    "semantic-release-export-data": "^1.0.0",
     "sinon": "^7.2.2"
   },
   "dependencies": {
-    "@buccaneerai/graphql-sdk": "^2.21.0",
-    "@buccaneerai/logging-utils": "^1.0.12",
+    "@buccaneerai/graphql-sdk": "^2.53.6",
+    "@buccaneerai/logging-utils": "^1.2.0",
     "aws-sdk": "^2.438.0",
     "axios": "^0.24.0",
     "bcrypt": "^3.0.5",
@@ -49,7 +52,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "npx nodemon ./src/index.js",
-    "debug": "npx nodemon debug ./src/index.js --inspect",
+    "debug": "node inspect ./src/index.js",
     "lint": "eslint -c .eslintrc ./src",
     "jwt:createadmintoken": "node ./scripts/generateTempAdminToken",
     "jwt:createsecret": "node ./scripts/createJwtSecret",
