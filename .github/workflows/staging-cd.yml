@@ -80,6 +80,10 @@ jobs:
           if [[ "${YARN_BUILD}}" == "true" ]]; then
             yarn build
           fi
+      - name: copy .npmrc (so Docker can install private npm packages)
+        run: |
+          echo "@buccaneerai:registry=https://npm.pkg.github.com/" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" >> .npmrc
       - name: Build Docker image and push to GitHub Packages Registry
         uses: docker/build-push-action@v1
         id: docker_build
