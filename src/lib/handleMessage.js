@@ -47,7 +47,7 @@ const handleMessage = ({
     mergeMap(([m, predictions]) => zip(
       of(m),
       of(predictions),
-      shouldStorePredictions
+      shouldStorePredictions && predictions && predictions.length
       ? _storePredictions()({
         predictions: predictions.map(p => ({
           ...p,
@@ -57,6 +57,7 @@ const handleMessage = ({
       })
       : of(predictions),
     )),
+    _logger.toLog('storedPredictions.done'),
     mergeMap(([m, predictions]) => zip(
       of(m),
       of(predictions),
