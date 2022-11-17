@@ -1,4 +1,5 @@
 const {merge} = require('rxjs');
+const {defaultIfEmpty} = require('rxjs/operators');
 const {client} = require('@buccaneerai/graphql-sdk');
 
 const storePredictions = ({
@@ -8,7 +9,9 @@ const storePredictions = ({
 } = {}) => ({predictions}) => {
   const gql = _client({url: graphqlUrl, token});
   const observables = predictions.map(p => gql.createPredictedFinding(p));
-  const result$ = merge(...observables);
+  const result$ = merge(...observables).pipe(
+    defaultIfEmpty([])
+  );
   return result$;
 };
 
