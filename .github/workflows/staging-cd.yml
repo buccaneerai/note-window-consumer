@@ -114,14 +114,6 @@ jobs:
           SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ needs.get-next-version.outputs.new-release-version }}
-      - name: Tag AWS container as staging
-        run: |
-          docker build --build-arg sha=${COMMIT_HASH} -t $ECR_REGISTRY/staging-$SERVICE_NAME:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/staging-$SERVICE_NAME:$IMAGE_TAG
-        env:
-          SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: staging
       - name: Update helm repo
         env:
           CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
