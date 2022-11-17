@@ -1,3 +1,11 @@
+# [1.0.0-dev.10](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.9...v1.0.0-dev.10) (2022-11-17)
+
+
+### Bug Fixes
+
+* resolved issue where predictions observable could be empty so job would never finish ([0e4a0b9](https://github.com/buccaneerai/note-window-consumer/commit/0e4a0b9cf190b460c6cc4031ac7e2b87e8abad19))
+* THR-278 Remove old ECR repo ([212ab1c](https://github.com/buccaneerai/note-window-consumer/commit/212ab1cd6aaf1774ea4b5c1c24deaf78fe647c1d))
+
 # [1.0.0-dev.9](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.8...v1.0.0-dev.9) (2022-11-08)
 
 
