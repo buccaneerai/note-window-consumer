@@ -6,6 +6,9 @@ env:
   STAGE: local
   COMMIT_HASH: ${{ github.sha }}
   NODE_VERSION: 16.x
+  YARN_BUILD: ${{ secrets.YARN_BUILD }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 jobs:
   get-next-version:
     name: Gets the next version
@@ -27,8 +30,6 @@ jobs:
           cache: yarn
       - name: Setup private npm auth
         run: yarn install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Install dependencies
         run: npx ci
       - run: npx semantic-release --dry-run
@@ -55,8 +56,6 @@ jobs:
           cache: yarn
       - name: Setup private npm auth
         run: yarn install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Run tests
         run: JWT_SECRET=alohomora yarn test
   deploy:
@@ -76,17 +75,11 @@ jobs:
           cache: yarn
       - name: Setup private npm auth
         run: yarn install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Build the application
         run: |
           if [[ "${YARN_BUILD}}" == "true" ]]; then
             yarn build
           fi
-      - name: copy .npmrc (so Docker can install private npm packages)
-        run: |
-          echo "@buccaneerai:registry=https://npm.pkg.github.com/" > .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" >> .npmrc
       - name: Build Docker image and push to GitHub Packages Registry
         uses: docker/build-push-action@v1
         id: docker_build

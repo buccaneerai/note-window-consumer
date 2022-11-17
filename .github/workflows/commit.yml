@@ -1,6 +1,10 @@
 # https://medium.com/javascript-in-plain-english/publish-update-npm-packages-with-github-actions-e4d786ffd62a
 name: 'Commit tests'
 on: [push]
+env:
+  YARN_BUILD: ${{ secrets.YARN_BUILD }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,8 +20,6 @@ jobs:
         run: cp local.env .env
       - name: Install packages
         run: yarn install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Run tests
         run: yarn test
         env:
@@ -27,6 +29,6 @@ jobs:
         run: yarn lint
       - name: Build
         run: |
-          if [[ "${YARN_BUILD}}" == "true" ]]; then
+          if [ "${YARN_BUILD}" == "true" ]; then
             yarn build
           fi
