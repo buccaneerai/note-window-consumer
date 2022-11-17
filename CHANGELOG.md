@@ -1,3 +1,12 @@
+# [1.0.0-dev.11](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.10...v1.0.0-dev.11) (2022-11-17)
+
+
+### Bug Fixes
+
+* Automatically updating .github folder ([b86d4fd](https://github.com/buccaneerai/note-window-consumer/commit/b86d4fdc958303ff46cbe13236be1e339e9f9a4f))
+* Automatically updating .github folder ([34d2512](https://github.com/buccaneerai/note-window-consumer/commit/34d25122fb8c2b7c62813a57cf2dca9ae460ebb8))
+* Automatically updating .github folder ([1918362](https://github.com/buccaneerai/note-window-consumer/commit/191836201bda9cd162ed4d8a3953d4f31ae7875d))
+
 # [1.0.0-dev.10](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.9...v1.0.0-dev.10) (2022-11-17)
 
 
