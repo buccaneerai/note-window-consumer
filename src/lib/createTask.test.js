@@ -1,6 +1,6 @@
 const {expect} = require('chai');
 // const sinon = require('sinon');
-// const {marbles} = require('rxjs-marbles/mocha');
+const {marbles} = require('rxjs-marbles/mocha');
 
 const createTask = require('./createTask');
 
