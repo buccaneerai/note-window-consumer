@@ -1,3 +1,16 @@
+## [1.0.2-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.1...v1.0.2-dev.1) (2022-11-23)
+
+
+### Bug Fixes
+
+* Automatically updating .github folder ([b86d4fd](https://github.com/buccaneerai/note-window-consumer/commit/b86d4fdc958303ff46cbe13236be1e339e9f9a4f))
+* Automatically updating .github folder ([34d2512](https://github.com/buccaneerai/note-window-consumer/commit/34d25122fb8c2b7c62813a57cf2dca9ae460ebb8))
+* Automatically updating .github folder ([1918362](https://github.com/buccaneerai/note-window-consumer/commit/191836201bda9cd162ed4d8a3953d4f31ae7875d))
+* **bug:** resolved issue where tasks were not created ([5fa7aab](https://github.com/buccaneerai/note-window-consumer/commit/5fa7aabbad6fa27813d809b83ee4c457f8b8cdec))
+* resolved issue where predictions observable could be empty so job would never finish ([0e4a0b9](https://github.com/buccaneerai/note-window-consumer/commit/0e4a0b9cf190b460c6cc4031ac7e2b87e8abad19))
+* **tests:** fixed broken dep in a test ([5ff5b22](https://github.com/buccaneerai/note-window-consumer/commit/5ff5b22949c284deedaae14f688ebf0252f6b95d))
+* THR-278 Remove old ECR repo ([212ab1c](https://github.com/buccaneerai/note-window-consumer/commit/212ab1cd6aaf1774ea4b5c1c24deaf78fe647c1d))
+
 # [1.0.0-dev.12](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.0-dev.11...v1.0.0-dev.12) (2022-11-19)
 
 ### Bug Fixes
