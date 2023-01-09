@@ -42,7 +42,7 @@
     "joi": "^14.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
-    "luxon": "^2.1.1",
+    "luxon": "^2.5.2",
     "randomstring": "^1.1.5",
     "request": "^2.88.2",
     "round-to": "^4.1.0",
