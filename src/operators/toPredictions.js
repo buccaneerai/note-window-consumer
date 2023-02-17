@@ -7,11 +7,17 @@ const logger = require('@buccaneerai/logging-utils');
 // const toInfoRetrievalModel = require('../operators/toInfoRetrievalModel');
 // const toSpacyModel = require('./toSpacyModel');
 
+const toMedicalComprehend = require('./toMedicalComprehend');
+
 const errors = {
   invalidWords: () => new Error('params.words must be an array'),
 };
 
 const pipelines = {
+  medicalComprehend: {
+    options: {},
+    operator: toMedicalComprehend,
+  },
   // infoRetrieval: {
   //   options: () => ({
   //     graphqlUrl: process.env.GRAPHQL_URL,
