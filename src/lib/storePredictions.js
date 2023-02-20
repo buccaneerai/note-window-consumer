@@ -1,5 +1,5 @@
-const {concat,merge,throwError, of} = require('rxjs');
-const {defaultIfEmpty,mergeMap,switchMap,tap,toArray, map} = require('rxjs/operators');
+const {concat,throwError} = require('rxjs');
+const {defaultIfEmpty,mergeMap,tap,toArray} = require('rxjs/operators');
 const {client} = require('@buccaneerai/graphql-sdk');
 
 const storePredictions = ({
@@ -51,6 +51,7 @@ const storePredictions = ({
     )
   });
   const result$ = concat(...observables).pipe(
+    toArray(),
     tap((arg) => {
       debugger;
     }),
