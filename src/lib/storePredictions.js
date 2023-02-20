@@ -46,12 +46,7 @@ const storePredictions = ({
           findingType,
           findingAttributeKey,
           [valuesKey]: values,
-        }).pipe(
-          map((data) => {
-            console.log('data', data);
-            return of(data);
-          })
-        );
+        });
       })
     )
   });
