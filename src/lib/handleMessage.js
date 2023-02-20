@@ -77,4 +77,14 @@ const handleMessage = ({
   return done$;
 };
 
+// const message$ = handleMessage()({
+//   runId: "63ee8a0b6d8bae7c5dbfa3ef",
+//   noteWindowId: "63ee8a216d8bae7c5dbfa3f1"
+// });
+const message$ = handleMessage()({
+  runId: "63eed062e0f259133bbdd3ae",
+  noteWindowId: "63eed076e0f259133bbdd3b0"
+});
+message$.subscribe((d) => console.log(d));
+
 module.exports = handleMessage;

@@ -53,6 +53,7 @@
   "scripts": {
     "start": "node src/index.js",
     "medical": "node inspect src/operators/toMedicalComprehend.js",
+    "message": "node inspect src/lib/handleMessage.js",
     "dev": "npx nodemon ./src/index.js",
     "debug": "node inspect ./src/index.js",
     "lint": "eslint -c .eslintrc ./src",

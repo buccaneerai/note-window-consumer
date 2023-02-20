@@ -15,7 +15,12 @@ const errors = {
 
 const pipelines = {
   medicalComprehend: {
-    options: {},
+    options: ({ runId, noteWindowId }) => {
+      return {
+        runId,
+        noteWindowId,
+      };
+    },
     operator: toMedicalComprehend,
   },
   // infoRetrieval: {
@@ -57,12 +62,12 @@ const pipelines = {
 };
 
 const toPredictions = ({_pipelines = pipelines, _logger = logger} = {}) => (
-  ({words}) => {
+  ({message, words}) => {
     if (!isArray(words)) return throwError(errors.invalidWords);
     if (words.length === 0) return of(); // no predictions
     const pipelineKeys = Object.keys(_pipelines);
     const observables = pipelineKeys.map(key => of(words).pipe(
-      _pipelines[key].operator(_pipelines[key].options()),
+      _pipelines[key].operator(_pipelines[key].options(message)),
       // handle any uncaught errors in the pipelines
       catchError(err => {
         _logger.error(err);
