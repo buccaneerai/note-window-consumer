@@ -1,5 +1,5 @@
-const {concat,throwError} = require('rxjs');
-const {defaultIfEmpty,mergeMap,tap} = require('rxjs/operators');
+const {concat,merge,throwError, of} = require('rxjs');
+const {defaultIfEmpty,mergeMap,switchMap,tap,toArray, map} = require('rxjs/operators');
 const {client} = require('@buccaneerai/graphql-sdk');
 
 const storePredictions = ({
@@ -20,6 +20,9 @@ const storePredictions = ({
       noteWindowId,
       findingCode,
     }).pipe(
+      tap(() => {
+        console.log(`Firing ${findingCode} ${findingAttributeCode}`);
+      }),
       mergeMap(({createFindingInstance = {}}) => {
         // @TODO There may be different types later on
         let valuesKey = null;
@@ -44,14 +47,18 @@ const storePredictions = ({
           findingAttributeKey,
           [valuesKey]: values,
         }).pipe(
-          tap((data) => {
-            debugger;
+          map((data) => {
+            console.log('data', data);
+            return of(data);
           })
-        )
+        );
       })
     )
   });
   const result$ = concat(...observables).pipe(
+    tap((arg) => {
+      debugger;
+    }),
     defaultIfEmpty([])
   );
   return result$;
