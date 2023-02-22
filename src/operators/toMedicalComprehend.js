@@ -1,7 +1,8 @@
 const get = require('lodash/get');
 const {
   from,
-  merge
+  merge,
+  // of
 } = require('rxjs');
 const { map, mergeMap } = require('rxjs/operators');
 const {
@@ -21,6 +22,7 @@ const medicalClient = new ComprehendMedicalClient({ region: config().AWS_REGION 
 
 const toAWSMedicalComprehendAPI = ({
   _client = medicalClient,
+  _logger = logger,
 }) => text => {
   const snomed = new InferSNOMEDCTCommand({Text: text});
   // const icd10 = new InferICD10CMCommand({Text: text});
@@ -28,9 +30,18 @@ const toAWSMedicalComprehendAPI = ({
   return merge(
     from(_client.send(snomed)).pipe(
       map((response) => {
+        if(response.PaginationToken) {
+          // @TODO we will have to implement pagination on this, but I HIGHLY doubt
+          // we will have pagination on a 20 second note window.  Skipping this for now,
+          // but we will want to come back and implement this later, especially
+          // if/when we allow for processing the entire transcript in one shot.
+          // Need to loop until response.PaginationToken is null
+          _logger.error('InferSNOMEDCTCommand returned a PaginationToken and this is not yet implemeted!');
+        }
         return {
           type: 'rawSNOMEDCT',
           response,
+          text,
         };
       })
     ),
@@ -72,66 +83,162 @@ const updateNoteWindow = ({
   return update$;
 };
 
-const mapSNOMEDCTToPredictions = (entities = []) => {
-  return entities.map((e) => {
-      const trait = get(e, 'Traits[0].Name');
-      const type = get(e, 'Type');
+const cleanDescription = (_text='') => {
+  let text = _text;
+  // We may want these in the DB, let the front end scrub it
+  // during rendering
+  // text = text.replace(' (finding)', '');
+  // text = text.replace(' (disorder)', '');
+  // text = text.replace(' (severity modifier)', '');
+  // text = text.replace(' (qualifier value)', '');
+  // text = text.replace(' (morphologic abnormality)', '');
+  return text
+};
+
+const mapSNOMEDCTToPredictions = ({
+  entities = [],
+  text = '',
+  _logger = logger,
+}) => {
+  let chiefComplaint;
+  const predictions = entities.map((e) => {
       let findingCode = null;
+      let isAsserted = null;
+      let context = '';
+
+      // const type = get(e, 'Type');
+      const category = get(e, 'Category');
+      const traits = get(e, 'Traits', []);
+      const attributes = get(e, 'Attributes', []);
+
+      // attribute code
       const findingAttributeCode = get(e, 'SNOMEDCTConcepts[0].Code', null);
-      if (trait === 'SYMPTOM') {
-        findingCode = 'F-Symptom';
+      const findingAttributeCodeScore = get(e, 'SNOMEDCTConcepts[0].Score', 0.0);
+      let findingAttributeCodeDescription = get(e, 'SNOMEDCTConcepts[0].Description', '');
+
+      // attribute isAsserted
+      let findingAttributeIsAssertedScore = 0.0;
+      let findingAttributeIsAssertedDescription = '';
+
+      const traitMap = {};
+      traits.forEach((t) => {
+        traitMap[t.Name] = t;
+      });
+      const attributeMap = {};
+      attributes.forEach((a) => {
+        attributeMap[a.Type] = a;
+      });
+
+      switch(category) {
+        case 'MEDICAL_CONDITION':
+          // traits
+
+          // findingCode
+          if (traitMap.DIAGNOSIS || traitMap.SIGN || traitMap.HYPOTHETICAL) {
+            findingCode = 'F-Problem';
+            context = '';
+          } else if (traitMap.SYMPTOM) {
+            findingCode = 'F-Symptom';
+            const {
+              BeginOffset: _begin,
+              EndOffset: _end,
+            } = e;
+            let start = _begin - 15;
+            let end = _end + 15;
+            if (start < 0) start = 0;
+            context = `...${text.substring(start, end)}...`;
+          }
+          // isAsserted
+          if (traitMap.NEGATION) {
+            isAsserted = false;
+            findingAttributeIsAssertedDescription = 'Denies';
+            findingAttributeIsAssertedScore = traitMap.NEGATION.Score;
+          } else {
+            isAsserted = true;
+            findingAttributeIsAssertedDescription = 'Asserts';
+            findingAttributeIsAssertedScore = 0.5;
+          }
+          // familyHistory
+          if (traitMap.PERTAINS_TO_FAMILY) {
+            // @TODO
+          }
+
+          // attributes we can potentially capture more information here
+          // QUALITY, ACUITY, DIRECTION, SYSTEM_ORGAN_SITE
+          // if (attributeMap.QUALITY) {
+          //   // @TODO We probably want to store off this code as well
+          //   // const qualityCode = get(attributeMap.QUALITY, 'SNOMEDCTConcepts[0].Code', null);
+          //   const qualityCodeDescription = get(attributeMap.QUALITY, 'SNOMEDCTConcepts[0].Description', '');
+          //   findingAttributeCodeDescription += ` (${qualityCodeDescription})`
+          // }
+          break;
+        default:
+          break;
       }
-      if (trait === 'DIAGNOSIS') {
-        findingCode = 'F-Problem';
+
+      if (findingCode && findingAttributeCode) {
+        const findingAttributes = [{
+          findingAttributeKey: 'code',
+          findingAttributeValue: findingAttributeCode,
+          findingAttributeDescription: cleanDescription(findingAttributeCodeDescription),
+          findingAttributeScore: findingAttributeCodeScore,
+        }];
+        const prediction = {
+          findingCode,
+          context,
+          findingAttributes,
+        };
+        if (findingCode === 'F-Symptom' && !chiefComplaint) {
+          chiefComplaint = {
+            ...prediction,
+            findingCode: 'F-ChiefComplaint',
+            findingAttributes: [...findingAttributes, {
+              findingAttributeKey: 'text',
+              findingAttributeValue: context,
+              findingAttributeDescription: cleanDescription(findingAttributeCodeDescription),
+              findingAttributeScore: findingAttributeCodeScore,
+            }]
+          }
+        }
+        if (isAsserted === false || isAsserted === true) {
+          prediction.findingAttributes.push({
+            findingAttributeKey: 'isAsserted',
+            findingAttributeValue: isAsserted,
+            findingAttributeDescription: findingAttributeIsAssertedDescription,
+            findingAttributeScore: findingAttributeIsAssertedScore,
+          })
+        }
+        return prediction;
       }
-      if (trait === 'SIGN') {
-        findingCode = 'F-Problem';
-      }
-      if (type === 'TEST_NAME') {
-        findingCode = 'F-Problem';  // @TODO Check w/ Brian about this.
-        // Should this go in Assement and Plan i.e. F-Problem
-        // Example:
-        // {
-        //  Attributes: [],
-        //  BeginOffset: 108,
-        //  Category: 'TEST_TREATMENT_PROCEDURE',
-        //  EndOffset: 122,
-        //  Id: 5,
-        //  SNOMEDCTConcepts: [
-        //    {
-        //      Code: '75367002',
-        //      Description: 'Blood pressure (observable entity)',
-        //      Score: 0.9221479296684265
-        //    }
-        //  ],
-        //  Score: 0.9959814548492432,
-        //  Text: 'blood pressure',
-        //  Traits: [],
-        //  Type: 'TEST_NAME'
-        // }
-      }
-      if (type === 'TREATMENT_NAME') {
-        findingCode = 'F-Problem';
-      }
-      if (type === 'DX_NAME' && !trait) {
-        findingCode = 'F-Symptom';
-      }
-      if (!findingCode) {
-        logger.error('Unable to find findingCode');
-        logger.error(JSON.stringify(e));
-        findingCode = 'F-Symptom'; // Just capture it for now as a symptom
-      }
-      if (!findingAttributeCode) {
-        logger.error('Unable to find findingAttributeCode');
-        logger.error(JSON.stringify(e));
-      }
-      return {
-        findingCode,
-        findingAttributeCode,
-        findingAttributeKey: 'code', // @TODO There will be other attribute keys
-        // in the future like assertions.
-      };
+      _logger.info('Unmapped prediction', e);
+      return {};
   });
+
+  // Add chief complaint if one doesnt already exist,
+  // the attributes will only insert on the mongo side
+  // if they dont already exist
+  if (chiefComplaint) {
+    predictions.push(chiefComplaint);
+  }
+
+  // Return only entities we found a findingCode for and deduplicate it
+  const foundCodes = [];
+  return predictions.filter((p) => {
+    if (p.findingCode === 'F-ChiefComplaint') {
+      // Don't include the code from the ChiefComplaint in the de-dupe list
+      return true;
+    }
+    if (p.findingCode) {
+      const { findingAttributes = [] } = p;
+      const [codeAttribute] = findingAttributes;
+      if (foundCodes.includes(codeAttribute.findingAttributeValue)) {
+        return false;
+      }
+      foundCodes.push(codeAttribute.findingAttributeValue)
+      return true;
+    }
+    return false;
+  })
 };
 
 // @TODO We may want to somehow use these ICD10 codes
@@ -156,14 +263,14 @@ const mapSNOMEDCTToPredictions = (entities = []) => {
 
 const mapMedicalComprehendResponseToPredictions = ({
   runId,
-  noteWindowId
-}) => ({ type, response }) => {
-  // @TODO we will have to implement pagination on this, but I HIGHLY doubt
-  // we will have pagination on a 20 second note window.  Skipping this for now,
-  // but we will want to come back and implement this later.
+  noteWindowId,
+}) => ({ type, response, text }) => {
   let predictions = [];
   if (type === 'rawSNOMEDCT') {
-    predictions = mapSNOMEDCTToPredictions(response.Entities || []);
+    predictions = mapSNOMEDCTToPredictions({
+      entities: response.Entities || [],
+      text
+    });
   }
   // else if (type === 'rawICD10') {
   //   predictions = mapICD10ToPredictions(response.Entities || []);
@@ -210,5 +317,26 @@ const toMedicalComprehend = ({
     ),
   )
 };
+
+// // eslint-disable-next-line
+// const ORIGINAL_TEXT = "Hi, My name is Dr. Feelgood what is your name?  Briar Hayfield. \
+// What brings you in today? I have a severe headache, a migraine and an earache in my left ear \
+// Okay, when did this start? It started about 2 weeks ago.  I have pain in the back of my head \
+// and sometimes I also feel nauseous when I stand up too quick. \
+// Okay, do you feel dizzy? No I haven't been dizzy \
+// Okay, I think you may have an acute migrain and should take Tylenol and get some sleep."
+//
+// let WORDS = ORIGINAL_TEXT.split(' ');
+// WORDS = WORDS.map((w) => {
+//   return {text: w};
+// });
+//
+// const words$ = of(WORDS).pipe(
+//   toMedicalComprehend({
+//     runId: "63eed062e0f259133bbdd3ae",
+//     noteWindowId: "63eed076e0f259133bbdd3b0"
+//   })
+// );
+// words$.subscribe((d) => console.log(d));
 
 module.exports = toMedicalComprehend;
