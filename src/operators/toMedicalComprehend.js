@@ -147,14 +147,17 @@ const mapSNOMEDCTToPredictions = ({
             context = '';
           } else if (traitMap.SYMPTOM) {
             findingCode = 'F-Symptom';
-            const {
-              BeginOffset: _begin,
-              EndOffset: _end,
-            } = e;
-            let start = _begin - 15;
-            let end = _end + 15;
-            if (start < 0) start = 0;
-            context = `...${text.substring(start, end)}...`;
+            // const {
+            //   BeginOffset: _begin,
+            //   EndOffset: _end,
+            // } = e;
+            // let start = _begin - 15;
+            // let end = _end + 15;
+            // if (start < 0) start = 0;
+            // context = `...${text.substring(start, end)}...`;
+            // @TODO we should predict what the ChiefComplaint "body" should be
+            // with a different model, like gpt3?  Should be a quick summary.
+            context = '';
           }
           // isAsserted
           if (traitMap.NEGATION) {
