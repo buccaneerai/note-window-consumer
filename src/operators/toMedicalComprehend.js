@@ -15,9 +15,11 @@ const {
 const logger = require('@buccaneerai/logging-utils');
 const {client} = require('@buccaneerai/graphql-sdk');
 
-const config = require('../lib/config.js');
+const symptoms = require('../lib/symptoms');
+const getSNOMEDCTCodes = require('../lib/snomedCore');
+const config = require('../lib/config');
 
-
+const SNOMEDCT_CODES = getSNOMEDCTCodes();
 const medicalClient = new ComprehendMedicalClient({ region: config().AWS_REGION || config().AWS_DEFAULT_REGION });
 
 const toAWSMedicalComprehendAPI = ({
@@ -112,9 +114,15 @@ const mapSNOMEDCTToPredictions = ({
       const attributes = get(e, 'Attributes', []);
 
       // attribute code
-      const findingAttributeCode = get(e, 'SNOMEDCTConcepts[0].Code', null);
-      const findingAttributeCodeScore = get(e, 'SNOMEDCTConcepts[0].Score', 0.0);
-      let findingAttributeCodeDescription = get(e, 'SNOMEDCTConcepts[0].Description', '');
+      let findingAttribute = get(e, 'SNOMEDCTConcepts[0]');
+      const findingAttributeCodes = get(e, 'SNOMEDCTConcepts', []);
+      const coreCodes = findingAttributeCodes.filter((f) => SNOMEDCT_CODES[f.Code]);
+      if (coreCodes.length) {
+        [findingAttribute] = coreCodes;
+      }
+      const findingAttributeCode = findingAttribute.Code || null;
+      const findingAttributeCodeScore = findingAttribute.Score || 0.0;
+      const findingAttributeCodeDescription = findingAttribute.Description || '';
 
       // attribute isAsserted
       let findingAttributeIsAssertedScore = 0.0;
@@ -208,6 +216,12 @@ const mapSNOMEDCTToPredictions = ({
             findingAttributeScore: findingAttributeIsAssertedScore,
           })
         }
+        const bodySystem = symptoms.getBodySystem(findingAttributeCode) || 'unknown';
+        prediction.findingAttributes.push({
+          findingAttributeKey: 'bodySystem',
+          findingAttributeValue: bodySystem,
+          findingAttributeScore: 0.5,
+        });
         return prediction;
       }
       _logger.info('Unmapped prediction', e);
@@ -264,6 +278,7 @@ const mapSNOMEDCTToPredictions = ({
 const mapMedicalComprehendResponseToPredictions = ({
   runId,
   noteWindowId,
+  pipelineId,
 }) => ({ type, response, text }) => {
   let predictions = [];
   if (type === 'rawSNOMEDCT') {
@@ -283,6 +298,7 @@ const mapMedicalComprehendResponseToPredictions = ({
       ...p,
       runId,
       noteWindowId,
+      pipelineId,
     }
   });
   return predictions;
@@ -291,6 +307,7 @@ const mapMedicalComprehendResponseToPredictions = ({
 const toMedicalComprehend = ({
   runId,
   noteWindowId,
+  pipelineId,
   _toAWSMedicalComprehendAPI = toAWSMedicalComprehendAPI,
   _mapMedicalComprehendResponseToPredictions = mapMedicalComprehendResponseToPredictions,
   _updateNoteWindow = updateNoteWindow,
@@ -313,6 +330,7 @@ const toMedicalComprehend = ({
       _mapMedicalComprehendResponseToPredictions({
         runId,
         noteWindowId,
+        pipelineId,
       })
     ),
   )

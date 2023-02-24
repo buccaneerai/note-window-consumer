@@ -15,6 +15,7 @@ const storePredictions = ({
     noteWindowId,
     findingCode,
     findingAttributes,
+    pipelineId,
   }) => {
     return gql.createFindingInstance({
       runId,
@@ -38,6 +39,8 @@ const storePredictions = ({
           let valuesKey = null;
           let values = [];
 
+          // @TODO pull the findingAttribute json files from clinical-api
+          // not super urgent as I doubt this will be changing much if ever.
           switch(findingAttributeKey) {
             case 'code':
               valuesKey = 'codeValues';
@@ -48,6 +51,10 @@ const storePredictions = ({
               values = [findingAttributeValue];
               break;
             case 'text':
+              valuesKey = 'stringValues';
+              values = [findingAttributeValue];
+              break;
+            case 'bodySystem':
               valuesKey = 'stringValues';
               values = [findingAttributeValue];
               break;
@@ -64,6 +71,7 @@ const storePredictions = ({
             findingInstanceId,
             runId,
             noteWindowId,
+            pipelineId,
             findingCode,
             findingType,
             findingAttributeKey,

@@ -15,10 +15,11 @@ const errors = {
 
 const pipelines = {
   medicalComprehend: {
-    options: ({ runId, noteWindowId }) => {
+    options: ({ runId, noteWindowId, version='1-0', id='medical-comprehend' }) => {
       return {
         runId,
         noteWindowId,
+        pipelineId: `${id}-${version}`
       };
     },
     operator: toMedicalComprehend,
