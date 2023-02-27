@@ -99,7 +99,7 @@ const cleanDescription = (_text='') => {
 
 const mapSNOMEDCTToPredictions = ({
   entities = [],
-  text = '',
+  // text = '',
   _logger = logger,
 }) => {
   let chiefComplaint;
