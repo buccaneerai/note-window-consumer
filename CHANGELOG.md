@@ -1,3 +1,10 @@
+# [1.1.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2023-02-27)
+
+
+### Bug Fixes
+
+* require much higher confidence for negation ([c802270](https://github.com/buccaneerai/note-window-consumer/commit/c802270cc90889d133080ec5c5d5618b439b3d08))
+
 # [1.1.0-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.2-dev.1...v1.1.0-dev.1) (2023-02-27)
 
 
