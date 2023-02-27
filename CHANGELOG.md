@@ -1,3 +1,25 @@
+# [1.1.0-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.2-dev.1...v1.1.0-dev.1) (2023-02-27)
+
+
+### Bug Fixes
+
+* Bump node version to 16 ([eadc6a4](https://github.com/buccaneerai/note-window-consumer/commit/eadc6a496e4177fe16d37c159b2b16d78f094a55))
+* fix concat ([d1ca8c6](https://github.com/buccaneerai/note-window-consumer/commit/d1ca8c62dcbebe3b59075f02e697c5c89c3e68e4))
+* Fix semantic release version ([e70125c](https://github.com/buccaneerai/note-window-consumer/commit/e70125cd429ea0ea25014d256430db92e2fb9a0f))
+* lint ([d7d1c12](https://github.com/buccaneerai/note-window-consumer/commit/d7d1c1280adb885fe3acc8f3274562844d9b7555))
+* remove bad context attempt ([2db9997](https://github.com/buccaneerai/note-window-consumer/commit/2db999715d8bea48c1a805fe6a25797d9cbe198d))
+* Remove testing code ([104281d](https://github.com/buccaneerai/note-window-consumer/commit/104281d04fa0297e8c9d36e44cd825104b13b099))
+* What is going on? ([d66a585](https://github.com/buccaneerai/note-window-consumer/commit/d66a58541c2dd435f21d0d663b44535b51e61af6))
+* What is going on? ([636c394](https://github.com/buccaneerai/note-window-consumer/commit/636c3942591215047b42f7296317ebbe84eab419))
+
+
+### Features
+
+* Add Chief complaint ([4be4c08](https://github.com/buccaneerai/note-window-consumer/commit/4be4c08471c8105dee4ea99b3000f7db21d83d79))
+* Add medical comprehend operator ([27ac426](https://github.com/buccaneerai/note-window-consumer/commit/27ac426e2772dacbe18659b6ad9f228305be987a))
+* Add verified findings code ([ef74907](https://github.com/buccaneerai/note-window-consumer/commit/ef749075b48016168e0f7accd755c69921d283a9))
+* Added body systems ([648dcc3](https://github.com/buccaneerai/note-window-consumer/commit/648dcc3716b7134aa08951b7b2a3dea437af2214))
+
 ## [1.0.2-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.1...v1.0.2-dev.1) (2022-11-23)
 
 
