@@ -7,11 +7,23 @@ const logger = require('@buccaneerai/logging-utils');
 // const toInfoRetrievalModel = require('../operators/toInfoRetrievalModel');
 // const toSpacyModel = require('./toSpacyModel');
 
+const toMedicalComprehend = require('./toMedicalComprehend');
+
 const errors = {
   invalidWords: () => new Error('params.words must be an array'),
 };
 
 const pipelines = {
+  medicalComprehend: {
+    options: ({ runId, noteWindowId, version='1-0', id='medical-comprehend' }) => {
+      return {
+        runId,
+        noteWindowId,
+        pipelineId: `${id}-${version}`
+      };
+    },
+    operator: toMedicalComprehend,
+  },
   // infoRetrieval: {
   //   options: () => ({
   //     graphqlUrl: process.env.GRAPHQL_URL,
@@ -51,12 +63,12 @@ const pipelines = {
 };
 
 const toPredictions = ({_pipelines = pipelines, _logger = logger} = {}) => (
-  ({words}) => {
+  ({message, words}) => {
     if (!isArray(words)) return throwError(errors.invalidWords);
     if (words.length === 0) return of(); // no predictions
     const pipelineKeys = Object.keys(_pipelines);
     const observables = pipelineKeys.map(key => of(words).pipe(
-      _pipelines[key].operator(_pipelines[key].options()),
+      _pipelines[key].operator(_pipelines[key].options(message)),
       // handle any uncaught errors in the pipelines
       catchError(err => {
         _logger.error(err);

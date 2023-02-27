@@ -24,7 +24,8 @@
     "sinon": "^7.2.2"
   },
   "dependencies": {
-    "@buccaneerai/graphql-sdk": "^2.53.6",
+    "@aws-sdk/client-comprehendmedical": "^3.272.0",
+    "@buccaneerai/graphql-sdk": "^2.69.0",
     "@buccaneerai/logging-utils": "^1.2.0",
     "aws-sdk": "^2.438.0",
     "axios": "^0.24.0",
@@ -51,6 +52,8 @@
   },
   "scripts": {
     "start": "node src/index.js",
+    "medical": "node inspect src/operators/toMedicalComprehend.js",
+    "message": "node inspect src/lib/handleMessage.js",
     "dev": "npx nodemon ./src/index.js",
     "debug": "node inspect ./src/index.js",
     "lint": "eslint -c .eslintrc ./src",
