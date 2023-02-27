@@ -161,7 +161,9 @@ const mapSNOMEDCTToPredictions = ({
             context = '';
           }
           // isAsserted
-          if (traitMap.NEGATION) {
+          // @TODO 0.95 is pretty arbitrary, we were getting a lot of false positives
+          // from this, I _think_ because the note window is so small
+          if (traitMap.NEGATION && traitMap.NEGATION.Score > 0.95) {
             isAsserted = false;
             findingAttributeIsAssertedDescription = 'Denies';
             findingAttributeIsAssertedScore = traitMap.NEGATION.Score;
