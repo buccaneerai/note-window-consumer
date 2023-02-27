@@ -11,18 +11,6 @@ const fetchWordsForWindow = require('./fetchWordsForWindow');
 const storePredictions = require('./storePredictions');
 const updateWorkStatus = require('./updateWorkStatus');
 
-// eslint-disable-next-line
-const ORIGINAL_TEXT = "Hi, My name is Dr. Feelgood what is your name?  Briar Hayfield. \
-What brings you in today? I have a severe headache, a migraine and an earache in my left ear \
-I have pain in the back of my head and sometimes I also feel nauseous when I stand up too quick. \
-Okay, do you feel dizzy? No I haven't been dizzy \
-Okay, I think you may have an acute migrain and should take Tylenol and get some sleep."
-
-let WORDS = ORIGINAL_TEXT.split(' ');
-WORDS = WORDS.map((w) => {
-  return {text: w};
-});
-
 // this should return an observable
 const handleMessage = ({
   _fetchWordsForWindow = fetchWordsForWindow,
@@ -53,7 +41,7 @@ const handleMessage = ({
     )),
     mergeMap(([m, words]) => zip(
       of(m),
-      _toPredictions()({message: m, words: WORDS}),
+      _toPredictions()({message: m, words}),
     )),
     _logger.toLog('createdPredictions'),
     mergeMap(([m, predictions]) => zip(
@@ -88,16 +76,5 @@ const handleMessage = ({
   );
   return done$;
 };
-
-// const message$ = handleMessage()({
-//   runId: "63ee8a0b6d8bae7c5dbfa3ef",
-//   noteWindowId: "63ee8a216d8bae7c5dbfa3f1"
-// });
-
-const message$ = handleMessage()({
-  runId: "63eed062e0f259133bbdd3ae",
-  noteWindowId: "63eed076e0f259133bbdd3b0"
-});
-message$.subscribe((d) => console.log(d));
 
 module.exports = handleMessage;

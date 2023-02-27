@@ -147,6 +147,9 @@ const mapSNOMEDCTToPredictions = ({
             context = '';
           } else if (traitMap.SYMPTOM) {
             findingCode = 'F-Symptom';
+            // @TODO we should predict what the ChiefComplaint "body" should be
+            // with a different model, like gpt3 something that can write
+            // a summary
             // const {
             //   BeginOffset: _begin,
             //   EndOffset: _end,
@@ -155,8 +158,6 @@ const mapSNOMEDCTToPredictions = ({
             // let end = _end + 15;
             // if (start < 0) start = 0;
             // context = `...${text.substring(start, end)}...`;
-            // @TODO we should predict what the ChiefComplaint "body" should be
-            // with a different model, like gpt3?  Should be a quick summary.
             context = '';
           }
           // isAsserted
@@ -338,26 +339,5 @@ const toMedicalComprehend = ({
     ),
   )
 };
-
-// // eslint-disable-next-line
-// const ORIGINAL_TEXT = "Hi, My name is Dr. Feelgood what is your name?  Briar Hayfield. \
-// What brings you in today? I have a severe headache, a migraine and an earache in my left ear \
-// Okay, when did this start? It started about 2 weeks ago.  I have pain in the back of my head \
-// and sometimes I also feel nauseous when I stand up too quick. \
-// Okay, do you feel dizzy? No I haven't been dizzy \
-// Okay, I think you may have an acute migrain and should take Tylenol and get some sleep."
-//
-// let WORDS = ORIGINAL_TEXT.split(' ');
-// WORDS = WORDS.map((w) => {
-//   return {text: w};
-// });
-//
-// const words$ = of(WORDS).pipe(
-//   toMedicalComprehend({
-//     runId: "63eed062e0f259133bbdd3ae",
-//     noteWindowId: "63eed076e0f259133bbdd3b0"
-//   })
-// );
-// words$.subscribe((d) => console.log(d));
 
 module.exports = toMedicalComprehend;
