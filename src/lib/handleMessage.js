@@ -77,4 +77,12 @@ const handleMessage = ({
   return done$;
 };
 
+// Leaving in, ease of use for testing
+// const message$ = handleMessage()({
+//   runId: "6400ad16ee7ebed49afb35c7",
+//   noteWindowId: "6400ad29ee7ebed49afb35c9"
+// });
+//
+// message$.subscribe((d) => console.log(d));
+
 module.exports = handleMessage;

@@ -2,15 +2,19 @@ const get = require('lodash/get');
 const {
   from,
   merge,
-  // of
+  zip,
+  forkJoin,
+  of,
 } = require('rxjs');
-const { map, mergeMap } = require('rxjs/operators');
+const { map, mergeMap, toArray, catchError } = require('rxjs/operators');
 const {
   ComprehendMedicalClient,
   InferSNOMEDCTCommand,
   // InferICD10CMCommand,
   // InferRxNormCommand,
  } = require("@aws-sdk/client-comprehendmedical");
+
+const {Configuration, OpenAIApi} = require('openai');
 
 const logger = require('@buccaneerai/logging-utils');
 const {client} = require('@buccaneerai/graphql-sdk');
@@ -21,6 +25,9 @@ const config = require('../lib/config');
 
 const SNOMEDCT_CODES = getSNOMEDCTCodes();
 const medicalClient = new ComprehendMedicalClient({ region: config().AWS_REGION || config().AWS_DEFAULT_REGION });
+
+const openAiConf = new Configuration({apiKey: process.env.OPENAI_API_KEY});
+const openai = new OpenAIApi(openAiConf);
 
 const toAWSMedicalComprehendAPI = ({
   _client = medicalClient,
@@ -112,6 +119,12 @@ const mapSNOMEDCTToPredictions = ({
       const category = get(e, 'Category');
       const traits = get(e, 'Traits', []);
       const attributes = get(e, 'Attributes', []);
+      const findingScore = get(e, 'Score', 0.0);
+
+      // Don't include findings with low overall confidence
+      if (findingScore < 0.25) {
+        return {};
+      }
 
       // attribute code
       let findingAttribute = get(e, 'SNOMEDCTConcepts[0]');
@@ -145,7 +158,7 @@ const mapSNOMEDCTToPredictions = ({
           if (traitMap.DIAGNOSIS || traitMap.SIGN || traitMap.HYPOTHETICAL) {
             findingCode = 'F-Problem';
             context = '';
-          } else if (traitMap.SYMPTOM) {
+          } else if (traitMap.SYMPTOM || Object.keys(traitMap).length === 0) {
             findingCode = 'F-Symptom';
             // @TODO we should predict what the ChiefComplaint "body" should be
             // with a different model, like gpt3 something that can write
@@ -163,7 +176,7 @@ const mapSNOMEDCTToPredictions = ({
           // isAsserted
           // @TODO 0.95 is pretty arbitrary, we were getting a lot of false positives
           // from this, I _think_ because the note window is so small
-          if (traitMap.NEGATION && traitMap.NEGATION.Score > 0.95) {
+          if (traitMap.NEGATION && traitMap.NEGATION.Score > 0.90) {
             isAsserted = false;
             findingAttributeIsAssertedDescription = 'Denies';
             findingAttributeIsAssertedScore = traitMap.NEGATION.Score;
@@ -176,7 +189,6 @@ const mapSNOMEDCTToPredictions = ({
           if (traitMap.PERTAINS_TO_FAMILY) {
             // @TODO
           }
-
           // attributes we can potentially capture more information here
           // QUALITY, ACUITY, DIRECTION, SYSTEM_ORGAN_SITE
           // if (attributeMap.QUALITY) {
@@ -191,6 +203,15 @@ const mapSNOMEDCTToPredictions = ({
       }
 
       if (findingCode && findingAttributeCode) {
+        if (findingCode === 'F-Symptom' && findingAttributeCodeScore < 0.25) {
+          // Do not include symptoms with low confidence
+          return {};
+        }
+        if (findingCode === 'F-Problem' && findingAttributeCodeScore < 0.75) {
+          // Do not include diagnosis with low confidence
+          // @TODO We can run this against other models
+          return {};
+        }
         const findingAttributes = [{
           findingAttributeKey: 'code',
           findingAttributeValue: findingAttributeCode,
@@ -307,7 +328,72 @@ const mapMedicalComprehendResponseToPredictions = ({
       pipelineId,
     }
   });
-  return predictions;
+  return [text, predictions];
+};
+
+const toGPT3 = ({
+  _logger = logger,
+  _openai = openai
+}) => ({text, prediction}) => {
+  const code = prediction.findingAttributes.find((f) => f.findingAttributeKey === 'code');
+  const description = code.findingAttributeDescription.replace('symptom', '').replace('(finding)', '').replace('(disorder)', '').trim().toLowerCase();
+  // const params = {model: 'text-davinci-003', prompt: `The following is a transcript from a doctor and patient encounter: \n"${text}"\nQ: Answering with "true" or "false", does this patient have a ${description}? A: `};
+  const isPresentParams = {
+    model: 'text-davinci-003',
+    prompt: `The following is a transcript from a doctor and patient encounter: \n"${text}"\n\
+ Q: Answering with "true" or "false", was a ${description} discussed? A: `};
+
+  const isAssertedParams = {
+    model: 'text-davinci-003',
+    prompt: `The following is a transcript from a doctor and patient encounter: \n"${text}"\n\
+ Q: Does the patient have a ${description}? A: `
+  };
+
+  return zip(
+    from(_openai.createCompletion(isPresentParams)).pipe(
+      map((response) => {
+        const answer = get(response, 'data.choices[0].text', 'false').trim().toLowerCase();
+        if (answer.includes('true') || answer.includes('yes')) {
+          return true;
+        }
+        return false;
+      }),
+      catchError(() => of(true))
+    ),
+    from(_openai.createCompletion(isAssertedParams)).pipe(
+      map((response) => {
+        const answer = get(response, 'data.choices[0].text', 'true').trim().toLowerCase();
+        if (answer.includes('false') || answer.includes('no')) {
+          return false;
+        }
+        return true;
+      }),
+      catchError(() => of(true))
+    ),
+  ).pipe(
+    map(([isPresent, isAsserted]) => {
+      if (!isPresent) {
+        // symptom was not actually discussed
+        _logger.info(`Skipping ${description} as it was not discussed!`);
+        return {};
+      }
+      const findingAttributes = prediction.findingAttributes.map((f) => {
+        const attr = {
+          ...f,
+        };
+        if (f.findingAttributeKey === 'isAsserted') {
+          attr.booleanValues = [isAsserted];
+        }
+        return attr;
+      });
+      const resp = {
+        ...prediction,
+        findingAttributes,
+      }
+      return resp;
+    }),
+    catchError(() => of(prediction))
+  );
 };
 
 const toMedicalComprehend = ({
@@ -339,6 +425,14 @@ const toMedicalComprehend = ({
         pipelineId,
       })
     ),
+    mergeMap(([text, predictions]) => {
+      const gptRequests = predictions.map((prediction) => {
+        return toGPT3({})({text, prediction});
+      });
+      return forkJoin(...gptRequests);
+    }),
+    toArray(),
+    map(([predictions]) => predictions.filter((f) => f.findingCode))
   )
 };
 
