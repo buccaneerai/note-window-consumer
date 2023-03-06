@@ -337,44 +337,61 @@ const toGPT3 = ({
 }) => ({text, prediction}) => {
   const code = prediction.findingAttributes.find((f) => f.findingAttributeKey === 'code');
   const description = code.findingAttributeDescription.replace('symptom', '').replace('(finding)', '').replace('(disorder)', '').trim().toLowerCase();
-  // const params = {model: 'text-davinci-003', prompt: `The following is a transcript from a doctor and patient encounter: \n"${text}"\nQ: Answering with "true" or "false", does this patient have a ${description}? A: `};
+  // const isAssert = prediction.findingAttributes.find((f) => f.findingAttributeKey === 'isAsserted');
+
   const isPresentParams = {
     model: 'text-davinci-003',
-    prompt: `The following is a transcript from a doctor and patient encounter: \n"${text}"\n\
- Q: Answering with "true" or "false", was a ${description} discussed? A: `};
+    prompt: `The following is a transcript between a doctor and a patient that discusses the patient's symptoms: \n"${text}"\n\
+ Q: Was the symptom "${description}" discussed? A: `};
 
   const isAssertedParams = {
     model: 'text-davinci-003',
-    prompt: `The following is a transcript from a doctor and patient encounter: \n"${text}"\n\
- Q: Does the patient have a ${description}? A: `
+    prompt: `The following is a transcript between a doctor and a patient that discusses the patient's symptoms: \n"${text}"\n\
+ Q: Did the patient confirm if they the symptom "${description}"? A: `
   };
 
-  return zip(
-    from(_openai.createCompletion(isPresentParams)).pipe(
+
+  let codeObs$;
+  if (code.findingAttributeScore < 0.75) {
+    _logger.info(`Asking GPT3 if ${description} was discussed, because score was: ${code.findingAttributeScore}`);
+    codeObs$ = from(_openai.createCompletion(isPresentParams)).pipe(
       map((response) => {
-        const answer = get(response, 'data.choices[0].text', 'false').trim().toLowerCase();
+        const answer = get(response, 'data.choices[0].text', 'yes').trim().toLowerCase();
         if (answer.includes('true') || answer.includes('yes')) {
           return true;
         }
         return false;
       }),
-      catchError(() => of(true))
-    ),
+      catchError((error) => {
+        _logger.error(error.toJSON ? error.toJSON().message : error);
+        return of(true)
+      })
+    );
+  } else {
+    _logger.info(`Skipping GPT3 about ${description}, because score was: ${code.findingAttributeScore}`);
+    codeObs$ = of(true);
+  }
+
+  return zip(
+    codeObs$,
     from(_openai.createCompletion(isAssertedParams)).pipe(
       map((response) => {
-        const answer = get(response, 'data.choices[0].text', 'true').trim().toLowerCase();
+        const answer = get(response, 'data.choices[0].text', 'yes').trim().toLowerCase();
         if (answer.includes('false') || answer.includes('no')) {
           return false;
         }
         return true;
       }),
-      catchError(() => of(true))
+      catchError((error) => {
+        _logger.error(error.toJSON ? error.toJSON().message : error);
+        return of(true);
+      })
     ),
   ).pipe(
     map(([isPresent, isAsserted]) => {
       if (!isPresent) {
         // symptom was not actually discussed
-        _logger.info(`Skipping ${description} as it was not discussed!`);
+        _logger.info(`Skipping ${description} as GPT3 thinks it was not discussed`);
         return {};
       }
       const findingAttributes = prediction.findingAttributes.map((f) => {
