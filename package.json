@@ -49,7 +49,7 @@
     "request": "^2.88.2",
     "round-to": "^4.1.0",
     "rxjs": "^6.3.3",
-    "sqs-consumer": "^5.5.0",
+    "sqs-consumer": "^7.0.2",
     "openai": "^3.2.1"
   },
   "scripts": {
