@@ -1,3 +1,11 @@
+# [1.1.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2023-03-06)
+
+
+### Bug Fixes
+
+* Add gpt3 checks for isPresent and isAsserted ([186b4cb](https://github.com/buccaneerai/note-window-consumer/commit/186b4cb239ef16fdc3b659fbdb92e98577f21856))
+* Adjust the prompts and only send to GPT if the score was under .75 ([6539cf8](https://github.com/buccaneerai/note-window-consumer/commit/6539cf852605df033b946d071315d9f327496a18))
+
 # [1.1.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2023-02-27)
 
 
