@@ -11,15 +11,14 @@ const fetchWordsForWindow = require('./fetchWordsForWindow');
 const storePredictions = require('./storePredictions');
 const updateWorkStatus = require('./updateWorkStatus');
 
-// eslint-disable-next-line
 // LEAVING IN FOR TESTING PURPOSES
+// eslint-disable-next-line
 // const ORIGINAL_TEXT = "Good morning [NAME]. \
 // How are you today? Not so good doctor. Sorry to hear that. \
 // Hello. So tell me what brings you in today. \
 // I have a really bad sore throat. It's been going on for about five days now. OK. \
-// And on a scale of 1 to 10, how bad would you say your throat pain is?  \
-// I would say it's about an eight. Okay. And do you any other symptoms besides your throat pain? \
-// Yeah, when it started I felt a little feverish."
+// Yeah, when it started I felt like I had a fever. \
+// OK.  I think you have strep throat and a migraine."
 // No. Yeah, right before this started, my son was sick too. He also had a sore throat and was running a fever. \
 // Okay, did you take him to the doctor? Do you know where he got it? Yeah, we took him. They said that he had throat. \
 // Oh, okay.  Did you try to help your sore throat to make it better? Yeah, I took some ibuprofen and that helped. \

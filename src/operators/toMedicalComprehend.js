@@ -207,7 +207,7 @@ const mapSNOMEDCTToPredictions = ({
           // Do not include symptoms with low confidence
           return {};
         }
-        if (findingCode === 'F-Problem' && findingAttributeCodeScore < 0.75) {
+        if (findingCode === 'F-Problem' && findingAttributeCodeScore < 0.25) {
           // Do not include diagnosis with low confidence
           // @TODO We can run this against other models
           return {};
@@ -334,25 +334,49 @@ const mapMedicalComprehendResponseToPredictions = ({
 const toGPT3 = ({
   _logger = logger,
   _openai = openai
-}) => ({text, prediction}) => {
+}) => ({text, prediction = {}}) => {
+  const { findingCode } = prediction;
   const code = prediction.findingAttributes.find((f) => f.findingAttributeKey === 'code');
-  const description = code.findingAttributeDescription.replace('symptom', '').replace('(finding)', '').replace('(disorder)', '').trim().toLowerCase();
-  // const isAssert = prediction.findingAttributes.find((f) => f.findingAttributeKey === 'isAsserted');
+  const description = code.findingAttributeDescription
+    .replace('symptom', '')
+    .replace('(finding)', '')
+    .replace('(disorder)', '')
+    .replace('(body structure)', '')
+    .trim().toLowerCase();
+
+  let isPresentPrompt = '';
+  let isAssertedPrompt = '';
+  if (findingCode === 'F-Symptom' || findingCode === 'F-ChiefComplaint') {
+    isPresentPrompt = `The following is a transcript between a doctor and a patient that discusses the patient's symptoms: \n"${text}"\n\
+ Q: Was the symptom "${description}" discussed? A: `;
+    isAssertedPrompt = `The following is a transcript between a doctor and a patient that discusses the patient's symptoms: \n"${text}"\n\
+ Q: Did the patient confirm if they the symptom "${description}"? A: `;
+  }
+  if (findingCode === 'F-Problem') {
+    isPresentPrompt = `The following is a transcript between a doctor and a patient that discusses the patient's potential diagnosis: \n"${text}"\n\
+ Q: Was the diagnosis "${description}" discussed? A: `;
+    isAssertedPrompt = `The following is a transcript between a doctor and a patient that discusses the patient's potential diagnosis: \n"${text}"\n\
+ Q: Did the doctor indicate if the patient has the condition "${description}"? A: `;
+  }
 
   const isPresentParams = {
     model: 'text-davinci-003',
-    prompt: `The following is a transcript between a doctor and a patient that discusses the patient's symptoms: \n"${text}"\n\
- Q: Was the symptom "${description}" discussed? A: `};
+    prompt: isPresentPrompt
+  };
 
   const isAssertedParams = {
     model: 'text-davinci-003',
-    prompt: `The following is a transcript between a doctor and a patient that discusses the patient's symptoms: \n"${text}"\n\
- Q: Did the patient confirm if they the symptom "${description}"? A: `
+    prompt: isAssertedPrompt,
   };
 
-
   let codeObs$;
-  if (code.findingAttributeScore < 0.75) {
+  if (!isPresentPrompt) {
+    _logger.info(`Skipping GPT3 about ${description}, because out-of-scope findingCode`);
+    codeObs$ = of(true);
+  } else if (code.findingAttributeScore > 0.75) {
+    _logger.info(`Skipping GPT3 about ${description}, because score was: ${code.findingAttributeScore}`);
+    codeObs$ = of(true);
+  } else {
     _logger.info(`Asking GPT3 if ${description} was discussed, because score was: ${code.findingAttributeScore}`);
     codeObs$ = from(_openai.createCompletion(isPresentParams)).pipe(
       map((response) => {
@@ -367,14 +391,13 @@ const toGPT3 = ({
         return of(true)
       })
     );
-  } else {
-    _logger.info(`Skipping GPT3 about ${description}, because score was: ${code.findingAttributeScore}`);
-    codeObs$ = of(true);
   }
 
-  return zip(
-    codeObs$,
-    from(_openai.createCompletion(isAssertedParams)).pipe(
+  let isAssertedObs$;
+  if (!isAssertedPrompt) {
+    isAssertedObs$ = of(true);
+  } else {
+    isAssertedObs$ = from(_openai.createCompletion(isAssertedParams)).pipe(
       map((response) => {
         const answer = get(response, 'data.choices[0].text', 'yes').trim().toLowerCase();
         if (answer.includes('false') || answer.includes('no')) {
@@ -386,7 +409,12 @@ const toGPT3 = ({
         _logger.error(error.toJSON ? error.toJSON().message : error);
         return of(true);
       })
-    ),
+    )
+  }
+
+  return zip(
+    codeObs$,
+    isAssertedObs$,
   ).pipe(
     map(([isPresent, isAsserted]) => {
       if (!isPresent) {
