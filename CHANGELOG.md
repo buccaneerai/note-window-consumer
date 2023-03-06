@@ -1,3 +1,10 @@
+# [1.1.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.3...v1.1.0-dev.4) (2023-03-06)
+
+
+### Bug Fixes
+
+* Ask GPT about diagnosis ([7710c05](https://github.com/buccaneerai/note-window-consumer/commit/7710c05393799930dda7869c0ff9a3b2b1260c53))
+
 # [1.1.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2023-03-06)
 
 
