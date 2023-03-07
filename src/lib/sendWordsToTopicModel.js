@@ -20,8 +20,7 @@ const topicMap = {
   LABEL_9: 'F-Symptom',
 };
 
-// [{"label":"LABEL_5","score":0.8250104188919067}]
-const parseResponse = () => response => {
+const parseResponse = modelVersion => response => {
   const body = _.get(response, 'Body');
   const jsonStr = body.toString();
   try {
@@ -29,6 +28,7 @@ const parseResponse = () => response => {
     const cleanPredictions = rawPredictions.map(p => ({
       label: topicMap[p.label],
       score: p.score,
+      modelVersion,
     }));
     return of(cleanPredictions);
   } catch (e) {
@@ -53,7 +53,7 @@ const sendWordsToTopicModel = ({
   };
   const promise = client().invokeEndpoint(params).promise();
   const predictions$ = from(promise).pipe(
-    mergeMap(parseResponse())
+    mergeMap(parseResponse(endpointName))
   );
   return predictions$;
 };

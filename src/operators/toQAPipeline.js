@@ -1,8 +1,9 @@
 // const _ = require('lodash');
-const {of,merge,zip} = require('rxjs');
-const {map,mergeMap,share,toArray} = require('rxjs/operators');
+const {of,zip} = require('rxjs');
+const {catchError,map,mergeMap,share} = require('rxjs/operators');
 
 const {client} = require('@buccaneerai/graphql-sdk');
+const logger = require('@buccaneerai/logging-utils');
 
 const sendWordsToTopicModel = require('../lib/sendWordsToTopicModel');
 const sendWordsToQAModel = require('../lib/sendWordsToQAModel');
@@ -39,11 +40,27 @@ const toQAPipeline = ({
   _gql = gql,
   _sendWordsToQAModel = sendWordsToQAModel,
   _sendWordsToTopicModel = sendWordsToTopicModel,
+  _logger = logger
 }) => string$ => {
   const stringSub$ = string$.pipe(share());
   const topicPreds$ = stringSub$.pipe(
     // predict which medical topics were discussed in the transcript
     mergeMap(_sendWordsToTopicModel()),
+    // store predictions on the note window
+    mergeMap(preds =>
+      _gql().updateNoteWindow({
+        docId: noteWindowId,
+        set: {
+          topicPredictions: preds,
+        }
+      }).pipe(
+        map(() => preds),
+        catchError(err => {
+          _logger.error(err);
+          return of(preds);
+        })
+      )
+    ),
     // keep only predictions with high confidence
     map(preds => preds.filter(p => p.score > topicScoreThreshhold))
   );

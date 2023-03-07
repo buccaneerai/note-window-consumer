@@ -18,6 +18,7 @@ describe('sendWordsToTopicModel', () => {
       }])),
     };
     const params = {
+      endpointName: 'huggingface-pytorch-inference-2023-03-01-04-38-47-018',
       client: sinon.stub().returns({
         invokeEndpoint: sinon.stub().returns({
           promise: sinon.stub().returns([fakeResponse])
@@ -26,7 +27,11 @@ describe('sendWordsToTopicModel', () => {
     };
     const actual$ = sendWordsToTopicModel(params)('foo bar.');
     const expected$ = m.cold('(0|)', [
-      [{label: 'F-HpiQuality-text', score: 0.8250104188919067}]
+      [{
+        label: 'F-HpiQuality-text',
+        score: 0.8250104188919067,
+        modelVersion: params.endpointName,
+      }]
     ]);
     m.expect(actual$).toBeObservable(expected$);
   }));

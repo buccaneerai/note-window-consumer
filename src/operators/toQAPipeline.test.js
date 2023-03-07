@@ -32,6 +32,9 @@ describe('toQAPipeline', () => {
       noteWindowId: 'mynotewindow',
       pipelineId: 'mypipeline',
       _gql: sinon.stub().returns({
+        updateNoteWindow: sinon.stub().returns(
+          m.cold('(0|)', [{updateNoteWindow: 'foo'}])
+        ),
         findFindingAttributes: sinon.stub().returns(m.cold(
           '-(0|)',
           [{
