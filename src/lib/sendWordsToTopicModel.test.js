@@ -19,14 +19,14 @@ describe('sendWordsToTopicModel', () => {
     };
     const params = {
       endpointName: 'huggingface-pytorch-inference-2023-03-01-04-38-47-018',
-      client: sinon.stub().returns({
+      client: sinon.stub().returns(m.cold('-(0|)', [{
         invokeEndpoint: sinon.stub().returns({
           promise: sinon.stub().returns([fakeResponse])
         })
-      })
+      }]))
     };
     const actual$ = sendWordsToTopicModel(params)('foo bar.');
-    const expected$ = m.cold('(0|)', [
+    const expected$ = m.cold('-(0|)', [
       [{
         label: 'F-HpiQuality-text',
         score: 0.8250104188919067,
