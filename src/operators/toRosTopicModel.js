@@ -1,4 +1,5 @@
-const { map, mergeMap, toArray, catchError } = require('rxjs/operators');
+const { of } = require('rxjs');
+const { map, mergeMap, toArray, catchError, filter } = require('rxjs/operators');
 const logger = require('@buccaneerai/logging-utils');
 
 const sendWordsToTopicModel = require('../lib/sendWordsToTopicModel');
@@ -130,6 +131,7 @@ const toRosTopicModel = ({
         return (acc ? `${acc} ${w.text}` : w.text);
       });
     }),
+    filter((f) => f && f.length),
     mergeMap(_sendWordsToTopicModel({
       endpointName,
       returnAllScores: true,
@@ -143,6 +145,7 @@ const toRosTopicModel = ({
     toArray(),
     catchError((error) => {
       _logger.error(error.toJSON ? error.toJSON().message : error);
+      return of({});
     }),
     map((predictions) => {
       return predictions.filter((f) => f.findingCode);

@@ -13,8 +13,7 @@ const updateWorkStatus = require('./updateWorkStatus');
 
 // LEAVING IN FOR TESTING PURPOSES
 // eslint-disable-next-line
-// const ORIGINAL_TEXT = "Good morning [NAME]. What brings you in today? \
-// Hello, I think I have a really bad sore throat.  Also my head hurts really bad."
+// const ORIGINAL_TEXT = "I have a headache"
 //
 // let WORDS = ORIGINAL_TEXT.split(' ');
 // WORDS = WORDS.map((w) => {
