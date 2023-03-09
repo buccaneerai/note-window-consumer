@@ -105,7 +105,7 @@ const sendWordsToTopicModel = ({
 
 // const prediction$ = sendWordsToTopicModel({
 //   endpointName: 'huggingface-pytorch-inference-2023-03-08-19-26-49-250',
-// })('I had to have a doctor put their finger in my butt yesterday');
+// })('I have a headache');
 //
 // prediction$.subscribe(d => console.log(d));
 
