@@ -8,6 +8,7 @@ const logger = require('@buccaneerai/logging-utils');
 // const toSpacyModel = require('./toSpacyModel');
 
 const toMedicalComprehend = require('./toMedicalComprehend');
+const toRosTopicModel = require('./toRosTopicModel');
 
 const errors = {
   invalidWords: () => new Error('params.words must be an array'),
@@ -24,6 +25,17 @@ const pipelines = {
     },
     operator: toMedicalComprehend,
   },
+  rosTopicModel: {
+    options: ({ runId, noteWindowId, version='0-0', id='ros-topic-model' }) => {
+      return {
+        runId,
+        noteWindowId,
+        pipelineId: `${id}-${version}`,
+        endpointName: 'huggingface-pytorch-inference-2023-03-08-19-26-49-250'
+      };
+    },
+    operator: toRosTopicModel,
+  }
   // infoRetrieval: {
   //   options: () => ({
   //     graphqlUrl: process.env.GRAPHQL_URL,

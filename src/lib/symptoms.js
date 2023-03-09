@@ -29,6 +29,10 @@ class Symptoms {
     return bodySystem;
   }
 
+  find(code) {
+    return this.symptoms.find((s) => s.code === code);
+  }
+
   cacheBodySystems() {
     const _this = this;
     this.symptoms.forEach((s) => {
@@ -135,9 +139,6 @@ symptoms.insert({
     "name":"fever",
     "sctid": "386661006",
     "bodySystem": "constitutional",
-    "patterns": "[[{\"LEMMA\":\"fev\"}],[{\"LOWER\":{\"IN\":[\"run\",\"running\",\"have\",\"had\"]}},{\"OP\":\"?\"},{\"LOWER\":\"temperature\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.080Z",
-    "timeUpdated": "2022-05-07T21:21:44.080Z"
   });
 
 symptoms.insert({
@@ -159,9 +160,6 @@ symptoms.insert({
     "name":"tiredness",
     "sctid": "84229001",
     "bodySystem": "constitutional",
-    "patterns": "[[{\"LEMMA\":\"tire\"}],[{\"LEMMA\":\"fatig\"}],[{\"LOWER\":{\"IN\":[\"weariness\",\"weary\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.093Z",
-    "timeUpdated": "2022-05-07T21:21:44.093Z"
   });
 
 symptoms.insert({
@@ -224,9 +222,6 @@ symptoms.insert({
     "name":"swollen lymph gland",
     "sctid": "30746006",
     "bodySystem": "lymphatic",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"swelling\",\"swollen\",\"inflamed\",\"inflammation\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"gland\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.100Z",
-    "timeUpdated": "2022-05-07T21:21:44.100Z"
   });
 
 symptoms.insert({
@@ -247,9 +242,6 @@ symptoms.insert({
     "name":"excessive thirst",
     "sctid": "17173007",
     "bodySystem": "constitutional",
-    "patterns": "[[{\"LEMMA\":\"thirst\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.106Z",
-    "timeUpdated": "2022-05-07T21:21:44.106Z"
   });
 
 symptoms.insert({
@@ -262,9 +254,6 @@ symptoms.insert({
     "name":"chills",
     "sctid": "43724002",
     "bodySystem": "constitutional",
-    "patterns": "[[{\"LEMMA\":\"chill\"}],[{\"LEMMA\":\"shiver\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.114Z",
-    "timeUpdated": "2022-05-07T21:21:44.114Z"
   });
 
 symptoms.insert({
@@ -351,9 +340,6 @@ symptoms.insert({
     "name":"easy bruising",
     "sctid": "424131007",
     "bodySystem": "constitutional",
-    "patterns": "[[{\"LEMMA\":\"bruis\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.124Z",
-    "timeUpdated": "2022-05-07T21:21:44.124Z"
   });
 
 symptoms.insert({
@@ -411,14 +397,11 @@ symptoms.insert({
     "name":"loss of consciousness",
     "sctid": "419045004",
     "bodySystem": "constitutional",
-    "patterns": "[[{\"LEMMA\":\"los\"},{\"LEMMA\":\"conscious\"}],[{\"LOWER\":{\"IN\":[\"blacked\",\"passed\"]}},{\"LOWER\":\"out\"}],[{\"LEMMA\":\"faint\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.131Z",
-    "timeUpdated": "2022-05-07T21:21:44.131Z"
   });
 
 symptoms.insert({
     "_id": "6276e2e89573c62623310b1e",
-    "code": "VISION",
+    "code": "VISION_FIELD_EFFECT",
     "codes": [
       "118235002",
       "12772003",
@@ -500,18 +483,104 @@ symptoms.insert({
       "83275001",
       "95677002"
     ],
-    "name":"blurred vision",
-    "sctid": "246636008",
+    "name":"vision field affect",
+    "sctid": "12184005",
     "bodySystem": "eyes",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"blur\",\"distort\",\"hazy\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"vision\",\"eyesight\",\"seeing\",\"sight\",\"eyes\"]}}],[{\"LOWER\":{\"IN\":[\"vision\",\"eyesight\",\"seeing\",\"sight\",\"eyes\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"blur\",\"distort\",\"hazy\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.150Z",
-    "timeUpdated": "2022-05-07T21:21:44.150Z"
   });
+
+  symptoms.insert({
+      "_id": "6276e2e89573c62624310b1e",
+      "code": "BLURRED_VISION",
+      "codes": [
+        "246636008",
+        "12772003",
+        "144008",
+        "193722001",
+        "193745007",
+        "225581002",
+        "23289000",
+        "246635007",
+        "246636008",
+        "246638009",
+        "246658005",
+        "246663009",
+        "246674000",
+        "246675004",
+        "24982008",
+        "251753003",
+        "260247008",
+        "260269001",
+        "260270000",
+        "260271001",
+        "260272008",
+        "260273003",
+        "260274009",
+        "260275005",
+        "260276006",
+        "260277002",
+        "260278007",
+        "260279004",
+        "260281002",
+        "260282009",
+        "260283004",
+        "260284005",
+        "260285006",
+        "260286007",
+        "260287003",
+        "260288008",
+        "260289000",
+        "260290009",
+        "274571007",
+        "301978000",
+        "301979008",
+        "313165001",
+        "31342001",
+        "361122008",
+        "367469000",
+        "38950008",
+        "397540003",
+        "397685007",
+        "404183005",
+        "419152000",
+        "419268000",
+        "419329009",
+        "419607004",
+        "419689003",
+        "420990001",
+        "421238007",
+        "421293001",
+        "422417001",
+        "422497000",
+        "422672006",
+        "422882009",
+        "423059004",
+        "423364005",
+        "423423004",
+        "423635005",
+        "423743009",
+        "423800006",
+        "423862000",
+        "424173004",
+        "424192002",
+        "424703005",
+        "45089002",
+        "50446000",
+        "678711000119109",
+        "7973008",
+        "827066007",
+        "830128004",
+        "83275001",
+        "95677002"
+      ],
+      "name":"blurred vision",
+      "sctid": "246636008",
+      "bodySystem": "eyes",
+    });
 
 
 symptoms.insert({
-    "_id": "6276e2e89573c62623310b20",
-    "code": "EYES",
+    "_id": "6276e2e89583c62623310b20",
+    "code": "EYE_PAIN",
     "codes": [
       "103260005",
       "103261009",
@@ -566,13 +635,72 @@ symptoms.insert({
       "70323002",
       "838296001"
     ],
-    "name":"eye problems",
-    "sctid": "409668002",
+    "name":"eye pain",
+    "sctid": "41652007",
     "bodySystem": "eyes",
-    "patterns": "[[{\"LEMMA\":\"sens\"},{\"LOWER\":\"to\"},{\"LOWER\":{\"IN\":[\"light\",\"sunlight\",\"bright\"]}}],[{\"LOWER\":{\"IN\":[\"light\"]}},{\"LEMMA\":\"bother\"}],[{\"LOWER\":\"light\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"hurt\",\"hurts\",\"sensitivity\",\"discomfort\"]}}],[{\"LOWER\":{\"IN\":[\"hurt\",\"hurts\",\"sensitivity\",\"discomfort\"]}},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"light\",\"bright\",\"sunlight\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.165Z",
-    "timeUpdated": "2022-05-07T21:21:44.165Z"
   });
+
+  symptoms.insert({
+      "_id": "6276e2e89573c62623310b20",
+      "code": "PHOTOPHOBIA",
+      "codes": [
+        "103260005",
+        "103261009",
+        "103264001",
+        "103268003",
+        "1156411007",
+        "12241791000119109",
+        "15747281000119104",
+        "15936021000119103",
+        "16059031000119103",
+        "16059191000119103",
+        "16227811000119102",
+        "162290004",
+        "16442221000119107",
+        "173544001",
+        "174486004",
+        "225581002",
+        "246622003",
+        "246626000",
+        "246694009",
+        "246700003",
+        "246701004",
+        "246702006",
+        "246846008",
+        "246923005",
+        "247933005",
+        "247934004",
+        "247936002",
+        "248066009",
+        "249936006",
+        "267041004",
+        "284691000",
+        "300204001",
+        "300205000",
+        "343121000119104",
+        "344731000119103",
+        "344741000119107",
+        "344961000119109",
+        "346631000119103",
+        "346971000119106",
+        "346991000119107",
+        "401007007",
+        "401010000",
+        "418008001",
+        "451481000124103",
+        "49036005",
+        "55758001",
+        "63342001",
+        "677991000119104",
+        "678701000119106",
+        "678911000119107",
+        "70323002",
+        "838296001"
+      ],
+      "name":"eye pain",
+      "sctid": "409668002",
+      "bodySystem": "photophobia",
+    });
 
 symptoms.insert({
     "_id": "6276e2e89573c62623310b21",
@@ -588,9 +716,6 @@ symptoms.insert({
     "name":"sore throat",
     "sctid": "162397003",
     "bodySystem": "ent",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"hurts\",\"hurting\",\"sore\",\"soreness\",\"discomfort\",\"uncomfortable\",\"swollen\",\"ache\",\"aches\",\"aching\",\"achy\",\"pain\",\"painful\",\"scratchy\",\"scratchiness\"]}},{\"OP\":\"?\"},{\"LOWER\":\"throat\"}],[{\"LOWER\":\"throat\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"hurts\",\"hurting\",\"sore\",\"soreness\",\"discomfort\",\"uncomfortable\",\"swollen\",\"ache\",\"aches\",\"aching\",\"pain\",\"painful\",\"scratchy\",\"scratchiness\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.174Z",
-    "timeUpdated": "2022-05-07T21:21:44.174Z"
   });
 
 symptoms.insert({
@@ -610,15 +735,13 @@ symptoms.insert({
     "name":"rhinorrhea",
     "sctid": "64531003",
     "bodySystem": "ent",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"drippy\",\"dripping\",\"running\",\"runny\"]}},{\"LOWER\":\"nose\"}],[{\"LOWER\":\"nasal\"},{\"LOWER\":\"discharge\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.185Z",
-    "timeUpdated": "2022-05-07T21:21:44.185Z"
   });
 
 symptoms.insert({
     "_id": "6276e2e89573c62623310b23",
     "code": "HEARING_LOSS",
     "codes": [
+      "15188001",
       "103276001",
       "1088891000119106",
       "118230007",
@@ -686,9 +809,6 @@ symptoms.insert({
     "name":"hearing loss",
     "sctid": "15188001",
     "bodySystem": "ent",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"trouble\",\"loss\",\"difficulty\",\"worse\",\"worsening\",\"muffled\",\"distorted\",\"decline\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"hear\",\"hearing\"]}}],[{\"LOWER\":{\"IN\":[\"hear\",\"hearing\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"trouble\",\"loss\",\"difficulty\",\"worse\",\"worsening\",\"muffled\",\"distorted\",\"decline\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.193Z",
-    "timeUpdated": "2022-05-07T21:21:44.193Z"
   });
 
 symptoms.insert({
@@ -760,9 +880,6 @@ symptoms.insert({
     "name":"voice change",
     "sctid": "274657005",
     "bodySystem": "ent",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"change\",\"changes\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"voice\",\"speak\",\"talk\"]}}],[{\"LOWER\":{\"IN\":[\"difficult\",\"difficulty\",\"hard\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"speak\",\"talk\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.201Z",
-    "timeUpdated": "2022-05-07T21:21:44.201Z"
   });
 
 symptoms.insert({
@@ -882,14 +999,11 @@ symptoms.insert({
     "name":"sinus congestion",
     "sctid": "82297005",
     "bodySystem": "ent",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"stuffy\",\"congested\",\"congestion\"]}},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"nose\",\"nasal\"]}}],[{\"LOWER\":{\"IN\":[\"nasal\",\"sinus\"]}},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"congestion\",\"stuffy\",\"congested\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.207Z",
-    "timeUpdated": "2022-05-07T21:21:44.207Z"
   });
 
 symptoms.insert({
     "_id": "6276e2e89573c62623310b26",
-    "code": "BREAST_CONDITION",
+    "code": "BREAST_SKIN_CHANGE",
     "codes": [
       "102888000",
       "102889008",
@@ -937,18 +1051,27 @@ symptoms.insert({
       "890400001",
       "89164003"
     ],
-    "name":"breast condition",
+    "name":"breast skin change",
     "sctid": "115951000119105",
     "bodySystem": "breasts",
-    "patterns": "[[{\"LOWER\":\"breast\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":\"skin\"}],[{\"LOWER\":\"skin\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":\"breast\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.212Z",
-    "timeUpdated": "2022-05-07T21:21:44.212Z"
   });
+
+  symptoms.insert({
+      "_id": "6276e2e89574c62623310b26",
+      "code": "BREAST_LUMP",
+      "codes": [
+        "89164003"
+      ],
+      "name":"breast lump",
+      "sctid": "89164003",
+      "bodySystem": "breasts",
+    });
 
 symptoms.insert({
     "_id": "6276e2e89573c62623310b28",
     "code": "CHEST_DISCOMFORT",
     "codes": [
+      "279084009",
       "10000006",
       "102587001",
       "102588006",
@@ -1002,9 +1125,6 @@ symptoms.insert({
     "name":"chest discomfort",
     "sctid": "279084009",
     "bodySystem": "cardiovascular",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"discomfort\",\"uncomfortable\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":\"chest\"}],[{\"LOWER\":\"chest\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"discomfort\",\"uncomfortable\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.223Z",
-    "timeUpdated": "2022-05-07T21:21:44.223Z"
   });
 
 symptoms.insert({
@@ -1016,9 +1136,6 @@ symptoms.insert({
     "name":"chest tightness",
     "sctid": "23924001",
     "bodySystem": "cardiovascular",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"tight\",\"tightness\",\"pressure\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":\"chest\"}],[{\"LOWER\":\"chest\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"tight\",\"tightness\",\"pressure\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.227Z",
-    "timeUpdated": "2022-05-07T21:21:44.227Z"
   });
 
 symptoms.insert({
@@ -1062,9 +1179,6 @@ symptoms.insert({
     "name": "chest pain",
     "sctid": "29857009",
     "bodySystem": "cardiovascular",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"pain\",\"painful\",\"ache\",\"aching\",\"sore\",\"soreness\",\"hurts\",\"hurting\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":\"chest\"}],[{\"LOWER\":\"chest\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"pain\",\"painful\",\"ache\",\"aching\",\"sore\",\"soreness\",\"hurts\",\"hurting\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.233Z",
-    "timeUpdated": "2022-05-07T21:21:44.233Z"
 });
 
 symptoms.insert({
@@ -1123,9 +1237,6 @@ symptoms.insert({
     "name": "irregular heartbeat",
     "sctid": "361137007",
     "bodySystem": "cardiovascular",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"irregular\",\"unusual\",\"abnormal\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":\"heartbeat\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.242Z",
-    "timeUpdated": "2022-05-07T21:21:44.242Z"
 });
 
 symptoms.insert({
@@ -1137,9 +1248,6 @@ symptoms.insert({
     "name": "palpitations",
     "sctid": "80313002",
     "bodySystem": "cardiovascular",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"heart\",\"heartbeat\",\"chest\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"racing\",\"fast\",\"pounding\",\"fluttering\",\"rapid\"]}}],[{\"LOWER\":{\"IN\":[\"racing\",\"fast\",\"pounding\",\"fluttering\",\"rapid\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"heart\",\"heartbeat\",\"chest\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.248Z",
-    "timeUpdated": "2022-05-07T21:21:44.248Z"
 });
 
 symptoms.insert({
@@ -1212,9 +1320,6 @@ symptoms.insert({
     "name": "cough",
     "sctid": "49727002",
     "bodySystem": "respiratory",
-    "patterns": "[[{\"LEMMA\":\"cough\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.253Z",
-    "timeUpdated": "2022-05-07T21:21:44.253Z"
 });
 
 symptoms.insert({
@@ -1233,9 +1338,6 @@ symptoms.insert({
     "name": "wheezing",
     "sctid": "56018004",
     "bodySystem": "respiratory",
-    "patterns": "[[{\"LEMMA\":\"wheez\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.259Z",
-    "timeUpdated": "2022-05-07T21:21:44.259Z"
 });
 
 symptoms.insert({
@@ -1306,9 +1408,6 @@ symptoms.insert({
     "name": "difficulty breathing",
     "sctid": "230145002",
     "bodySystem": "respiratory",
-    "patterns": "[[{\"LEMMA\":\"difficult\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"breath\"}],[{\"LEMMA\":\"breath\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"difficult\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.263Z",
-    "timeUpdated": "2022-05-07T21:21:44.263Z"
 });
 
 symptoms.insert({
@@ -1368,9 +1467,6 @@ symptoms.insert({
     "name": "dyspnea",
     "sctid": "267036007",
     "bodySystem": "respiratory",
-    "patterns": "[[{\"LOWER\":\"dypsnea\"}],[{\"LEMMA\":\"short\"},{\"OP\":\"?\"},{\"LEMMA\":\"breath\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.268Z",
-    "timeUpdated": "2022-05-07T21:21:44.268Z"
 });
 
 symptoms.insert({
@@ -1440,9 +1536,6 @@ symptoms.insert({
     "name": "rash",
     "sctid": "271807003",
     "bodySystem": "integumentary",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"rash\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.273Z",
-    "timeUpdated": "2022-05-07T21:21:44.273Z"
 });
 
 symptoms.insert({
@@ -1497,9 +1590,6 @@ symptoms.insert({
     "name": "changes to moles",
     "sctid": null,
     "bodySystem": "integumentary",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"change\",\"changes\",\"different\",\"difference\",\"differences\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"mole\"}],[{\"LEMMA\":\"mole\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"change\",\"changes\",\"different\",\"difference\",\"differences\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.281Z",
-    "timeUpdated": "2022-05-07T21:21:44.281Z"
 });
 
 symptoms.insert({
@@ -1536,9 +1626,6 @@ symptoms.insert({
     "name": "changes to skin",
     "sctid": "170859004",
     "bodySystem": "integumentary",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"change\",\"changes\",\"different\",\"difference\",\"differences\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"skin\"}],[{\"LEMMA\":\"skin\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"change\",\"changes\",\"different\",\"difference\",\"differences\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.287Z",
-    "timeUpdated": "2022-05-07T21:21:44.287Z"
 });
 
 symptoms.insert({
@@ -1599,9 +1686,6 @@ symptoms.insert({
     "name": "changes to nails",
     "sctid": "416596008",
     "bodySystem": "integumentary",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"change\",\"changes\",\"different\",\"difference\",\"differences\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"nail\"}],[{\"LEMMA\":\"nail\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"change\",\"changes\",\"different\",\"difference\",\"differences\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.291Z",
-    "timeUpdated": "2022-05-07T21:21:44.291Z"
 });
 
 symptoms.insert({
@@ -1693,9 +1777,6 @@ symptoms.insert({
     "name": "changes to hair",
     "sctid": null,
     "bodySystem": "integumentary",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"change\",\"changes\",\"different\",\"difference\",\"differences\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"hair\"}],[{\"LEMMA\":\"hair\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"change\",\"changes\",\"different\",\"difference\",\"differences\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.296Z",
-    "timeUpdated": "2022-05-07T21:21:44.296Z"
 });
 
 symptoms.insert({
@@ -1767,9 +1848,6 @@ symptoms.insert({
     "name": "headache",
     "sctid": "25064002",
     "bodySystem": "neurological",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"headache\",\"headaches\"]}}],[{\"LOWER\":{\"IN\":[\"head\",\"forehead\",\"headache\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"pain\",\"ache\",\"aching\",\"sore\",\"soreness\",\"throbbing\",\"hurts\",\"hurting\"]}}],[{\"LOWER\":{\"IN\":[\"pain\",\"ache\",\"aching\",\"sore\",\"soreness\",\"throbbing\",\"hurts\",\"hurting\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"head\",\"forehead\",\"headache\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.301Z",
-    "timeUpdated": "2022-05-07T21:21:44.301Z"
 });
 
 symptoms.insert({
@@ -1809,9 +1887,6 @@ symptoms.insert({
     "name": "numbness",
     "sctid": "44077006",
     "bodySystem": "neurological",
-    "patterns": "[[{\"LEMMA\":\"numb\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.305Z",
-    "timeUpdated": "2022-05-07T21:21:44.305Z"
 });
 
 symptoms.insert({
@@ -1887,9 +1962,6 @@ symptoms.insert({
     "name": "weakness",
     "sctid": "13791008",
     "bodySystem": "neurological",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"weak\",\"weakness\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.309Z",
-    "timeUpdated": "2022-05-07T21:21:44.309Z"
 });
 
 symptoms.insert({
@@ -1967,9 +2039,6 @@ symptoms.insert({
     "name": "vomiting",
     "sctid": "422400008",
     "bodySystem": "gastrointestinal",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"vomit\",\"barf\",\"hurl\",\"puke\"]}}], [{\"LEMMA\": \"throw\"}, {\"LOWER\": \"up\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.314Z",
-    "timeUpdated": "2022-05-22T17:53:55.250Z"
 });
 
 symptoms.insert({
@@ -2023,9 +2092,6 @@ symptoms.insert({
     "name": "nausea",
     "sctid": "422587007",
     "bodySystem": "gastrointestinal",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"nauseous\",\"nausea\",\"stomachsick\",\"woozy\"]}}],[{\"LOWER\":\"stomach\"},{\"LOWER\":\"sick\"}],[{\"LOWER\":{\"IN\":[\"sick\",\"upset\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"stomach\",\"belly\",\"tummy\"]}}], [{\"LEMMA\": \"naus\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.319Z",
-    "timeUpdated": "2022-05-22T17:55:03.438Z"
 });
 
 symptoms.insert({
@@ -2083,9 +2149,6 @@ symptoms.insert({
     "name": "abdominal pain",
     "sctid": "21522001",
     "bodySystem": "gastrointestinal",
-    "patterns": "[[{\"LOWER\":\"bellyache\"}],[{\"LOWER\":{\"IN\":[\"pain\",\"ache\",\"aching\",\"sore\",\"soreness\",\"hurt\",\"hurting\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"abdomen\",\"belly\",\"tummy\",\"gut\",\"stomach\"]}}],[{\"LOWER\":{\"IN\":[\"abdomen\",\"belly\",\"tummy\",\"gut\",\"stomach\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"pain\",\"ache\",\"aching\",\"sore\",\"soreness\",\"hurt\",\"hurting\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.326Z",
-    "timeUpdated": "2022-05-07T21:21:44.326Z"
 });
 
 symptoms.insert({
@@ -2102,9 +2165,6 @@ symptoms.insert({
     "name": "heartburn",
     "sctid": "16331000",
     "bodySystem": "gastrointestinal",
-    "patterns": "[[{\"LOWER\":\"heartburn\"}],[{\"LOWER\":\"heart\"},{\"LOWER\":\"burn\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.332Z",
-    "timeUpdated": "2022-05-07T21:21:44.332Z"
 });
 
 symptoms.insert({
@@ -2169,9 +2229,6 @@ symptoms.insert({
     "name": "diarrhea",
     "sctid": "62315008",
     "bodySystem": "gastrointestinal",
-    "timeCreated": "2022-05-07T21:21:44.338Z",
-    "timeUpdated": "2022-05-22T18:17:49.558Z",
-    "patterns": "[]"
 });
 
 symptoms.insert({
@@ -2229,8 +2286,6 @@ symptoms.insert({
     "name": "constipation",
     "sctid": "14760008",
     "bodySystem": "gastrointestinal",
-    "timeCreated": "2022-05-07T21:21:44.343Z",
-    "timeUpdated": "2022-05-07T21:21:44.343Z"
 });
 
 symptoms.insert({
@@ -2243,8 +2298,6 @@ symptoms.insert({
     "name": "bloody stool",
     "sctid": "405729008",
     "bodySystem": "gastrointestinal",
-    "timeCreated": "2022-05-07T21:21:44.348Z",
-    "timeUpdated": "2022-05-07T21:21:44.348Z"
 });
 
 symptoms.insert({
@@ -2327,9 +2380,6 @@ symptoms.insert({
     "name": "joint pain",
     "sctid": "57676002",
     "bodySystem": "musculoskeletal",
-    "patterns": "[[{\"LOWER\":\"joint\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"achy\",\"pain\",\"painful\",\"aching\",\"ache\",\"sore\",\"soreness\",\"hurting\",\"hurts\"]}}],[{\"LOWER\":{\"IN\":[\"achy\",\"pain\",\"painful\",\"aching\",\"ache\",\"sore\",\"soreness\",\"hurting\",\"hurts\"]}},{\"LEMMA\":\"joint\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.354Z",
-    "timeUpdated": "2022-05-07T21:21:44.354Z"
 });
 
 symptoms.insert({
@@ -2343,9 +2393,6 @@ symptoms.insert({
     "name": "swollen joint",
     "sctid": "271771009",
     "bodySystem": "musculoskeletal",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"swelling\",\"swollen\",\"inflamed\",\"inflammation\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"joint\"}],[{\"LEMMA\":\"joint\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"swelling\",\"swollen\",\"inflamed\",\"inflammation\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.359Z",
-    "timeUpdated": "2022-05-07T21:21:44.359Z"
 });
 
 symptoms.insert({
@@ -2401,9 +2448,6 @@ symptoms.insert({
     "name": "muscle pain",
     "sctid": "68962001",
     "bodySystem": "musculoskeletal",
-    "patterns": "[[{\"LEMMA\":\"musc\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"achy\",\"pain\",\"painful\",\"aching\",\"ache\",\"sore\",\"soreness\",\"hurting\",\"hurts\"]}}],[{\"LOWER\":{\"IN\":[\"achy\",\"pain\",\"painful\",\"aching\",\"ache\",\"sore\",\"soreness\",\"hurting\",\"hurts\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"musc\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.367Z",
-    "timeUpdated": "2022-05-07T21:21:44.367Z"
 });
 
 symptoms.insert({
@@ -2463,9 +2507,6 @@ symptoms.insert({
     "name": "muscle weakness",
     "sctid": "26544005",
     "bodySystem": "musculoskeletal",
-    "patterns": "[[{\"LEMMA\":\"musc\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"weak\"}],[{\"LEMMA\":\"weak\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"musc\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.372Z",
-    "timeUpdated": "2022-05-07T21:21:44.372Z"
 });
 
 symptoms.insert({
@@ -2496,9 +2537,6 @@ symptoms.insert({
     "name": "difficulty sleeping",
     "sctid": "301345002",
     "bodySystem": "psychiatric",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"trouble\",\"difficulty\",\"hard\",\"difficulties\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":\"sleep\"}],[{\"LOWER\":\"insomnia\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.376Z",
-    "timeUpdated": "2022-05-07T21:21:44.376Z"
 });
 
 symptoms.insert({
@@ -2514,9 +2552,6 @@ symptoms.insert({
     "name": "frequent awakening",
     "sctid": "423052008",
     "bodySystem": "psychiatric",
-    "patterns": "[[{\"LEMMA\":\"wak\"},{\"OP\":\"?\"},{\"LEMMA\":\"up\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.380Z",
-    "timeUpdated": "2022-05-07T21:21:44.380Z"
 });
 
 symptoms.insert({
@@ -2593,9 +2628,6 @@ symptoms.insert({
     "name": "anxiety",
     "sctid": "48694002",
     "bodySystem": "psychiatric",
-    "patterns": "[[{\"LEMMA\":\"worry\"}],[{\"LEMMA\":\"feel\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"worried\",\"anxious\",\"anxiety\",\"stress\",\"stressed\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.386Z",
-    "timeUpdated": "2022-05-07T21:21:44.386Z"
 });
 
 symptoms.insert({
@@ -2680,9 +2712,6 @@ symptoms.insert({
     "name": "depressed mood",
     "sctid": "366979004",
     "bodySystem": "psychiatric",
-    "patterns": "[[{\"LEMMA\":\"feel\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"sad\",\"depressed\",\"down\",\"blue\",\"despondent\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.390Z",
-    "timeUpdated": "2022-05-07T21:21:44.390Z"
 });
 
 symptoms.insert({
@@ -2704,9 +2733,6 @@ symptoms.insert({
     "name": "loss of motivation",
     "sctid": "277521002",
     "bodySystem": "psychiatric",
-    "patterns": "[[{\"LEMMA\":\"feel\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"demotivated\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.395Z",
-    "timeUpdated": "2022-05-07T21:21:44.395Z"
 });
 
 symptoms.insert({
@@ -2727,9 +2753,6 @@ symptoms.insert({
     "name": "thoughts of self harm",
     "sctid": "102911000",
     "bodySystem": "psychiatric",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"thought\",\"think\",\"want\",\"imagin\",\"feel\"]}},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"suicide\",\"kill\",\"hurt\",\"cut\",\"die\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.400Z",
-    "timeUpdated": "2022-05-07T21:21:44.400Z"
 });
 
 symptoms.insert({
@@ -2769,9 +2792,6 @@ symptoms.insert({
     "name": "difficulty urinating",
     "sctid": "102835006",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"difficult\",\"hard\",\"pain\",\"strain\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"urin\",\"pee\"]}}],[{\"LOWER\":\"when\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"urin\",\"pee\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.406Z",
-    "timeUpdated": "2022-05-07T21:21:44.406Z"
 });
 
 symptoms.insert({
@@ -2829,9 +2849,6 @@ symptoms.insert({
     "name": "erectile dysfunction",
     "sctid": "860914002",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"erection\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.411Z",
-    "timeUpdated": "2022-05-07T21:21:44.411Z"
 });
 
 symptoms.insert({
@@ -2932,9 +2949,6 @@ symptoms.insert({
     "name": "incomplete emptying of bladder",
     "sctid": "249288007",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LEMMA\":\"empty\"},{\"OP\":\"?\"},{\"LOWER\":\"bladder\"}],[{\"LOWER\":\"bladder\"},{\"OP\":\"?\"},{\"LEMMA\":\"empty\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.417Z",
-    "timeUpdated": "2022-05-07T21:21:44.417Z"
 });
 
 symptoms.insert({
@@ -2955,9 +2969,6 @@ symptoms.insert({
     "name": "waking up to urinate",
     "sctid": "139394000",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"wak\",\"awaken\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"urin\",\"pee\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.423Z",
-    "timeUpdated": "2022-05-07T21:21:44.423Z"
 });
 
 symptoms.insert({
@@ -3045,9 +3056,6 @@ symptoms.insert({
     "name": "testicular lump",
     "sctid": "87860000",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LOWER\":{\"IN\":[\"lump\",\"mass\",\"bulge\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"testicles\",\"testicles\",\"scrotum\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.429Z",
-    "timeUpdated": "2022-05-07T21:21:44.429Z"
 });
 
 symptoms.insert({
@@ -3066,9 +3074,6 @@ symptoms.insert({
     "name": "testicular pain",
     "sctid": null,
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"pain\",\"ach\",\"sore\",\"throb\",\"hurt\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"testicles\",\"testicles\",\"scrotum\",\"ball\"]}}],[{\"LEMMA\":{\"IN\":[\"testic\",\"scrotum\",\"ball\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"pain\",\"ach\",\"sore\",\"throb\",\"hurt\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.434Z",
-    "timeUpdated": "2022-05-07T21:21:44.434Z"
 });
 
 symptoms.insert({
@@ -3103,9 +3108,6 @@ symptoms.insert({
     "name": "postmenopausal bleeding",
     "sctid": "76742009",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LOWER\":\"bleeding\"},{\"OP\":\"?\"},{\"LOWER\":\"menopause\"}]]",
-    "timeCreated": "2022-05-07T21:21:44.439Z",
-    "timeUpdated": "2022-05-07T21:21:44.439Z"
 });
 
 symptoms.insert({
@@ -3204,9 +3206,6 @@ symptoms.insert({
     "name": "painful period",
     "sctid": "289900009",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"pain\",\"ache\",\"sore\",\"hurt\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LOWER\":{\"IN\":[\"period\",\"periods\"]}}],[{\"LOWER\":{\"IN\":[\"period\",\"periods\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"pain\",\"ache\",\"sore\",\"hurt\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.444Z",
-    "timeUpdated": "2022-05-07T21:21:44.444Z"
 });
 
 symptoms.insert({
@@ -3216,9 +3215,6 @@ symptoms.insert({
     "name": "changes to period",
     "sctid": "248968007",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"change\",\"differ\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"period\",\"menstrat\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.453Z",
-    "timeUpdated": "2022-05-07T21:21:44.453Z"
 });
 
 symptoms.insert({
@@ -3319,9 +3315,6 @@ symptoms.insert({
     "name": "vaginal discharge",
     "sctid": "271939006",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"vagin\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"discharge\"]}}],[{\"LEMMA\":{\"IN\":[\"discharge\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"vagin\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.457Z",
-    "timeUpdated": "2022-05-07T21:21:44.457Z"
 });
 
 symptoms.insert({
@@ -3413,9 +3406,6 @@ symptoms.insert({
     "name": "urinary incontinence",
     "sctid": "165232002",
     "bodySystem": "genitourinary",
-    "patterns": "[[{\"LEMMA\":{\"IN\":[\"urin\",\"pee\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"leak\"]}}],[{\"LEMMA\":{\"IN\":[\"leak\"]}},{\"OP\":\"?\"},{\"OP\":\"?\"},{\"LEMMA\":{\"IN\":[\"urin\",\"pee\"]}}]]",
-    "timeCreated": "2022-05-07T21:21:44.462Z",
-    "timeUpdated": "2022-05-07T21:21:44.462Z"
   });
 
 symptoms.cacheBodySystems();
