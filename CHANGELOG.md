@@ -1,3 +1,10 @@
+# [1.1.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.5...v1.1.0-dev.6) (2023-03-09)
+
+
+### Bug Fixes
+
+* Filter empty note windows ([dba0ed1](https://github.com/buccaneerai/note-window-consumer/commit/dba0ed1cab03ea3b1fb17921f29d900f733cf05d))
+
 # [1.1.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.4...v1.1.0-dev.5) (2023-03-09)
 
 
