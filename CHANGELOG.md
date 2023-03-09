@@ -1,3 +1,10 @@
+# [1.1.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.4...v1.1.0-dev.5) (2023-03-09)
+
+
+### Features
+
+* Add ros topic model ([#43](https://github.com/buccaneerai/note-window-consumer/issues/43)) ([9c4fb97](https://github.com/buccaneerai/note-window-consumer/commit/9c4fb97b4140a588b5f7ba3791b97c6116e314ec))
+
 # [1.1.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.3...v1.1.0-dev.4) (2023-03-06)
 
 
