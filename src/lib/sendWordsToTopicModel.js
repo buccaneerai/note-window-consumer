@@ -26,7 +26,7 @@ const generateLocalCredentials = ({
   roleArn,
   roleSessionName,
   duration = 3600, // 1 hour
-  _sts = sts
+  _sts = () => new AWS.STS(),
 }) => {
   const params = {
     RoleArn: roleArn,
@@ -34,11 +34,11 @@ const generateLocalCredentials = ({
     RoleSessionName: roleSessionName,
     DurationSeconds: duration,
   };
-  const promise = _sts.assumeRoleWithWebIdentity(params).promise();
+  const promise = _sts().assumeRoleWithWebIdentity(params).promise();
   const awsCredentials$ = from(promise).pipe(
     map(response => ({
-      awsAccessKeyId: get(response, 'Credentials.AccessKeyId'),
-      awsSecretAccessKey: get(response, 'Credentials.SecretAccessKey'),
+      awsAccessKeyId: _.get(response, 'Credentials.AccessKeyId'),
+      awsSecretAccessKey: _.get(response, 'Credentials.SecretAccessKey'),
     }))
   );
   return awsCredentials$;
