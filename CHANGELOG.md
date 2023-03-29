@@ -1,3 +1,10 @@
+# [1.1.0-dev.7](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.6...v1.1.0-dev.7) (2023-03-29)
+
+
+### Features
+
+* HPI Summary ([#44](https://github.com/buccaneerai/note-window-consumer/issues/44)) ([c178b00](https://github.com/buccaneerai/note-window-consumer/commit/c178b00d56055a0dc8387f56a52aa27319dca284))
+
 # [1.1.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.5...v1.1.0-dev.6) (2023-03-09)
 
 
