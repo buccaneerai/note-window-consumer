@@ -19,7 +19,7 @@ const fetchVerifiedFinding = ({
   return gql.findVerifiedFindings({
     filter: {
       runId,
-      findingCode: "F-HpiSummary",
+      findingCode: "F-Problem",
       findingAttributeKey: "text"
     }
   }).pipe(
@@ -44,7 +44,7 @@ const toOpenAI = ({
     messages: [
         {"role": "system", "content": "You are an assistant that reads transcripts between a patient and a doctor.  Your job is to answer the following questions about the conversation as accurately as possible."},
         {"role": "user", "content": `The following is a transcript between a patient and a doctor: \`${fullText}\``},
-        {"role": "user", "content": "Without including any of the doctor's assesment or plan, write a history of the present illness without using the patient's name."}
+        {"role": "user", "content": "Write a bullet list of the problems the physician mentioned treating in the treatment plan and the action the physician will take for each."}
     ]
   })).pipe(
     map((response) => {
@@ -66,7 +66,7 @@ const mapCodeToPredictions = ({
   verifiedFinding,
 }) => {
   const prediction = {
-    findingCode: 'F-HpiSummary',
+    findingCode: 'F-Problem',
     pipelineId,
     _id: verifiedFinding._id,
     findingAttributes: [{
@@ -79,7 +79,7 @@ const mapCodeToPredictions = ({
   return [prediction];
 };
 
-const toHPISummary = ({
+const toProblems = ({
   runId,
   noteWindowId,
   pipelineId,
@@ -121,4 +121,4 @@ const toHPISummary = ({
   )
 };
 
-module.exports = toHPISummary;
+module.exports = toProblems;

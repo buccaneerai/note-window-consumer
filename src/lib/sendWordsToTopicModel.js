@@ -10,7 +10,7 @@ const errors = {
 
 const parseResponse = (modelVersion, params) => (response) => {
   const body = _.get(response, 'Body');
-  const {returnAllScores = true, topK = 0} = params;
+  const {returnAllScores = true, topK = 0, text} = params;
   const jsonStr = body.toString();
   try {
     const rawPredictions = JSON.parse(jsonStr);
@@ -23,12 +23,14 @@ const parseResponse = (modelVersion, params) => (response) => {
         return {
           labels,
           modelVersion,
+          text,
         }
       }
       return {
         label: p.label,
         score: p.score,
         modelVersion,
+        text,
       };
     });
     return of(cleanPredictions);
@@ -81,12 +83,12 @@ const sendWordsToTopicModel = ({
   returnAllScores = true,
   topK = 3,
   _client = createClient,
-} = {}) => transcriptStr => _client().pipe(
+} = {}) => text => _client().pipe(
   mergeMap(sagemaker => {
     const params = {
       // https://github.com/huggingface/notebooks/blob/main/sagemaker/10_deploy_model_from_s3/deploy_transformer_model_from_s3.ipynb
       Body: JSON.stringify({
-        inputs: transcriptStr,
+        inputs: text,
         parameters: {
           return_all_scores: returnAllScores,
         }
@@ -97,7 +99,7 @@ const sendWordsToTopicModel = ({
     };
     const promise = sagemaker.invokeEndpoint(params).promise();
     const predictions$ = from(promise).pipe(
-      mergeMap(parseResponse(endpointName, {returnAllScores, topK}))
+      mergeMap(parseResponse(endpointName, {returnAllScores, topK, text}))
     );
     return predictions$;
   })
