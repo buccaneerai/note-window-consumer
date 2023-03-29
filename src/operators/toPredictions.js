@@ -9,12 +9,24 @@ const logger = require('@buccaneerai/logging-utils');
 
 const toMedicalComprehend = require('./toMedicalComprehend');
 const toRosTopicModel = require('./toRosTopicModel');
+const toHPISummary = require('./toHPISummary');
 
 const errors = {
   invalidWords: () => new Error('params.words must be an array'),
 };
 
 const pipelines = {
+  hpiSummary: {
+    options: ({ runId, noteWindowId, version='0-0', id='hpi-summary-gpt-4' }) => {
+      return {
+        runId,
+        noteWindowId,
+        pipelineId: `${id}-${version}`,
+        model: 'gpt-4'
+      };
+    },
+    operator: toHPISummary,
+  },
   medicalComprehend: {
     options: ({ runId, noteWindowId, version='1-0', id='medical-comprehend' }) => {
       return {
@@ -35,7 +47,7 @@ const pipelines = {
       };
     },
     operator: toRosTopicModel,
-  }
+  },
   // infoRetrieval: {
   //   options: () => ({
   //     graphqlUrl: process.env.GRAPHQL_URL,

@@ -6,7 +6,7 @@ const {
   forkJoin,
   of,
 } = require('rxjs');
-const { map, mergeMap, toArray, catchError } = require('rxjs/operators');
+const { map, mergeMap, toArray, catchError, filter } = require('rxjs/operators');
 const {
   ComprehendMedicalClient,
   InferSNOMEDCTCommand,
@@ -458,6 +458,7 @@ const toMedicalComprehend = ({
         return (acc ? `${acc} ${w.text}` : w.text);
       });
     }),
+    filter((f) => f && f.length),
     mergeMap(_toAWSMedicalComprehendAPI({})),
     mergeMap(
       _updateNoteWindow({

@@ -1,3 +1,4 @@
+const pick = require('lodash/pick');
 const {concat,forkJoin,of} = require('rxjs');
 const {defaultIfEmpty,mergeMap,toArray} = require('rxjs/operators');
 const {client} = require('@buccaneerai/graphql-sdk');
@@ -16,7 +17,26 @@ const storePredictions = ({
     findingCode,
     findingAttributes,
     pipelineId,
+    _id,
   }) => {
+    // Hacky but works for now, we are going to update a single verifiedFinding
+    // instead of creating a new findingInstance and verifiedFinding. We should
+    // revisit this later to make it more robust
+    if (_id) {
+      const findingAttribute = findingAttributes[0] || {};
+      const set = pick(findingAttribute, [
+        'codeValues',
+        'stringValues',
+        'numberValues',
+        'booleanValues',
+        'categoryValues',
+        'dateValues',
+      ])
+      return gql.updateVerifiedFinding({
+        docId: _id,
+        set
+      })
+    }
     return gql.createFindingInstance({
       runId,
       noteWindowId,
@@ -35,6 +55,7 @@ const storePredictions = ({
             findingAttributeValue,
             findingAttributeScore = 0.5,
             findingAttributeDescription = '',
+            stringValues,
           } = f;
           let valuesKey = null;
           let values = [];
@@ -52,7 +73,11 @@ const storePredictions = ({
               break;
             case 'text':
               valuesKey = 'stringValues';
-              values = [findingAttributeValue];
+              if (stringValues) {
+                values = stringValues;
+              } else {
+                values = [findingAttributeValue];
+              }
               break;
             case 'bodySystem':
               valuesKey = 'stringValues';
