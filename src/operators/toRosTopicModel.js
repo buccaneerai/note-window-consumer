@@ -39,12 +39,10 @@ const mapCodeToPredictions = ({
 
     const symptom = symptoms.find(code);
     if (!symptom) {
-      console.error(`Unable to find symptom ${code}`); // eslint-disable-line
-      console.dir(e);  // eslint-disable-line
-    } else if (!symptom.sctid) {
-      console.error(`Symptom does not have a code`); // eslint-disable-line
-      console.dir(symptom); // eslint-disable-line
-      console.dir(e);  // eslint-disable-line
+      return {};
+    }
+    if (!symptom.sctid) {
+      return {};
     }
 
     // Don't include findings with low overall confidence
