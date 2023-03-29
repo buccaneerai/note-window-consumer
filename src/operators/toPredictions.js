@@ -7,15 +7,28 @@ const logger = require('@buccaneerai/logging-utils');
 // const toInfoRetrievalModel = require('../operators/toInfoRetrievalModel');
 // const toSpacyModel = require('./toSpacyModel');
 
-const toMedicalComprehend = require('./toMedicalComprehend');
-const toRosTopicModel = require('./toRosTopicModel');
+// const toMedicalComprehend = require('./toMedicalComprehend');
+const toChiefComplaint = require('./toChiefComplaint');
 const toHPISummary = require('./toHPISummary');
+const toRosTopicModel = require('./toRosTopicModel');
+const toProblems = require('./toProblems');
 
 const errors = {
   invalidWords: () => new Error('params.words must be an array'),
 };
 
 const pipelines = {
+  chiefComplaint: {
+    options: ({ runId, noteWindowId, version='0-0', id='chief-complaint-gpt-4' }) => {
+      return {
+        runId,
+        noteWindowId,
+        pipelineId: `${id}-${version}`,
+        model: 'gpt-4'
+      };
+    },
+    operator: toChiefComplaint,
+  },
   hpiSummary: {
     options: ({ runId, noteWindowId, version='0-0', id='hpi-summary-gpt-4' }) => {
       return {
@@ -26,16 +39,6 @@ const pipelines = {
       };
     },
     operator: toHPISummary,
-  },
-  medicalComprehend: {
-    options: ({ runId, noteWindowId, version='1-0', id='medical-comprehend' }) => {
-      return {
-        runId,
-        noteWindowId,
-        pipelineId: `${id}-${version}`
-      };
-    },
-    operator: toMedicalComprehend,
   },
   rosTopicModel: {
     options: ({ runId, noteWindowId, version='0-0', id='ros-topic-model' }) => {
@@ -48,6 +51,27 @@ const pipelines = {
     },
     operator: toRosTopicModel,
   },
+  problems: {
+    options: ({ runId, noteWindowId, version='0-0', id='problems-gpt-4' }) => {
+      return {
+        runId,
+        noteWindowId,
+        pipelineId: `${id}-${version}`,
+        model: 'gpt-4'
+      };
+    },
+    operator: toProblems,
+  },
+  // medicalComprehend: {
+  //   options: ({ runId, noteWindowId, version='1-0', id='medical-comprehend' }) => {
+  //     return {
+  //       runId,
+  //       noteWindowId,
+  //       pipelineId: `${id}-${version}`
+  //     };
+  //   },
+  //   operator: toMedicalComprehend,
+  // },
   // infoRetrieval: {
   //   options: () => ({
   //     graphqlUrl: process.env.GRAPHQL_URL,

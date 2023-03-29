@@ -1,10 +1,20 @@
-const { of } = require('rxjs');
+const {
+  of,
+  forkJoin,
+  from
+} = require('rxjs');
 const { map, mergeMap, toArray, catchError, filter } = require('rxjs/operators');
 const logger = require('@buccaneerai/logging-utils');
+const get = require('lodash/get');
+const omit = require('lodash/omit');
+const {Configuration, OpenAIApi} = require('openai');
 
 const sendWordsToTopicModel = require('../lib/sendWordsToTopicModel');
 
 const symptoms = require('../lib/symptoms');
+
+const openAiConf = new Configuration({apiKey: process.env.OPENAI_API_KEY});
+const openai = new OpenAIApi(openAiConf);
 
 
 const cleanDescription = (_text='') => {
@@ -23,17 +33,16 @@ const cleanDescription = (_text='') => {
 const mapCodeToPredictions = ({
   pipelineId,
 }) => ([resp]) => {
-  let chiefComplaint;
-  const {labels} = resp;
+  const {labels, text} = resp;
   const predictions = labels.map((e) => {
     const { label: code, score } = e;
 
     const symptom = symptoms.find(code);
 
     // Don't include findings with low overall confidence
-    if (score < 0.10) {
-      return {};
-    }
+    // if (score < 0.10) {
+    //   return {};
+    // }
 
     const findingCode = 'F-Symptom';
     const isAsserted = true;
@@ -54,19 +63,8 @@ const mapCodeToPredictions = ({
       findingCode,
       context,
       findingAttributes,
+      text,
     };
-    if (findingCode === 'F-Symptom' && !chiefComplaint) {
-      chiefComplaint = {
-        ...prediction,
-        findingCode: 'F-ChiefComplaint',
-        findingAttributes: [...findingAttributes, {
-          findingAttributeKey: 'text',
-          findingAttributeValue: context,
-          findingAttributeDescription: cleanDescription(findingAttributeDescription),
-          findingAttributeScore,
-        }]
-      }
-    }
     prediction.findingAttributes.push({
       findingAttributeKey: 'isAsserted',
       findingAttributeValue: isAsserted,
@@ -81,20 +79,9 @@ const mapCodeToPredictions = ({
     return prediction;
   });
 
-  // Add chief complaint if one doesnt already exist,
-  // the attributes will only insert on the mongo side
-  // if they dont already exist
-  if (chiefComplaint) {
-    predictions.push(chiefComplaint);
-  }
-
   // Return only entities we found a findingCode for and deduplicate it
   const foundCodes = [];
   const filteredPredictions = predictions.filter((p) => {
-    if (p.findingCode === 'F-ChiefComplaint') {
-      // Don't include the code from the ChiefComplaint in the de-dupe list
-      return true;
-    }
     if (p.findingCode) {
       const { findingAttributes = [] } = p;
       const [codeAttribute] = findingAttributes;
@@ -114,12 +101,74 @@ const mapCodeToPredictions = ({
   });
 };
 
+const toOpenAI = ({
+  model = 'gpt-4',
+  _logger = logger,
+  _openai = openai
+}) => ({prediction = {}}) => {
+  const { text } = prediction;
+  const code = prediction.findingAttributes.find((f) => f.findingAttributeKey === 'code');
+  const symptom = code.findingAttributeDescription
+    .replace('symptom', '')
+    .replace('(finding)', '')
+    .replace('(disorder)', '')
+    .replace('(body structure)', '')
+    .trim().toLowerCase();
+
+  return from(_openai.createChatCompletion({
+    model,
+    messages: [
+        {"role": "system", "content": "You are an assistant that reads transcripts between a patient and a doctor.  Your job is to answer the following questions about the conversation as accurately as possible."},
+        {"role": "user", "content": `The following is a transcript between a patient and a doctor: \`${text}\``},
+        {"role": "user", "content": `Does this transcript discuss the symptom "${symptom}" and does the patient assert or deny having the symptom "${symptom}`}
+    ]
+  })).pipe(
+    map((response) => {
+      const value = get(response, 'data.choices[0].message.content', '');
+      if (value.toLowerCase().includes('no,') || value.toLowerCase().includes('does not mention') || value.toLowerCase().includes('does not discuss')) {
+        return {};
+      }
+      let isAsserted = true;
+      if (value.toLowerCase().includes('does not assert or deny')) {
+        isAsserted = true;
+      } else if (value.toLowerCase().includes('asserts')) {
+        isAsserted = true;
+      } else if (value.toLowerCase().includes('denies')) {
+        isAsserted = false;
+      } else {
+        isAsserted = true;
+      };
+      const findingAttributes = prediction.findingAttributes.map((f) => {
+        const attr = {
+          ...f,
+        };
+        if (f.findingAttributeKey === 'isAsserted') {
+          attr.booleanValues = [isAsserted];
+          attr.findingAttributeValue = isAsserted;
+        }
+        return attr;
+      });
+      const resp = {
+        ...prediction,
+        findingAttributes,
+      };
+      return omit(resp, ['text']);
+    }),
+    catchError((error) => {
+      _logger.error(error.toJSON ? error.toJSON().message : error);
+      return null;
+    })
+  );
+};
+
 const toRosTopicModel = ({
   runId,
   noteWindowId,
   pipelineId,
   endpointName,
   _sendWordsToTopicModel = sendWordsToTopicModel,
+  _mapCodeToPredictions = mapCodeToPredictions,
+  _toOpenAI = toOpenAI,
   _logger = logger,
 } = {}) => words$ => {
   return words$.pipe(
@@ -137,17 +186,25 @@ const toRosTopicModel = ({
       returnAllScores: true,
       topK: 3
     })),
-    mergeMap(mapCodeToPredictions({
+    map(_mapCodeToPredictions({
       runId,
       noteWindowId,
       pipelineId,
     })),
+    mergeMap((predictions) => {
+      const gptRequests = predictions.map((prediction) => {
+        return _toOpenAI({
+          model: 'gpt-4'
+        })({prediction});
+      });
+      return forkJoin(...gptRequests);
+    }),
     toArray(),
     catchError((error) => {
       _logger.error(error.toJSON ? error.toJSON().message : error);
       return of({});
     }),
-    map((predictions) => {
+    map(([predictions]) => {
       return predictions.filter((f) => f.findingCode);
     })
   )
