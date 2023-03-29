@@ -1,3 +1,10 @@
+# [1.1.0-dev.8](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.7...v1.1.0-dev.8) (2023-03-29)
+
+
+### Features
+
+* gpt4 ([#45](https://github.com/buccaneerai/note-window-consumer/issues/45)) ([da0c2de](https://github.com/buccaneerai/note-window-consumer/commit/da0c2de46777ddfbdcd8de0441c946e3295878e1))
+
 # [1.1.0-dev.7](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.6...v1.1.0-dev.7) (2023-03-29)
 
 
