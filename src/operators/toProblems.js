@@ -49,7 +49,6 @@ const toOpenAI = ({
   })).pipe(
     map((response) => {
       const value = get(response, 'data.choices[0].message.content', '');
-      debugger;
       return {value, text, fullText, verifiedFinding};
     }),
     catchError((error) => {

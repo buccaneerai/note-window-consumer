@@ -79,7 +79,7 @@ const mapCodeToPredictions = ({
   return [prediction];
 };
 
-const toHPISummary = ({
+const toChiefComplaint = ({
   runId,
   noteWindowId,
   pipelineId,
@@ -121,4 +121,4 @@ const toHPISummary = ({
   )
 };
 
-module.exports = toHPISummary;
+module.exports = toChiefComplaint;
