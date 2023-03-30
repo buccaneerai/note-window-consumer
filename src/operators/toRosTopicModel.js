@@ -46,9 +46,9 @@ const mapCodeToPredictions = ({
     }
 
     // Don't include findings with low overall confidence
-    // if (score < 0.10) {
-    //   return {};
-    // }
+    if (score < 0.10) {
+      return {};
+    }
 
     const findingCode = 'F-Symptom';
     const isAsserted = true;
