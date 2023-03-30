@@ -1,3 +1,10 @@
+# [1.1.0-dev.11](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.10...v1.1.0-dev.11) (2023-03-30)
+
+
+### Bug Fixes
+
+* Put back score trimming ([91f78a5](https://github.com/buccaneerai/note-window-consumer/commit/91f78a588c0a6c199ad3a34a5cee71245e484159))
+
 # [1.1.0-dev.10](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.9...v1.1.0-dev.10) (2023-03-30)
 
 
