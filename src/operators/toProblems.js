@@ -1,5 +1,6 @@
 const { of, from } = require('rxjs');
 const get = require('lodash/get');
+const _map = require('lodash/map');
 const { map, mergeMap, toArray, catchError, filter } = require('rxjs/operators');
 const {Configuration, OpenAIApi} = require('openai');
 
@@ -30,6 +31,7 @@ const fetchVerifiedFinding = ({
 };
 
 const toOpenAI = ({
+  start = Date.now(),
   model = 'gpt-4',
   _openai = openai,
   _logger = logger,
@@ -38,7 +40,12 @@ const toOpenAI = ({
   if (verifiedFindings.length) {
     verifiedFinding = verifiedFindings[0]; // eslint-disable-line
   }
-  const fullText = `${verifiedFinding.stringValues[1]} ${text}`;
+  const jsonStr = verifiedFinding.stringValues[1] || '[]';
+  const strings = JSON.parse(jsonStr) || [];
+  strings.push({start, text});
+  const sortedStrings = strings.sort((a,b) => a.start - b.start);
+  const context = JSON.stringify(sortedStrings);
+  let fullText = _map(sortedStrings, 'text').join(' ');
   return from(_openai.createChatCompletion({
     model,
     messages: [
@@ -49,7 +56,7 @@ const toOpenAI = ({
   })).pipe(
     map((response) => {
       const value = get(response, 'data.choices[0].message.content', '');
-      return {value, text, fullText, verifiedFinding};
+      return {value, text, context, verifiedFinding};
     }),
     catchError((error) => {
       _logger.error(error.toJSON ? error.toJSON().message : error);
@@ -62,7 +69,7 @@ const mapCodeToPredictions = ({
   pipelineId,
 }) => ({
   value,
-  fullText,
+  context,
   verifiedFinding,
 }) => {
   const prediction = {
@@ -71,7 +78,7 @@ const mapCodeToPredictions = ({
     _id: verifiedFinding._id,
     findingAttributes: [{
       findingAttributeKey: 'text',
-      stringValues: [value, fullText],
+      stringValues: [value, context],
       findingAttributeScore: 0.5,
       pipelineId,
     }]
@@ -82,6 +89,7 @@ const mapCodeToPredictions = ({
 const toProblems = ({
   runId,
   noteWindowId,
+  start,
   pipelineId,
   model,
   _fetchVerifiedFinding = fetchVerifiedFinding,
@@ -104,6 +112,7 @@ const toProblems = ({
     mergeMap(_toOpenAI({
       runId,
       model,
+      start,
     })),
     map(mapCodeToPredictions({
       runId,

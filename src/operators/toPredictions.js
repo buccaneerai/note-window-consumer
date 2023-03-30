@@ -19,10 +19,11 @@ const errors = {
 
 const pipelines = {
   chiefComplaint: {
-    options: ({ runId, noteWindowId, version='0-0', id='chief-complaint-gpt-4' }) => {
+    options: ({ runId, noteWindowId, start, version='0-0', id='chief-complaint-gpt-4' }) => {
       return {
         runId,
         noteWindowId,
+        start,
         pipelineId: `${id}-${version}`,
         model: 'gpt-4'
       };
@@ -30,10 +31,11 @@ const pipelines = {
     operator: toChiefComplaint,
   },
   hpiSummary: {
-    options: ({ runId, noteWindowId, version='0-0', id='hpi-summary-gpt-4' }) => {
+    options: ({ runId, noteWindowId, start, version='0-0', id='hpi-summary-gpt-4' }) => {
       return {
         runId,
         noteWindowId,
+        start,
         pipelineId: `${id}-${version}`,
         model: 'gpt-4'
       };
@@ -41,10 +43,11 @@ const pipelines = {
     operator: toHPISummary,
   },
   rosTopicModel: {
-    options: ({ runId, noteWindowId, version='0-0', id='ros-topic-model' }) => {
+    options: ({ runId, noteWindowId, start, version='0-0', id='ros-topic-model' }) => {
       return {
         runId,
         noteWindowId,
+        start,
         pipelineId: `${id}-${version}`,
         endpointName: 'huggingface-pytorch-inference-2023-03-08-19-26-49-250'
       };
@@ -52,10 +55,11 @@ const pipelines = {
     operator: toRosTopicModel,
   },
   problems: {
-    options: ({ runId, noteWindowId, version='0-0', id='problems-gpt-4' }) => {
+    options: ({ runId, noteWindowId, start, version='0-0', id='problems-gpt-4' }) => {
       return {
         runId,
         noteWindowId,
+        start,
         pipelineId: `${id}-${version}`,
         model: 'gpt-4'
       };
