@@ -1,3 +1,11 @@
+# [1.1.0-dev.10](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.9...v1.1.0-dev.10) (2023-03-30)
+
+
+### Bug Fixes
+
+* Sort the transcript by time ([c352731](https://github.com/buccaneerai/note-window-consumer/commit/c35273199b247a1e9d3940871c57b406e551ce94))
+* test ([5b085cd](https://github.com/buccaneerai/note-window-consumer/commit/5b085cdafc19bc69da376514b8e02c3bf4bc4397))
+
 # [1.1.0-dev.9](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.8...v1.1.0-dev.9) (2023-03-29)
 
 
