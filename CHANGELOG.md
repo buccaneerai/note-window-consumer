@@ -1,3 +1,11 @@
+# [1.1.0-dev.9](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.8...v1.1.0-dev.9) (2023-03-29)
+
+
+### Bug Fixes
+
+* Debug where the missing symptom errors are coming from ([a2b32fd](https://github.com/buccaneerai/note-window-consumer/commit/a2b32fdf03b25c82f187761bd4a31fe2da0b438c))
+* unknown code issue ([1d83eab](https://github.com/buccaneerai/note-window-consumer/commit/1d83eab406de02b895f07f5a316b8a1a0dfc489c))
+
 # [1.1.0-dev.8](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.7...v1.1.0-dev.8) (2023-03-29)
 
 
