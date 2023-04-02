@@ -1,6 +1,6 @@
 {
   "name": "note-window-consumer",
-  "version": "1.1.0-dev.2",
+  "version": "1.1.0-dev.6",
   "main": "src/index.js",
   "author": "Buccaneer LLC",
   "license": "UNLICENSED",
@@ -50,12 +50,14 @@
     "request": "^2.88.2",
     "round-to": "^4.1.0",
     "rxjs": "^6.3.3",
-    "sqs-consumer": "^5.5.0"
+    "sqs-consumer": "^5.5.0",
+    "openai": "^3.2.1"
   },
   "scripts": {
     "start": "node src/index.js",
     "medical": "node inspect src/operators/toMedicalComprehend.js",
     "message": "node inspect src/lib/handleMessage.js",
+    "ros-prediction": "node inspect src/lib/sendWordsToTopicModel.js",
     "dev": "npx nodemon ./src/index.js",
     "debug": "node inspect ./src/index.js",
     "lint": "eslint -c .eslintrc ./src",

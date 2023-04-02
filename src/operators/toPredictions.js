@@ -9,6 +9,7 @@ const logger = require('@buccaneerai/logging-utils');
 
 const toMedicalComprehend = require('./toMedicalComprehend');
 const toQAPipeline = require('./toQAPipeline');
+const toRosTopicModel = require('./toRosTopicModel');
 
 const errors = {
   invalidWords: () => new Error('params.words must be an array'),
@@ -34,9 +35,23 @@ const pipelines = {
   topicQAPipeline: {
     mapToInput: mapWordsToString(),
     options: ({ runId, noteWindowId, version = '0-3', id = 'topic-qa-pipeline' }) => ({
-      runId, noteWindowId, pipelineId: `${id}-${version}`,
+      runId,
+      noteWindowId,
+      pipelineId: `${id}-${version}`,
+      endpointName: 'huggingface-pytorch-inference-2023-03-01-04-38-47-018',
     }),
     operator: toQAPipeline,
+  },
+  rosTopicModel: {
+    options: ({ runId, noteWindowId, version='0-0', id='ros-topic-model' }) => {
+      return {
+        runId,
+        noteWindowId,
+        pipelineId: `${id}-${version}`,
+        endpointName: 'huggingface-pytorch-inference-2023-03-08-19-26-49-250'
+      };
+    },
+    operator: toRosTopicModel,
   },
   // infoRetrieval: {
   //   options: () => ({

@@ -11,6 +11,15 @@ const fetchWordsForWindow = require('./fetchWordsForWindow');
 const storePredictions = require('./storePredictions');
 const updateWorkStatus = require('./updateWorkStatus');
 
+// LEAVING IN FOR TESTING PURPOSES
+// eslint-disable-next-line
+// const ORIGINAL_TEXT = "I have a headache"
+//
+// let WORDS = ORIGINAL_TEXT.split(' ');
+// WORDS = WORDS.map((w) => {
+//   return {text: w};
+// });
+
 // this should return an observable
 const handleMessage = ({
   _fetchWordsForWindow = fetchWordsForWindow,
@@ -76,5 +85,13 @@ const handleMessage = ({
   );
   return done$;
 };
+
+// LEAVING IN FOR TESTING PURPOSES
+// const message$ = handleMessage()({
+//   runId: "6400ad16ee7ebed49afb35c7",
+//   noteWindowId: "6400ad29ee7ebed49afb35c9"
+// });
+//
+// message$.subscribe((d) => console.log(d));
 
 module.exports = handleMessage;

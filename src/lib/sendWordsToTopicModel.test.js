@@ -17,13 +17,16 @@ describe('sendWordsToTopicModel', () => {
         score: 0.8250104188919067
       }])),
     };
+    const _sagemaker = {
+      invokeEndpoint: sinon.stub().returns({
+        promise: sinon.stub().returns([fakeResponse])
+      })
+    };
     const params = {
       endpointName: 'huggingface-pytorch-inference-2023-03-01-04-38-47-018',
-      client: sinon.stub().returns(m.cold('-(0|)', [{
-        invokeEndpoint: sinon.stub().returns({
-          promise: sinon.stub().returns([fakeResponse])
-        })
-      }]))
+      _client: sinon.stub().returns(m.cold('-(0|)', [_sagemaker])),
+      topK: 2,
+      returnAllScores: true,
     };
     const actual$ = sendWordsToTopicModel(params)('foo bar.');
     const expected$ = m.cold('-(0|)', [

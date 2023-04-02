@@ -1,3 +1,32 @@
+# [1.1.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.5...v1.1.0-dev.6) (2023-03-09)
+
+
+### Bug Fixes
+
+* Filter empty note windows ([dba0ed1](https://github.com/buccaneerai/note-window-consumer/commit/dba0ed1cab03ea3b1fb17921f29d900f733cf05d))
+
+# [1.1.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.4...v1.1.0-dev.5) (2023-03-09)
+
+
+### Features
+
+* Add ros topic model ([#43](https://github.com/buccaneerai/note-window-consumer/issues/43)) ([9c4fb97](https://github.com/buccaneerai/note-window-consumer/commit/9c4fb97b4140a588b5f7ba3791b97c6116e314ec))
+
+# [1.1.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.3...v1.1.0-dev.4) (2023-03-06)
+
+
+### Bug Fixes
+
+* Ask GPT about diagnosis ([7710c05](https://github.com/buccaneerai/note-window-consumer/commit/7710c05393799930dda7869c0ff9a3b2b1260c53))
+
+# [1.1.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2023-03-06)
+
+
+### Bug Fixes
+
+* Add gpt3 checks for isPresent and isAsserted ([186b4cb](https://github.com/buccaneerai/note-window-consumer/commit/186b4cb239ef16fdc3b659fbdb92e98577f21856))
+* Adjust the prompts and only send to GPT if the score was under .75 ([6539cf8](https://github.com/buccaneerai/note-window-consumer/commit/6539cf852605df033b946d071315d9f327496a18))
+
 # [1.1.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2023-02-27)
 
 

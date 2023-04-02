@@ -21,39 +21,58 @@ const topicMap = {
   LABEL_9: 'F-Symptom',
 };
 
-const generateLocalCredentials = ({
-  token,
-  roleArn,
-  roleSessionName,
-  duration = 3600, // 1 hour
-  _sts = () => new AWS.STS(),
-}) => {
-  const params = {
-    RoleArn: roleArn,
-    WebIdentityToken: token,
-    RoleSessionName: roleSessionName,
-    DurationSeconds: duration,
-  };
-  const promise = _sts().assumeRoleWithWebIdentity(params).promise();
-  const awsCredentials$ = from(promise).pipe(
-    map(response => ({
-      awsAccessKeyId: _.get(response, 'Credentials.AccessKeyId'),
-      awsSecretAccessKey: _.get(response, 'Credentials.SecretAccessKey'),
-    }))
-  );
-  return awsCredentials$;
+// const generateLocalCredentials = ({
+//   token,
+//   roleArn,
+//   roleSessionName,
+//   duration = 3600, // 1 hour
+//   _sts = () => new AWS.STS(),
+// }) => {
+//   const params = {
+//     RoleArn: roleArn,
+//     WebIdentityToken: token,
+//     RoleSessionName: roleSessionName,
+//     DurationSeconds: duration,
+//   };
+//   const promise = _sts().assumeRoleWithWebIdentity(params).promise();
+//   const awsCredentials$ = from(promise).pipe(
+//     map(response => ({
+//       awsAccessKeyId: _.get(response, 'Credentials.AccessKeyId'),
+//       awsSecretAccessKey: _.get(response, 'Credentials.SecretAccessKey'),
+//     }))
+//   );
+//   return awsCredentials$;
+// };
+
+const labelIsGeneric = l => /^LABEL_\d/.test(l.label);
+
+const mapRawLabel = (_topicMap = topicMap) => l => ({
+  label: labelIsGeneric(l) ? _topicMap[l.label] : l.label,
+  score: l.score,
+});
+
+const mapRawPredictionToClean = ({
+  returnAllScores,
+  topK,
+  modelVersion
+}) => p => {
+  if (!returnAllScores) return {...mapRawLabel()(p), modelVersion};
+  let labels = p
+    .sort((a,b) => b.score - a.score)
+    .map(mapRawLabel());
+  if (topK > 0) labels = labels.slice(0, topK);
+  return {labels, modelVersion};
 };
 
-const parseResponse = modelVersion => response => {
+const parseResponse = (modelVersion, params) => (response) => {
   const body = _.get(response, 'Body');
+  const {returnAllScores = true, topK = 0} = params;
   const jsonStr = body.toString();
   try {
     const rawPredictions = JSON.parse(jsonStr);
-    const cleanPredictions = rawPredictions.map(p => ({
-      label: topicMap[p.label],
-      score: p.score,
-      modelVersion,
-    }));
+    const cleanPredictions = rawPredictions.map(
+      mapRawPredictionToClean({returnAllScores, topK, modelVersion})
+    );
     return of(cleanPredictions);
   } catch (e) {
     return throwError(errors.couldNotParseJSON());
@@ -63,8 +82,8 @@ const parseResponse = modelVersion => response => {
 const createClient = ({
   shouldAssumeRole = process.env.NODE_ENV === 'development',
   region = process.env.AWS_REGION,
-  roleArn = process.env.SAGEMAKER_ROLE_ARN,
-  expirationSeconds = 30,
+  roleArn = process.env.SAGEMAKER_ROLE_ARN || 'arn:aws:iam::310840924429:role/LocalSagemakerDeveloper',
+  expirationSeconds = 900,
   _sts = () => new AWS.STS(),
   _randomstring = () => randomstring.generate(18),
 } = {}) => {
@@ -76,7 +95,7 @@ const createClient = ({
       RoleSessionName: _randomstring(),
       DurationSeconds: expirationSeconds,
     };
-    const promise = _sts.assumeRole(params).promise();
+    const promise = _sts().assumeRole(params).promise();
     const response$ = from(promise);
     const sagemaker$ = response$.pipe(
       map(response => ({
@@ -100,20 +119,27 @@ const createClient = ({
 
 // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SageMakerRuntime.html#invokeEndpoint-property
 const sendWordsToTopicModel = ({
-  endpointName = 'huggingface-pytorch-inference-2023-03-01-04-38-47-018',
+  endpointName,
+  returnAllScores = true,
+  topK = 3,
   _client = createClient,
 } = {}) => transcriptStr => _client().pipe(
   mergeMap(sagemaker => {
     const params = {
       // https://github.com/huggingface/notebooks/blob/main/sagemaker/10_deploy_model_from_s3/deploy_transformer_model_from_s3.ipynb
-      Body: JSON.stringify({inputs: transcriptStr}),
+      Body: JSON.stringify({
+        inputs: transcriptStr,
+        parameters: {
+          return_all_scores: returnAllScores,
+        }
+      }),
       EndpointName: endpointName,
       ContentType: 'application/json',
       Accept: 'application/json',
     };
     const promise = sagemaker.invokeEndpoint(params).promise();
     const predictions$ = from(promise).pipe(
-      mergeMap(parseResponse(endpointName))
+      mergeMap(parseResponse(endpointName, {returnAllScores, topK}))
     );
     return predictions$;
   })
