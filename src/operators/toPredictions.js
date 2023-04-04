@@ -13,6 +13,8 @@ const toHPISummary = require('./toHPISummary');
 const toRosTopicModel = require('./toRosTopicModel');
 const toProblems = require('./toProblems');
 
+const config = require('../lib/config');
+
 const errors = {
   invalidWords: () => new Error('params.words must be an array'),
 };
@@ -49,7 +51,7 @@ const pipelines = {
         noteWindowId,
         start,
         pipelineId: `${id}-${version}`,
-        endpointName: 'huggingface-pytorch-inference-2023-03-08-19-26-49-250'
+        endpointName: config().ROS_TOPIC_MODEL_ENDPOINT || 'huggingface-pytorch-inference-2023-03-08-19-26-49-250'
       };
     },
     operator: toRosTopicModel,
