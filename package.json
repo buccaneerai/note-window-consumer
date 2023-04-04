@@ -1,6 +1,6 @@
 {
   "name": "note-window-consumer",
-  "version": "1.1.1-dev.1",
+  "version": "1.1.1",
   "main": "src/index.js",
   "author": "Buccaneer LLC",
   "license": "UNLICENSED",
