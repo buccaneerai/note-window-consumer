@@ -2,7 +2,7 @@ const get = require('lodash/get');
 const uniqBy = require('lodash/uniqBy');
 const axios = require('axios');
 const { from } = require('rxjs');
-const { map, mergeMap} = require('rxjs/operators');
+const { map, mergeMap } = require('rxjs/operators');
 
 // const isDone = words => nextWord === '.';
 

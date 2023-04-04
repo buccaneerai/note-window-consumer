@@ -8,12 +8,23 @@ const validateJob = require('./validateJob');
 const toPredictions = require('../operators/toPredictions');
 const createTask = require('./createTask');
 const fetchWordsForWindow = require('./fetchWordsForWindow');
+const fetchNoteWindow = require('./fetchNoteWindow');
 const storePredictions = require('./storePredictions');
 const updateWorkStatus = require('./updateWorkStatus');
+
+// LEAVING IN FOR TESTING PURPOSES
+// eslint-disable-next-line
+// const ORIGINAL_TEXT = "You also tell me this is the worst headache of your life. Oh yeah. Also, there's a small chance that there's something else going on, like a small bleed into your brain. So these are both very scary potentially dangerous things. Okay. So we're going to give you something for pain. We're going to send you off for a CAT scan of your brain to make sure there's no blood there or anything else. Okay. And if that's normal, I have to do a lumbar puncture and I have to take some fluid from your spine, alright? Whatever, okay. Okay."
+//
+// let WORDS = ORIGINAL_TEXT.split(' ');
+// WORDS = WORDS.map((w) => {
+//   return {text: w};
+// });
 
 // this should return an observable
 const handleMessage = ({
   _fetchWordsForWindow = fetchWordsForWindow,
+  _fetchNoteWindow = fetchNoteWindow,
   // _getPatternMatchingPredictions = getPatternMatchingPredictions,
   _updateWorkStatus = updateWorkStatus,
   _toPredictions = toPredictions,
@@ -38,10 +49,11 @@ const handleMessage = ({
     mergeMap(m => zip(
       of(m),
       _fetchWordsForWindow()({noteWindowId: m.noteWindowId}),
+      _fetchNoteWindow()({noteWindowId: m.noteWindowId})
     )),
-    mergeMap(([m, words]) => zip(
+    mergeMap(([m, words, noteWindow]) => zip(
       of(m),
-      _toPredictions()({message: m, words}),
+      _toPredictions()({message: {...m, start: noteWindow.start || 0}, words}),
     )),
     _logger.toLog('createdPredictions'),
     mergeMap(([m, predictions]) => zip(
@@ -76,5 +88,13 @@ const handleMessage = ({
   );
   return done$;
 };
+
+// LEAVING IN FOR TESTING PURPOSES
+// const message$ = handleMessage()({
+//   runId: "6400ad16ee7ebed49afb35c7",
+//   noteWindowId: "6400ad29ee7ebed49afb35c9"
+// });
+//
+// message$.subscribe((d) => console.log(d));
 
 module.exports = handleMessage;

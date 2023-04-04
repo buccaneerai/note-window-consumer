@@ -1,6 +1,6 @@
 {
   "name": "note-window-consumer",
-  "version": "1.0.2",
+  "version": "1.1.0-dev.11",
   "main": "src/index.js",
   "author": "Buccaneer LLC",
   "license": "UNLICENSED",
@@ -21,10 +21,12 @@
     "nodemon": "^2.0.2",
     "rxjs-marbles": "^5.0.3",
     "semantic-release-export-data": "^1.0.0",
+    "semantic-release": "v19.x.x",
     "sinon": "^7.2.2"
   },
   "dependencies": {
-    "@buccaneerai/graphql-sdk": "^2.53.6",
+    "@aws-sdk/client-comprehendmedical": "^3.272.0",
+    "@buccaneerai/graphql-sdk": "^2.69.0",
     "@buccaneerai/logging-utils": "^1.2.0",
     "aws-sdk": "^2.438.0",
     "axios": "^0.24.0",
@@ -47,10 +49,14 @@
     "request": "^2.88.2",
     "round-to": "^4.1.0",
     "rxjs": "^6.3.3",
-    "sqs-consumer": "^5.5.0"
+    "sqs-consumer": "^5.5.0",
+    "openai": "^3.2.1"
   },
   "scripts": {
     "start": "node src/index.js",
+    "medical": "node inspect src/operators/toMedicalComprehend.js",
+    "message": "node inspect src/lib/handleMessage.js",
+    "ros-prediction": "node inspect src/lib/sendWordsToTopicModel.js",
     "dev": "npx nodemon ./src/index.js",
     "debug": "node inspect ./src/index.js",
     "lint": "eslint -c .eslintrc ./src",

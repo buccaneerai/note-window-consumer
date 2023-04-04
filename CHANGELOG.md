@@ -1,5 +1,98 @@
-## [1.0.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.1...v1.0.2) (2022-11-23)
+# [1.1.0-dev.11](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.10...v1.1.0-dev.11) (2023-03-30)
 
+### Bug Fixes
+
+* Put back score trimming ([91f78a5](https://github.com/buccaneerai/note-window-consumer/commit/91f78a588c0a6c199ad3a34a5cee71245e484159))
+
+# [1.1.0-dev.10](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.9...v1.1.0-dev.10) (2023-03-30)
+
+
+### Bug Fixes
+
+* Sort the transcript by time ([c352731](https://github.com/buccaneerai/note-window-consumer/commit/c35273199b247a1e9d3940871c57b406e551ce94))
+* test ([5b085cd](https://github.com/buccaneerai/note-window-consumer/commit/5b085cdafc19bc69da376514b8e02c3bf4bc4397))
+
+# [1.1.0-dev.9](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.8...v1.1.0-dev.9) (2023-03-29)
+
+
+### Bug Fixes
+
+* Debug where the missing symptom errors are coming from ([a2b32fd](https://github.com/buccaneerai/note-window-consumer/commit/a2b32fdf03b25c82f187761bd4a31fe2da0b438c))
+* unknown code issue ([1d83eab](https://github.com/buccaneerai/note-window-consumer/commit/1d83eab406de02b895f07f5a316b8a1a0dfc489c))
+
+# [1.1.0-dev.8](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.7...v1.1.0-dev.8) (2023-03-29)
+
+
+### Features
+
+* gpt4 ([#45](https://github.com/buccaneerai/note-window-consumer/issues/45)) ([da0c2de](https://github.com/buccaneerai/note-window-consumer/commit/da0c2de46777ddfbdcd8de0441c946e3295878e1))
+
+# [1.1.0-dev.7](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.6...v1.1.0-dev.7) (2023-03-29)
+
+
+### Features
+
+* HPI Summary ([#44](https://github.com/buccaneerai/note-window-consumer/issues/44)) ([c178b00](https://github.com/buccaneerai/note-window-consumer/commit/c178b00d56055a0dc8387f56a52aa27319dca284))
+
+# [1.1.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.5...v1.1.0-dev.6) (2023-03-09)
+
+
+### Bug Fixes
+
+* Filter empty note windows ([dba0ed1](https://github.com/buccaneerai/note-window-consumer/commit/dba0ed1cab03ea3b1fb17921f29d900f733cf05d))
+
+# [1.1.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.4...v1.1.0-dev.5) (2023-03-09)
+
+
+### Features
+
+* Add ros topic model ([#43](https://github.com/buccaneerai/note-window-consumer/issues/43)) ([9c4fb97](https://github.com/buccaneerai/note-window-consumer/commit/9c4fb97b4140a588b5f7ba3791b97c6116e314ec))
+
+# [1.1.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.3...v1.1.0-dev.4) (2023-03-06)
+
+
+### Bug Fixes
+
+* Ask GPT about diagnosis ([7710c05](https://github.com/buccaneerai/note-window-consumer/commit/7710c05393799930dda7869c0ff9a3b2b1260c53))
+
+# [1.1.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2023-03-06)
+
+
+### Bug Fixes
+
+* Add gpt3 checks for isPresent and isAsserted ([186b4cb](https://github.com/buccaneerai/note-window-consumer/commit/186b4cb239ef16fdc3b659fbdb92e98577f21856))
+* Adjust the prompts and only send to GPT if the score was under .75 ([6539cf8](https://github.com/buccaneerai/note-window-consumer/commit/6539cf852605df033b946d071315d9f327496a18))
+
+# [1.1.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2023-02-27)
+
+
+### Bug Fixes
+
+* require much higher confidence for negation ([c802270](https://github.com/buccaneerai/note-window-consumer/commit/c802270cc90889d133080ec5c5d5618b439b3d08))
+
+# [1.1.0-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.2-dev.1...v1.1.0-dev.1) (2023-02-27)
+
+
+### Bug Fixes
+
+* Bump node version to 16 ([eadc6a4](https://github.com/buccaneerai/note-window-consumer/commit/eadc6a496e4177fe16d37c159b2b16d78f094a55))
+* fix concat ([d1ca8c6](https://github.com/buccaneerai/note-window-consumer/commit/d1ca8c62dcbebe3b59075f02e697c5c89c3e68e4))
+* Fix semantic release version ([e70125c](https://github.com/buccaneerai/note-window-consumer/commit/e70125cd429ea0ea25014d256430db92e2fb9a0f))
+* lint ([d7d1c12](https://github.com/buccaneerai/note-window-consumer/commit/d7d1c1280adb885fe3acc8f3274562844d9b7555))
+* remove bad context attempt ([2db9997](https://github.com/buccaneerai/note-window-consumer/commit/2db999715d8bea48c1a805fe6a25797d9cbe198d))
+* Remove testing code ([104281d](https://github.com/buccaneerai/note-window-consumer/commit/104281d04fa0297e8c9d36e44cd825104b13b099))
+* What is going on? ([d66a585](https://github.com/buccaneerai/note-window-consumer/commit/d66a58541c2dd435f21d0d663b44535b51e61af6))
+* What is going on? ([636c394](https://github.com/buccaneerai/note-window-consumer/commit/636c3942591215047b42f7296317ebbe84eab419))
+
+
+### Features
+
+* Add Chief complaint ([4be4c08](https://github.com/buccaneerai/note-window-consumer/commit/4be4c08471c8105dee4ea99b3000f7db21d83d79))
+* Add medical comprehend operator ([27ac426](https://github.com/buccaneerai/note-window-consumer/commit/27ac426e2772dacbe18659b6ad9f228305be987a))
+* Add verified findings code ([ef74907](https://github.com/buccaneerai/note-window-consumer/commit/ef749075b48016168e0f7accd755c69921d283a9))
+* Added body systems ([648dcc3](https://github.com/buccaneerai/note-window-consumer/commit/648dcc3716b7134aa08951b7b2a3dea437af2214))
+
+## [1.0.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.0.1...v1.0.2) (2022-11-23)
 
 ### Bug Fixes
 
