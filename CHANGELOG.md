@@ -1,3 +1,10 @@
+# [1.2.0-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.1-dev.1...v1.2.0-dev.1) (2023-04-06)
+
+
+### Features
+
+* new gpt4 pipeline ([694e148](https://github.com/buccaneerai/note-window-consumer/commit/694e1486df0f34118f194040d97cb649c5a8a5aa))
+
 ## [1.1.1-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0...v1.1.1-dev.1) (2023-04-04)
 
 
