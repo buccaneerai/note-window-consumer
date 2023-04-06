@@ -12,6 +12,14 @@
 
 * new gpt4 pipeline ([694e148](https://github.com/buccaneerai/note-window-consumer/commit/694e1486df0f34118f194040d97cb649c5a8a5aa))
 
+
+## [1.1.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0...v1.1.1) (2023-04-04)
+
+
+### Bug Fixes
+
+* parameterize topic model ([fecfb18](https://github.com/buccaneerai/note-window-consumer/commit/fecfb186559112ab833e584698a45cee7438be5c))
+
 ## [1.1.1-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.0...v1.1.1-dev.1) (2023-04-04)
 
 
