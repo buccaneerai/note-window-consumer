@@ -35,6 +35,8 @@ const fetchVerifiedFindings = ({
         rx: [],
         family: [],
         problems: [],
+        social: [],
+        pmh: [],
       };
       verifiedFindings.forEach((vf) => {
         if (vf.findingCode === 'F-Context') {
@@ -51,6 +53,12 @@ const fetchVerifiedFindings = ({
           vfMap.allergies.push(vf);
         } else if (vf.findingCode === 'F-Medication') {
           vfMap.rx.push(vf);
+        } else if (vf.findingCode === 'F-Family') {
+          vfMap.family.push(vf);
+        } else if (vf.findingCode === 'F-SocialSummary') {
+          vfMap.social.push(vf);
+        } else if (vf.findingCode === 'F-Pmh') {
+          vfMap.pmh.push(vf);
         }
       });
       return [text, vfMap];
@@ -91,6 +99,7 @@ const parseResponse = (response) => {
     family: [],
     allergies: [],
     pmh: [],
+    social: [],
   }
   // Split on the "STOP" keyword
   const arr = response.split('STOP');
@@ -110,6 +119,7 @@ const parseResponse = (response) => {
     family: parseSection(arr[5]),
     allergies: parseSection(arr[4]),
     pmh: parseSection(arr[7]),
+    social: parseSection(arr[9])
   };
   return sections;
 };
@@ -138,12 +148,13 @@ const toOpenAI = ({
 Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. After the list of symptoms, say \`STOP\`: What were the patient's symptoms? \n
 Answer the following question with as few words as possible, if there is no answer, then reply \`NONE\`. After the answer, say \`STOP\`: What was the primary symptom? \n
 Answer the following question as a numbered list with each answer on a new line, if there is no assessment or plan, then reply \`NONE\`. After the answer, say \`STOP\`: What was the doctor's assessment and plan? \n
-Answer the following question as a numbered list with each answer on a new line, if there is no medications, then reply \`NONE\`. After the answer, say \`STOP\`: What medications is the patient taking or the doctor prescribe? \n
+Answer the following question as a numbered list with each answer on a new line, using as few words as possible. If there is no medications, then reply \`NONE\`. After the answer, say \`STOP\`: What medications is the patient taking or the doctor prescribe? \n
 Answer the following question as a numbered list with each answer on a new line, if there is no allergies, then reply \`NONE\`. After the answer, say \`STOP\`: What allergies does the patient have? \n
 Summarize any issues with the patient's family. If there are no issues, then reply \`NONE\`. After the summary, say \`STOP\`.  \n
 Without including any of the doctor's assesment or plan, write a history of the present illness without using the patient's name. After the summary, say \`STOP\`. \n
 Answer the following question as a numbered list with each answer on a new line, if there is no allergies, then reply \`NONE\`. After the answer, say \`STOP\`: Without including the family history or current illness, what is the patient's past medical history? \n
-Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. After the list of symptoms, say \`STOP\`: What symptoms did the patient deny having?`}
+Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. After the list of symptoms, say \`STOP\`: What symptoms did the patient deny having? \n
+Write a paragraph describing any of the following topics found in the transcript: diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, relationship status, suicide, sexuality or sexual activity. If there none of these topics are discussed, then reply \`NONE\`. After the answer, say \`STOP\`.`}
     ]
   })).pipe(
     map((response) => {
@@ -152,6 +163,8 @@ Answer the following question as a numbered list with each answer on a new line,
       const value = get(response, 'data.choices[0].message.content', '');
       const usage = get(response, 'data.usage', {});
       const sections = _parseResponse(value);
+      logger.info(`duration: ${duration}`)
+      logger.info(`usage: ${JSON.stringify(usage)}`);
       return {sections, text, context, newContext, duration, usage, vfMap};
     }),
     catchError((error) => {
@@ -221,17 +234,50 @@ const getHPISummaryPrediction = ({
   };
 };
 
+const getSocialSummaryPrediction = ({
+  vfMap,
+  pipelineId,
+  sections = {},
+}) => {
+  const vf = get(vfMap, 'social.0', {});
+  const value = get(sections, 'social.0', '');
+  return {
+    findingCode: 'F-SocialSummary',
+    pipelineId,
+    _id: vf._id,
+    findingAttributes: [{
+      findingAttributeKey: 'text',
+      stringValues: [value],
+      findingAttributeScore: 0.5,
+      pipelineId,
+    }]
+  };
+};
+
 const getROSPredictions = ({
   vfMap,
   pipelineId,
   sections = {}
 }) => {
   const ros = vfMap.ros || [];
-  const assertedSymptoms = get(sections, 'ros', []);
-  const assertedLabels = assertedSymptoms.map((a) => a.label.trim().toLowerCase());
+  let assertedSymptoms = get(sections, 'ros', []);
+  assertedSymptoms = assertedSymptoms.map((s) => {
+    const symptom = symptoms.find(s.label);
+    if (symptom) {
+      return {
+        ...s,
+        name: symptom.name,
+      };
+    }
+    return {
+      ...s,
+      name: s.label.toLowerCase().trim(),
+    };
+  });
+  const assertedLabels = assertedSymptoms.map((a) => a.name.trim().toLowerCase());
   const matchingSymptoms = ros.filter((s) => s.findingAttributeKey === 'code' && assertedLabels.includes(s.findingAttributeDescription.trim().toLowerCase()));
   const matchingSymptomLabels = matchingSymptoms.map((s) => s.findingAttributeDescription);
-  const labels = assertedSymptoms.filter((s) => !matchingSymptomLabels.includes(s.label.trim().toLowerCase()));
+  const labels = assertedSymptoms.filter((s) => !matchingSymptomLabels.includes(s.name));
   const predictions = labels.map((label) => {
 
     const symptom = symptoms.find(label.label);
@@ -307,7 +353,7 @@ const getAllergyPredictions = ({
   const vfs = get(vfMap, 'allergies', []);
   const _allergies = get(sections, 'allergies', []);
   const allergies = _allergies.map((a) => {
-    return a.replace('Allergic to', '').trim();
+    return a.replace('Allergic to', '').replace('Allergy to', '').replace('Allergy', '').replace('allergy', '').trim();
   });
   const matchingAllergies = vfs.filter((s) => s.findingAttributeKey === 'text' && allergies.includes(s.stringValues[0]));
   const matchingAllergiesLabels = matchingAllergies.map((s) => s.stringValues[0]);
@@ -333,28 +379,23 @@ const getMedicationPredictions = ({
   pipelineId,
   sections = {},
 }) => {
-  const vfs = get(vfMap, 'rx', []);
+  const vf = get(vfMap, 'rx.0', {});
   const _medications = get(sections, 'rx', []);
   const medications = _medications.map((a) => {
     return a.trim();
   });
-  const matchingMedications = vfs.filter((s) => s.findingAttributeKey === 'text' && medications.includes(s.stringValues[0]));
-  const matchingMedicationsLabels = matchingMedications.map((s) => s.stringValues[0]);
-  const newMedications = medications.filter((s) => !matchingMedicationsLabels.includes(s));
-  const predictions = newMedications.map((a) => {
-    return {
-      findingCode: 'F-Medication',
+  const value = medications.join('\n');
+  return {
+    findingCode: 'F-Medication',
+    pipelineId,
+    _id: vf._id,
+    findingAttributes: [{
+      findingAttributeKey: 'text',
+      stringValues: [value],
+      findingAttributeScore: 0.5,
       pipelineId,
-      _id: null,
-      findingAttributes: [{
-        findingAttributeKey: 'text',
-        stringValues: [a],
-        findingAttributeScore: 0.5,
-        pipelineId,
-      }]
-    };
-  });
-  return predictions;
+    }]
+  };
 };
 
 const getProblemSummaryPredictions = ({
@@ -470,6 +511,10 @@ const mapCodeToPredictions = ({
       ...data,
     }),
     getFamilyHistorySummaryPrediction({
+      pipelineId,
+      ...data,
+    }),
+    getSocialSummaryPrediction({
       pipelineId,
       ...data,
     })

@@ -31,7 +31,7 @@ const storePredictions = ({
         'booleanValues',
         'categoryValues',
         'dateValues',
-      ])
+      ]);
       return gql.updateVerifiedFinding({
         docId: _id,
         set
