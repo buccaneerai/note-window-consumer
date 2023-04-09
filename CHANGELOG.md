@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.1...v1.2.0) (2023-04-09)
+
+
+### Features
+
+* Add social history and a few other fixes ([5705b1c](https://github.com/buccaneerai/note-window-consumer/commit/5705b1c0e076d71176d16658c6faadc1747383b4))
+* new gpt4 pipeline ([694e148](https://github.com/buccaneerai/note-window-consumer/commit/694e1486df0f34118f194040d97cb649c5a8a5aa))
+
 # [1.2.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2023-04-06)
 
 
