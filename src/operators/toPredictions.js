@@ -12,6 +12,7 @@ const toChiefComplaint = require('./toChiefComplaint');
 const toHPISummary = require('./toHPISummary');
 const toRosTopicModel = require('./toRosTopicModel');
 const toProblems = require('./toProblems');
+const toGPT4 = require('./toGPT4');
 
 const config = require('../lib/config');
 
@@ -19,7 +20,30 @@ const errors = {
   invalidWords: () => new Error('params.words must be an array'),
 };
 
-const pipelines = {
+
+let pipelines = {};
+const PIPELINE_VERSION = config().PIPELINE_VERSION || '1.0';
+if (PIPELINE_VERSION === '2.0') {
+  pipelines = {
+    // all of the logic will happen inside this gpt4 to try and
+    // parallelize what we are sending to GPT4 or gather multiple
+    // sections at the same time from gpt-4
+    gpt4: {
+      options: ({ runId, noteWindowId, start, version='0-0', id='omnibus-gpt-4' }) => {
+        return {
+          runId,
+          noteWindowId,
+          start,
+          pipelineId: `${id}-${version}`,
+          model: 'gpt-4',
+          endpointName: config().ROS_TOPIC_MODEL_ENDPOINT || 'huggingface-pytorch-inference-2023-03-08-19-26-49-250'
+        };
+      },
+      operator: toGPT4,
+    }
+  }
+} else {
+ pipelines = {
   chiefComplaint: {
     options: ({ runId, noteWindowId, start, version='0-0', id='chief-complaint-gpt-4' }) => {
       return {
@@ -114,7 +138,8 @@ const pipelines = {
   //   options: {},
     // operator: toSpectralClusteringModel
   // },
-};
+  };
+}
 
 const toPredictions = ({_pipelines = pipelines, _logger = logger} = {}) => (
   ({message, words}) => {
