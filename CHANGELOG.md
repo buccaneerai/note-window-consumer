@@ -1,3 +1,12 @@
+# [1.2.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2023-04-11)
+
+
+### Bug Fixes
+
+* Assesment and plan section ([4c1147a](https://github.com/buccaneerai/note-window-consumer/commit/4c1147a87040c62d1d49b5b5f44e3d6e8864a9f4))
+* Only include actual family history in fhx ([0b94af3](https://github.com/buccaneerai/note-window-consumer/commit/0b94af386c8be2c86461f6ba55e4b9bf821fb98b))
+* Set pipeline 2.0 as the default ([9480d1b](https://github.com/buccaneerai/note-window-consumer/commit/9480d1b51e76ee070f6cef9602f741a289dc41ee))
+
 # [1.2.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2023-04-06)
 
 
