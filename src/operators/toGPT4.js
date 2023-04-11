@@ -84,6 +84,8 @@ const parseSection = (value) => {
   return values.map((v) => {
     let _value = v.trim();
     _value = _value.replace(/^\d+\s*[-\\.)]?\s+/g, '');
+    // @TODO we may want to move this into it's own function
+    _value = _value.replace('CAT Scan', 'CT Scan').replace('cat scan', 'CT Scan').replace('CAT scan', 'CT Scan');
     return _value;
   });
 };
