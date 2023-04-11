@@ -22,7 +22,7 @@ const errors = {
 
 
 let pipelines = {};
-const PIPELINE_VERSION = config().PIPELINE_VERSION || '1.0';
+const PIPELINE_VERSION = config().PIPELINE_VERSION || '2.0';
 if (PIPELINE_VERSION === '2.0') {
   pipelines = {
     // all of the logic will happen inside this gpt4 to try and
