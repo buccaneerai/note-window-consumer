@@ -1,3 +1,11 @@
+# [1.2.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.5...v1.2.0-dev.6) (2023-04-13)
+
+
+### Bug Fixes
+
+* increase sqs queue message timeout ([c1874bc](https://github.com/buccaneerai/note-window-consumer/commit/c1874bc5f5fba4122bc64a96068691e090af92d2))
+* Increase sqs queue visibility timeout ([069e2e4](https://github.com/buccaneerai/note-window-consumer/commit/069e2e426014429493ca573294a142c8be40076a))
+
 # [1.2.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.4...v1.2.0-dev.5) (2023-04-13)
 
 
