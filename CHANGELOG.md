@@ -1,3 +1,10 @@
+# [1.2.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.4...v1.2.0-dev.5) (2023-04-13)
+
+
+### Bug Fixes
+
+* set temperature to 0.0 ([442d4df](https://github.com/buccaneerai/note-window-consumer/commit/442d4dff9319e38761b1faa783199ab97a2bafd0))
+
 # [1.2.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.3...v1.2.0-dev.4) (2023-04-13)
 
 
