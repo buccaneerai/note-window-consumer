@@ -9,7 +9,7 @@ Hi Sarah. Hi Doctor McCoy. What brings you in today? It looks like you're still 
 Difficulty breathing 
 
 #### HPI 
-The patient had an asthma attack four weeks ago and was prescribed steroids for it. They finished the steroids two weeks ago, but their symptoms came back and worsened in the past couple of days. The patient experiences shortness of breath while walking and has been coughing with some blood and green-yellow phlegm.
+The patient had an asthma attack four weeks ago and was prescribed a Flovent steroid. They finished the steroid two weeks ago, but their breathing issues returned and worsened over the past couple of days. The patient has been using an albuterol inhaler when their breathing becomes particularly difficult. They have also been experiencing a cough with a little bit of blood and have been coughing up green-yellow stuff. The patient's shortness of breath has become worse when walking.
 
 #### ROS 
 - respiratory: [true] difficulty breathing 
@@ -30,7 +30,7 @@ The patient had an asthma attack four weeks ago and was prescribed steroids for 
 NONE
 
 #### Social History 
-The patient mentioned smoking cigarettes since the age of 20 and currently smokes about half a pack per day. They have had conversations about their smoking habits before. There were no other topics from the list discussed in the transcript.
+The patient smokes cigarettes, having started at the age of 20, and currently smokes about half a pack per day. The doctor plans to discuss this further at the end of the appointment.
 
 #### Allergies 
 - NONE
@@ -38,8 +38,7 @@ The patient mentioned smoking cigarettes since the age of 20 and currently smoke
 #### Medications 
 - Flovent steroid
 - Albuterol inhaler
-- Another prescribed steroid
 
 #### Assessment & Plan 
-- Asthma: Breathing treatment, steroids, chest x-ray, bloodwork (CBC panel)
+- Breathing issues: Breathing treatment, chest x-ray, bloodwork (CBC panel), prescribe another steroid
 

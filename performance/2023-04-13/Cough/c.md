@@ -9,20 +9,20 @@ Hi August Clancy, how are you doing today? Not so good, doctor. Actually, we're 
 Cough 
 
 #### HPI 
-The patient has had a cough for about two weeks, which started three weeks ago alongside cold symptoms such as fever and nasal congestion. The cold symptoms subsided, but the cough persisted and has remained about the same. The patient mentioned that the cough seems worse when exercising or exposed to cold air. They also experience wheezing, chest tightness, a feeling of discomfort in the chest, post-nasal drip, and shortness of breath during exercise or movement. The patient had received an inhaler for a suspected asthma history but hasn't used it in months.
+The patient has been experiencing a cough for about two weeks, which started after having cold symptoms three weeks ago. The cold symptoms included fever and nasal congestion. The patient feels that they have recovered from the cold, but the cough has persisted. The cough is dry and non-productive, and it worsens with exercise and exposure to cold air. The patient also experiences wheezing, chest tightness, and discomfort, as well as shortness of breath during exercise. They have a history of using an inhaler for possible asthma, but they have not used it in months and no longer have a prescription for it.
 
 #### ROS 
 - respiratory: [true] cough 
 - constitutional: [true] chills 
 - ent: [true] sinus congestion 
 - constitutional: [true] fever 
-- cardiovascular: [true] chest tightness 
-- cardiovascular: [true] chest pain 
 - neurological: [false] headache 
 - ent: [false] sore throat 
+- cardiovascular: [false] chest pain 
 
 #### Past Medical History 
-- Possible asthma history
+- Possible asthma
+- Used inhaler (Flovent) in the past
 
 #### Family History 
 NONE
@@ -34,9 +34,9 @@ NONE
 - NONE
 
 #### Medications 
-- Tessalon pearls (prescribed)
-- Medications with dextromethorphan (suggested over-the-counter)
+- Tessalon pearls
+- Over-the-counter cough suppressant with dextromethorphan
 
 #### Assessment & Plan 
-- Residual cough post-URI: Throat and nose examination, rapid flu test, rapid COVID test, prescription for Tessalon pearls, over-the-counter medications with dextromethorphan
+- Residual cough post-URI: Rapid flu test, rapid COVID test, prescription for Tessalon pearls, over-the-counter cough suppressant with dextromethorphan
 

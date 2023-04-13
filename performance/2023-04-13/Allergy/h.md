@@ -9,17 +9,19 @@ Hi, how's it going? Good. How are you doing? Doctor? I'm doing fine. Thanks for 
 Stuffy nose 
 
 #### HPI 
-The patient has been experiencing a stuffy nose, post nasal drip, cough with green gunky mucus, sore throat, and feeling tired for a couple of weeks. The symptoms get worse when the patient spends time outdoors, which is consistent with their history of allergy symptoms occurring during springtime. The patient has tried Benadryl and Claritin in the past with mixed results.
+The patient has been experiencing a stuffy nose, post nasal drip, cough, green mucus, sore throat, and tiredness for a couple of weeks. The symptoms seem to get worse when spending time outdoors and are consistent with past experiences during springtime. The patient has tried Benadryl and Claritin in the past, with Benadryl providing some relief but causing drowsiness.
 
 #### ROS 
 - ent: [true] sinus congestion 
+- respiratory: [true] cough 
 - ent: [true] sore throat 
 - constitutional: [true] tiredness 
+- constitutional: [false] fever 
+- respiratory: [false] difficulty breathing 
 - cardiovascular: [false] chest pain 
 - cardiovascular: [false] palpitations 
 - gastrointestinal: [false] nausea 
 - gastrointestinal: [false] vomiting 
-- constitutional: [false] fever 
 - constitutional: [false] chills 
 - musculoskeletal: [false] muscle pain 
 - musculoskeletal: [false] joint pain 
@@ -42,5 +44,5 @@ NONE
 - Zyrtec (prescribed)
 
 #### Assessment & Plan 
-- Allergy symptoms: Rapid test for flu and COVID, try 10 mg Zyrtec nightly for a week, follow up with doctor
+- Allergies: Rapid tests for flu and COVID, try 10 mg Zyrtec nightly for a week, follow up if symptoms change or questions arise
 

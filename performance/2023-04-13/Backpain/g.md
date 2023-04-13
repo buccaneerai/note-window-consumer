@@ -6,23 +6,25 @@ All right, so can you tell me your first and last name please?  Brook Canterburr
 ```
 
 #### CC 
-Pains down left leg 
+Pain down left leg 
 
 #### HPI 
-The patient has had a long history of back problems, mostly on the left side, since their teenage years. About two years ago, these issues became more acute when the patient started going to the gym. This resulted in pain down their left leg, pins and needles, and a cold sensation. The problems seemed to be related to sitting on hard surfaces and improved when exercising or stretching. An x-ray revealed that one of the vertebrae, either L4 or L5, is fused to the hip. The patient has had chiropractic care and physical therapy in the past.
+The patient has had back problems since their teenage years, but about two years ago, they started experiencing pain down their left leg, pins and needles sensation, and a cold feeling in the leg. The patient also has tight muscles on the left side of their body. The pain seems to worsen when sitting on hard surfaces and improves with exercise, stretching, and yoga. The patient has seen a chiropractor and had an x-ray of their lower back, revealing a fused vertebra on the left side. The patient has tried physical therapy, chiropractic treatments, and using a lacrosse ball for relief, but the pain persists and has been getting worse.
 
 #### ROS 
+- gastrointestinal: [true] abdominal pain 
 - neurological: [true] numbness 
 - musculoskeletal: [true] muscle pain 
 
 #### Past Medical History 
-- Slid down slide and hit tree roots, resulting in an injury in the back
+- Childhood back injury from sliding down a slide and hitting tree roots
+- Allergies
 
 #### Family History 
-The patient's mother has Crohn's disease, fibromyalgia, interstitial cystitis, and back problems. The patient's brother had his gallbladder removed.
+The patient's mother has Crohn's disease, fibromyalgia, and interstitial cystitis. The patient's brother had his gallbladder removed.
 
 #### Social History 
-The patient is a software engineer and spends most of their day sitting at their job. They also exercise, focusing on weight training and cardio. The patient drinks alcohol around one to two times a week (beer) and does not use tobacco or any other drugs. They have no diet-related issues mentioned.
+The patient is a software engineer and spends most of their day sitting down, which aggravates their back problems. They have a standing desk option, but standing in one place also causes discomfort. The patient exercises regularly, initially focusing on cardio and later transitioning to weight training. The patient drinks alcohol occasionally, about once or twice a week, and does not use tobacco or other drugs.
 
 #### Allergies 
 - NONE
@@ -34,5 +36,5 @@ The patient is a software engineer and spends most of their day sitting at their
 - Toradol (prescribed)
 
 #### Assessment & Plan 
-- Lower back and leg issues: Reevaluation and retraining with PT and OT, workstation ergonomics, prescription Toradol for as needed, acetaminophen 500mg four times a day
+- Back problems: Reevaluation and retraining with PTOT, ergonomist for workstation, prescription Toradol as needed, acetaminophen 500mg four times a day
 
