@@ -6,28 +6,30 @@ Alright, so it's listening now. Good morning John. How are you today? Not so goo
 ```
 
 #### CC 
-NONE 
+Sore throat 
 
 #### HPI 
-NONE
+The patient has been experiencing a severe sore throat for about five days, with a pain level of 8 out of 10. The sore throat began with a feverish feeling, and the patient's son had recently been sick with similar symptoms. The patient has been taking ibuprofen to help with the pain.
 
 #### ROS 
+- ent: [true] sore throat 
 
 #### Past Medical History 
-- NONE
+- Asthma (10 years)
 
 #### Family History 
 NONE
 
 #### Social History 
-NONE
+The patient has a history of cocaine abuse from about 10 years ago but does not currently smoke cigarettes or drink alcohol.
 
 #### Allergies 
-- NONE
+- C-chlor
 
 #### Medications 
-- NONE
+- Flovent (for asthma)
+- Amoxicillin (prescribed for strep throat)
 
 #### Assessment & Plan 
-- NONE
+- Strep throat: Perform strep throat swab, prescribe Amoxicillin, advise rest, fluids, and pain relief, follow up if not better or worsening
 

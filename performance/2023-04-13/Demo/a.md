@@ -9,23 +9,24 @@ Hi. Hi, my name is Aspen Fieldscout. I'm Dr. Briar Hayfield. How can I help you?
 Severe headache 
 
 #### HPI 
-The patient woke up with a severe headache that had persisted since 5 AM. They felt feverish the night before and experienced nausea. The pain was so severe that it caused the patient to vomit. The headache was the worst they had ever experienced, they took Tylenol for the pain but it made no difference.
+The patient woke up with a severe headache that had started around 5 AM. The pain was so intense that it caused nausea and vomiting. The patient felt feverish the night before and mentioned that their son had been sick for a couple of days. The patient tried taking Tylenol for the headache, but it did not help. The patient denied having any blurred vision, numbness, or weakness. The headache was described as the worst pain they have ever experienced.
 
 #### ROS 
 - neurological: [true] headache 
 - gastrointestinal: [true] nausea 
+- gastrointestinal: [true] vomiting 
+- integumentary: [false] rash 
+- musculoskeletal: [false] swollen joint 
 - eyes: [false] blurred vision 
 - neurological: [false] numbness 
 - neurological: [false] weakness 
-- integumentary: [false] rash 
-- musculoskeletal: [false] swollen joint 
 
 #### Past Medical History 
 - Asthma
 - Car sickness
 
 #### Family History 
-The patient mentioned having a family history of migraines.
+Family history of migraines
 
 #### Social History 
 NONE
@@ -34,10 +35,13 @@ NONE
 - NONE
 
 #### Medications 
-- Orange puffer (Flovent or Fluticasone)
+- Orange puffer (Flowvent or Floatease)
 - Blue puffer (rarely used)
+- Tylenol (taken for headache)
+- Morphine (prescribed for pain)
+- Anti-nausea medication (prescribed)
 
 #### Assessment & Plan 
-- Chance of meningitis: CT Scan and lumbar puncture if needed
-- Possibility of a small brain bleed: CT Scan to check for blood or other issues
+- Meningitis: CT Scan and lumbar puncture if needed
+- Worst headache of their life: CT Scan to check for brain bleed
 

@@ -9,7 +9,7 @@ Hello. Hi John. I saw from your chart that you've been sick for a little bit. Ca
 Sore throat 
 
 #### HPI 
-The patient has been experiencing a sore throat for five days, which has progressively gotten worse. Their neck is swollen, making it difficult to swallow. They have also had a fever of 99 degrees. A few days after visiting urgent care and receiving a prescription for amoxicillin, the patient developed a rash on their abdomen but does not itch. They also have stomach pain on their left side. They haven't noticed any improvement in their condition since starting amoxicillin. The patient had been in close contact with friends and family who were sick recently.
+The patient started feeling sick with a sore throat and went to urgent care, where they were suspected to have strep throat and were given amoxicillin. However, the patient's throat continued to worsen, and they developed a rash on their abdomen and stomach pain on the left side. The patient mentioned being at a birthday party where they shared a drink with a friend who had been sick but was recovering.
 
 #### ROS 
 - ent: [true] sore throat 
@@ -20,6 +20,7 @@ The patient has been experiencing a sore throat for five days, which has progres
 - gastrointestinal: [false] vomiting 
 - gastrointestinal: [false] nausea 
 - genitourinary: [false] urinary incontinence 
+- constitutional: [false] loss of consciousness 
 
 #### Past Medical History 
 - NONE
@@ -37,5 +38,5 @@ NONE
 - Amoxicillin
 
 #### Assessment & Plan 
-- Possible mononucleosis: Do a few tests
+- Possible mono: Perform tests
 

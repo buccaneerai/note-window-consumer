@@ -9,7 +9,7 @@ Hi Brian. How are you doing today? I’m doing fine, Dr. Mollon. I followed up w
 NONE 
 
 #### HPI 
-The patient's main concern was the high heart rate readings observed on their smart watch, which led them to visit the cardiologist. After undergoing a 24-hour Holter monitor test, the cardiologist determined that there were no abnormal readings and both the cardiologist and the primary care physician agreed that no additional workup was necessary. There were no other symptoms or complaints mentioned by the patient.
+The patient had concerns about high heart rates recorded on their smart watch, which led to a cardiology evaluation and a 24-hour Holter monitor test. The results showed no abnormal readings, and both the cardiologist and the primary doctor agreed that no further workup or testing was needed. The patient also had a gradual decrease in hemoglobin levels over the last six months, which prompted the doctor to recommend a colonoscopy to rule out any blood loss in the gastrointestinal tract. The patient has not yet seen a gastroenterologist for this issue.
 
 #### ROS 
 - neurological: [false] headache 
@@ -28,7 +28,7 @@ The patient's main concern was the high heart rate readings observed on their sm
 NONE
 
 #### Social History 
-The patient is retired and enjoys spending time with their spouse at home. Their son, who is a doctor, lives nearby and they see him often. The patient does not drink alcohol, smoke, or use any other drugs. They use their smart watch regularly while exercising and walking.
+The patient is retired and enjoys spending time with their spouse at home. Their son, who is a doctor, lives nearby and they see him often. The patient does not drink alcohol, smoke, or use any other drugs. They use their smart watch routinely for exercise and walking.
 
 #### Allergies 
 - NONE
@@ -38,8 +38,8 @@ The patient is retired and enjoys spending time with their spouse at home. Their
 - Atorvastatin
 
 #### Assessment & Plan 
-- High heart rate: No further workup needed, monitor with smart watch
-- Hemoglobin decrease: Consider colonoscopy, monitor with blood tests every 3 months
-- Pre-diabetes: Continue Metformin, monitor with blood sugar tests every 3 months
-- Cholesterol: Continue Atorvastatin, monitor with lipid tests every 3 months
+- High heart rate on smart watch: No further workup or testing needed, monitor as needed
+- Decreased hemoglobin: Consider colonoscopy, monitor every three months with blood tests
+- Pre-diabetes: Continue Metformin, check fasting blood sugar every three months
+- Cholesterol: Continue Atorvastatin, check lipids every three months
 

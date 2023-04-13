@@ -143,6 +143,7 @@ const toOpenAI = ({
   const startTime = Date.now();
   return from(_openai.createChatCompletion({
     model,
+    temperature: 0.0,
     messages: [
         {"role": "system", "content": "You are an assistant that reads transcripts between a patient and a doctor.  Your job is to answer the following questions about the conversation as accurately as possible. Never write the patient's name, gender or pronouns."},
         {"role": "user", "content": `The following is a transcript between a patient and a doctor: \`${fullText}\``},
