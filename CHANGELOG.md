@@ -1,3 +1,19 @@
+# [1.2.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.3...v1.2.0-dev.4) (2023-04-13)
+
+
+### Bug Fixes
+
+* Add backpain ([bd70e8f](https://github.com/buccaneerai/note-window-consumer/commit/bd70e8fd2eca7465dedb4b337546ed3ae0747daa))
+* Add md files ([4e3488b](https://github.com/buccaneerai/note-window-consumer/commit/4e3488b41abf7c5257988d5e37100831060bd3f0))
+* Add missing file ([635b4f1](https://github.com/buccaneerai/note-window-consumer/commit/635b4f16acf007e50f5975ab042a538adce29f4f))
+* CHnage HPI and run it again ([32d4f3e](https://github.com/buccaneerai/note-window-consumer/commit/32d4f3e3fb4c925f4c91f5673890fdd1aa8e3261))
+* Move transcripts to their own file ([3e42d92](https://github.com/buccaneerai/note-window-consumer/commit/3e42d92520ca572790ca445ac119e708b0936879))
+
+
+### Features
+
+* Add performance test ([01e03df](https://github.com/buccaneerai/note-window-consumer/commit/01e03df37b230627e1717488881d6a0a20b7200d))
+
 # [1.2.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2023-04-11)
 
 
