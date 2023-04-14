@@ -1,3 +1,11 @@
+# [1.2.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.5...v1.2.0-dev.6) (2023-04-13)
+
+
+### Bug Fixes
+
+* increase sqs queue message timeout ([c1874bc](https://github.com/buccaneerai/note-window-consumer/commit/c1874bc5f5fba4122bc64a96068691e090af92d2))
+* Increase sqs queue visibility timeout ([069e2e4](https://github.com/buccaneerai/note-window-consumer/commit/069e2e426014429493ca573294a142c8be40076a))
+
 # [1.2.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.4...v1.2.0-dev.5) (2023-04-13)
 
 
@@ -29,6 +37,13 @@
 * Assesment and plan section ([4c1147a](https://github.com/buccaneerai/note-window-consumer/commit/4c1147a87040c62d1d49b5b5f44e3d6e8864a9f4))
 * Only include actual family history in fhx ([0b94af3](https://github.com/buccaneerai/note-window-consumer/commit/0b94af386c8be2c86461f6ba55e4b9bf821fb98b))
 * Set pipeline 2.0 as the default ([9480d1b](https://github.com/buccaneerai/note-window-consumer/commit/9480d1b51e76ee070f6cef9602f741a289dc41ee))
+
+# [1.2.0](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.1...v1.2.0) (2023-04-09)
+
+### Bug Fixes
+
+* Add social history and a few other fixes ([5705b1c](https://github.com/buccaneerai/note-window-consumer/commit/5705b1c0e076d71176d16658c6faadc1747383b4))
+* new gpt4 pipeline ([694e148](https://github.com/buccaneerai/note-window-consumer/commit/694e1486df0f34118f194040d97cb649c5a8a5aa))
 
 # [1.2.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2023-04-06)
 
