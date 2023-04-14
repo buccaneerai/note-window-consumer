@@ -66,7 +66,8 @@ const fetchVerifiedFindings = ({
   );
 };
 
-const parseSection = (value) => {
+const parseSection = (val) => {
+  const value = val.trim();
   const arr = value.split('\n');
   const values = arr.filter((v) => {
     if (!v || !v.length || v === '\n') {
@@ -85,7 +86,10 @@ const parseSection = (value) => {
     let _value = v.trim();
     _value = _value.replace(/^\d+\s*[-\\.)]?\s+/g, '');
     // @TODO we may want to move this into it's own function
-    _value = _value.replace('CAT Scan', 'CT Scan').replace('cat scan', 'CT Scan').replace('CAT scan', 'CT Scan');
+    _value = _value.replace('CAT Scan', 'CT Scan')
+                   .replace('cat scan', 'CT Scan')
+                   .replace('CAT scan', 'CT Scan')
+                   .replace('Family history of ', '');
     return _value;
   });
 };
@@ -106,8 +110,8 @@ const parseResponse = (response) => {
   // Split on the "STOP" keyword
   const arr = response.split('STOP');
   // If we don't get the same numnber of questions back, assume something failed.
-  const numSections = Object.keys(sections).length + 1;
-  if (arr.length !== numSections) { // configured based on number of questions
+  const numSections = Object.keys(sections).length;
+  if (arr.length !== numSections && arr.length !== numSections + 1) { // configured based on number of questions
     logger.error(`Response from OPENAI did not have the requisite number of sections ${numSections}. Skipping...`);
     console.dir(response); // eslint-disable-line
     return sections;
@@ -144,21 +148,21 @@ const toOpenAI = ({
   const startTime = Date.now();
   return from(_openai.createChatCompletion({
     model,
-    temperature: 0.0,
+    temperature: 0.5,
     messages: [
-        {"role": "system", "content": "You are an assistant that reads transcripts between a patient and a doctor.  Your job is to answer the following questions about the conversation as accurately as possible. Never write the patient's name, gender or pronouns."},
+        {"role": "system", "content": "You are an assistant that reads transcripts between a patient and a doctor.  Your job is to answer the following questions about the conversation as accurately as possible. Never write the patient's name, gender or pronouns. After each response say \`STOP\`"},
         {"role": "user", "content": `The following is a transcript between a patient and a doctor: \`${fullText}\``},
         {"role": "user", "content": `\
-Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. After the list of symptoms, say \`STOP\`: What were the patient's symptoms? \n
-Answer the following question with as few words as possible, if there is no answer, then reply \`NONE\`. After the answer, say \`STOP\`: What was the primary symptom? \n
-Answer the following question as a numbered list with each answer on a new line, if there is no assessment or plan, then reply \`NONE\`. After the answer, say \`STOP\`: What was the doctor's assessment and plan? Answer with the fewest words possible for any problem or diganosis identified by the doctor, followed by a colon and then a very short summary of the plan of action for that issue. Example: \`Pain: IV Treatment in Office Today\` \n
-Answer the following question as a numbered list with each answer on a new line, using as few words as possible. If there is no medications, then reply \`NONE\`. After the answer, say \`STOP\`: What medications is the patient taking or the doctor prescribe? \n
-Answer the following question as a numbered list with each answer on a new line, if there is no allergies, then reply \`NONE\`. After the answer, say \`STOP\`: What allergies does the patient have? \n
-Answer the following question by writing a short summary. If there is no family history present, then reply \`NONE\`. After the ansnwer, say \`STOP\`: What information did the patient provide about their family history?  Don't incldue any recent contact, only include historical family symptoms and diagnosis. \n
-Answer the following question as a detailed summary.  If there is no history of the present illness, then reply \`NONE\`.  After the answer, say \`STOP\`: Without including the patient's name or any of the doctor's assessment or plan, write a detailed history of the patient's present illness, symptoms or complaints. \n
-Answer the following question as a numbered list with each answer on a new line, if there is no allergies, then reply \`NONE\`. After the answer, say \`STOP\`: Without including the family history or current illness, what is the patient's past medical history? \n
-Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. After the list of symptoms, say \`STOP\`: What symptoms did the patient deny having? \n
-Write a paragraph describing any of the following topics found in the transcript: diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, relationship status, suicide, sexuality or sexual activity. If there none of these topics are discussed, then reply \`NONE\`. After the answer, say \`STOP\`.`}
+Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. What were the patient's symptoms? \n
+Answer the following question as a short one sentence summary of the patient and the primary symptom or issues they presented with. Example: \`31-year old patient with history of diabetes presents with worst headache of his life.\`. \n
+Answer the following question as a numbered list with each answer on a new line, if there is no assessment or plan, then reply \`NONE\`. What was the doctor's assessment and plan? Include any diagnosis, medications, procedures, referrals, lab orders, or other recommendations the doctor says. Answer with the fewest words possible for any problem or diganosis identified by the doctor, followed by a colon and then a very short summary of the plan of action for that issue. Example: \`Pain: IV Treatment in Office Today\` \n
+Answer the following question as a numbered list with each answer on a new line, using as few words as possible. If there is no medications, then reply \`NONE\`. What medications does the patient say they are taking? Only include the medication name if it's a real drug or medication. \n
+Answer the following question as a numbered list with each answer on a new line, if there were no allergies discussed, then reply \`NONE\`. If the doctor asks the patient if they have any allergies and the patient denies having any allergies, say: \`Patient denied allergies\`: List each allergy that was discussed, if the patient denies having an allergy say, \`Patient denied allergy [ALLERGY]\`. \n
+Answer the following question as a numbered list with each answer on a new line, if there is no family history present, then reply \`NONE\`. What information did the patient provide about their family history?  Don't include any recent contact, only include historical family symptoms and diagnosis. \n
+Answer the following question as a detailed summary. Include as much detail as possible. If there is no history of the present illness, then reply \`NONE\`. Without including the patient's name or any of the doctor's assessment or plan, write a detailed history of the patient's present illness, symptoms or complaints. \n
+Answer the following question as a numbered list with each answer on a new line, if there is no allergies, then reply \`NONE\`. Without including the family history or current illness, what is the patient's past medical history? \n
+Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. What symptoms did the patient deny having? \n
+Write a paragraph describing any of the following topics found in the transcript: diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, relationship status, suicide, sexuality or sexual activity, spouse and children. If there none of these topics are discussed, then reply \`NONE\`.`}
     ]
   })).pipe(
     map((response) => {

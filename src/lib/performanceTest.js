@@ -113,7 +113,10 @@ const handleMessage = ({
 
       // FHX
       str += `#### Family History \n`;
-      str += `${get(vfMap, 'family[0].findingAttributes[0].stringValues[0]', 'NONE') || 'NONE'}`;
+      let family = get(vfMap, 'family[0].findingAttributes[0].stringValues[0]', 'NONE') || 'NONE';
+      family = family.split('\n');
+      family = family.join('\n- ');
+      str += `- ${family}`;
       str += `\n\n`;
 
       // SHX
