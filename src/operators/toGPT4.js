@@ -84,6 +84,8 @@ const parseSection = (value) => {
   return values.map((v) => {
     let _value = v.trim();
     _value = _value.replace(/^\d+\s*[-\\.)]?\s+/g, '');
+    // @TODO we may want to move this into it's own function
+    _value = _value.replace('CAT Scan', 'CT Scan').replace('cat scan', 'CT Scan').replace('CAT scan', 'CT Scan');
     return _value;
   });
 };
@@ -141,17 +143,18 @@ const toOpenAI = ({
   const startTime = Date.now();
   return from(_openai.createChatCompletion({
     model,
+    temperature: 0.0,
     messages: [
         {"role": "system", "content": "You are an assistant that reads transcripts between a patient and a doctor.  Your job is to answer the following questions about the conversation as accurately as possible. Never write the patient's name, gender or pronouns."},
         {"role": "user", "content": `The following is a transcript between a patient and a doctor: \`${fullText}\``},
         {"role": "user", "content": `\
 Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. After the list of symptoms, say \`STOP\`: What were the patient's symptoms? \n
 Answer the following question with as few words as possible, if there is no answer, then reply \`NONE\`. After the answer, say \`STOP\`: What was the primary symptom? \n
-Answer the following question as a numbered list with each answer on a new line, if there is no assessment or plan, then reply \`NONE\`. After the answer, say \`STOP\`: What was the doctor's assessment and plan? \n
+Answer the following question as a numbered list with each answer on a new line, if there is no assessment or plan, then reply \`NONE\`. After the answer, say \`STOP\`: What was the doctor's assessment and plan? Answer with the fewest words possible for any problem or diganosis identified by the doctor, followed by a colon and then a very short summary of the plan of action for that issue. Example: \`Pain: IV Treatment in Office Today\` \n
 Answer the following question as a numbered list with each answer on a new line, using as few words as possible. If there is no medications, then reply \`NONE\`. After the answer, say \`STOP\`: What medications is the patient taking or the doctor prescribe? \n
 Answer the following question as a numbered list with each answer on a new line, if there is no allergies, then reply \`NONE\`. After the answer, say \`STOP\`: What allergies does the patient have? \n
-Summarize any issues with the patient's family. If there are no issues, then reply \`NONE\`. After the summary, say \`STOP\`.  \n
-Without including any of the doctor's assesment or plan, write a history of the present illness without using the patient's name. After the summary, say \`STOP\`. \n
+Answer the following question by writing a short summary. If there is no family history present, then reply \`NONE\`. After the ansnwer, say \`STOP\`: What information did the patient provide about their family history?  Don't incldue any recent contact, only include historical family symptoms and diagnosis. \n
+Answer the following question as a detailed summary.  If there is no history of the present illness, then reply \`NONE\`.  After the answer, say \`STOP\`: Without including the patient's name or any of the doctor's assessment or plan, write a detailed history of the patient's present illness, symptoms or complaints. \n
 Answer the following question as a numbered list with each answer on a new line, if there is no allergies, then reply \`NONE\`. After the answer, say \`STOP\`: Without including the family history or current illness, what is the patient's past medical history? \n
 Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. After the list of symptoms, say \`STOP\`: What symptoms did the patient deny having? \n
 Write a paragraph describing any of the following topics found in the transcript: diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, relationship status, suicide, sexuality or sexual activity. If there none of these topics are discussed, then reply \`NONE\`. After the answer, say \`STOP\`.`}

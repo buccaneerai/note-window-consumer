@@ -1,6 +1,6 @@
 {
   "name": "note-window-consumer",
-  "version": "1.2.0",
+  "version": "1.2.0-dev.6",
   "main": "src/index.js",
   "author": "Buccaneer LLC",
   "license": "UNLICENSED",
@@ -56,6 +56,7 @@
     "start": "node src/index.js",
     "medical": "node inspect src/operators/toMedicalComprehend.js",
     "message": "node inspect src/lib/handleMessage.js",
+    "perf": "node src/lib/performanceTest.js",
     "ros-prediction": "node inspect src/lib/sendWordsToTopicModel.js",
     "dev": "npx nodemon ./src/index.js",
     "debug": "node inspect ./src/index.js",

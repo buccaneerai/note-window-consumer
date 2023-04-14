@@ -1,7 +1,46 @@
-# [1.2.0](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.1...v1.2.0) (2023-04-09)
+# [1.2.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.5...v1.2.0-dev.6) (2023-04-13)
+
+
+### Bug Fixes
+
+* increase sqs queue message timeout ([c1874bc](https://github.com/buccaneerai/note-window-consumer/commit/c1874bc5f5fba4122bc64a96068691e090af92d2))
+* Increase sqs queue visibility timeout ([069e2e4](https://github.com/buccaneerai/note-window-consumer/commit/069e2e426014429493ca573294a142c8be40076a))
+
+# [1.2.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.4...v1.2.0-dev.5) (2023-04-13)
+
+
+### Bug Fixes
+
+* set temperature to 0.0 ([442d4df](https://github.com/buccaneerai/note-window-consumer/commit/442d4dff9319e38761b1faa783199ab97a2bafd0))
+
+# [1.2.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.3...v1.2.0-dev.4) (2023-04-13)
+
+
+### Bug Fixes
+
+* Add backpain ([bd70e8f](https://github.com/buccaneerai/note-window-consumer/commit/bd70e8fd2eca7465dedb4b337546ed3ae0747daa))
+* Add md files ([4e3488b](https://github.com/buccaneerai/note-window-consumer/commit/4e3488b41abf7c5257988d5e37100831060bd3f0))
+* Add missing file ([635b4f1](https://github.com/buccaneerai/note-window-consumer/commit/635b4f16acf007e50f5975ab042a538adce29f4f))
+* CHnage HPI and run it again ([32d4f3e](https://github.com/buccaneerai/note-window-consumer/commit/32d4f3e3fb4c925f4c91f5673890fdd1aa8e3261))
+* Move transcripts to their own file ([3e42d92](https://github.com/buccaneerai/note-window-consumer/commit/3e42d92520ca572790ca445ac119e708b0936879))
 
 
 ### Features
+
+* Add performance test ([01e03df](https://github.com/buccaneerai/note-window-consumer/commit/01e03df37b230627e1717488881d6a0a20b7200d))
+
+# [1.2.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2023-04-11)
+
+
+### Bug Fixes
+
+* Assesment and plan section ([4c1147a](https://github.com/buccaneerai/note-window-consumer/commit/4c1147a87040c62d1d49b5b5f44e3d6e8864a9f4))
+* Only include actual family history in fhx ([0b94af3](https://github.com/buccaneerai/note-window-consumer/commit/0b94af386c8be2c86461f6ba55e4b9bf821fb98b))
+* Set pipeline 2.0 as the default ([9480d1b](https://github.com/buccaneerai/note-window-consumer/commit/9480d1b51e76ee070f6cef9602f741a289dc41ee))
+
+# [1.2.0](https://github.com/buccaneerai/note-window-consumer/compare/v1.1.1...v1.2.0) (2023-04-09)
+
+### Bug Fixes
 
 * Add social history and a few other fixes ([5705b1c](https://github.com/buccaneerai/note-window-consumer/commit/5705b1c0e076d71176d16658c6faadc1747383b4))
 * new gpt4 pipeline ([694e148](https://github.com/buccaneerai/note-window-consumer/commit/694e1486df0f34118f194040d97cb649c5a8a5aa))
