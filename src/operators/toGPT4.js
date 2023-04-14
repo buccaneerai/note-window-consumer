@@ -109,6 +109,7 @@ const parseResponse = (response) => {
   const numSections = Object.keys(sections).length + 1;
   if (arr.length !== numSections) { // configured based on number of questions
     logger.error(`Response from OPENAI did not have the requisite number of sections ${numSections}. Skipping...`);
+    console.dir(response); // eslint-disable-line
     return sections;
   }
   sections = {
@@ -203,6 +204,9 @@ const getChiefComplaintPrediction = ({
 }) => {
   const vf = get(vfMap, 'cc.0', {});
   let value = get(sections, 'cc.0', '');
+  if (!value) {
+    return {};
+  }
   value = value.replace('Primary symptom:', '').trim()
   return {
     findingCode: 'F-ChiefComplaint',
@@ -224,6 +228,9 @@ const getHPISummaryPrediction = ({
 }) => {
   const vf = get(vfMap, 'hpi.0', {});
   const value = get(sections, 'hpi.0', '');
+  if (!value) {
+    return {};
+  }
   return {
     findingCode: 'F-HpiSummary',
     pipelineId,
@@ -244,6 +251,9 @@ const getSocialSummaryPrediction = ({
 }) => {
   const vf = get(vfMap, 'social.0', {});
   const value = get(sections, 'social.0', '');
+  if (!value) {
+    return {};
+  }
   return {
     findingCode: 'F-SocialSummary',
     pipelineId,
@@ -388,6 +398,9 @@ const getMedicationPredictions = ({
     return a.trim();
   });
   const value = medications.join('\n');
+  if (!value) {
+    return {};
+  }
   return {
     findingCode: 'F-Medication',
     pipelineId,
@@ -408,13 +421,17 @@ const getProblemSummaryPredictions = ({
 }) => {
   const vf = get(vfMap, 'problems.0', {});
   const problems = get(sections, 'problems', []);
+  const value = problems.join('\n');
+  if (!value) {
+    return {};
+  }
   return {
     findingCode: 'F-Problem',
     pipelineId,
     _id: vf._id,
     findingAttributes: [{
       findingAttributeKey: 'text',
-      stringValues: [problems.join('\n')],
+      stringValues: [value],
       findingAttributeScore: 0.5,
       pipelineId,
     }]
@@ -428,13 +445,17 @@ const getPmhSummaryPredictions = ({
 }) => {
   const vf = get(vfMap, 'pmh.0', {});
   const pmh = get(sections, 'pmh', []);
+  const value = pmh.join('\n');
+  if (!value) {
+    return {};
+  }
   return {
     findingCode: 'F-Pmh',
     pipelineId,
     _id: vf._id,
     findingAttributes: [{
       findingAttributeKey: 'text',
-      stringValues: [pmh.join('\n')],
+      stringValues: [value],
       findingAttributeScore: 0.5,
       pipelineId,
     }]
@@ -448,6 +469,9 @@ const getFamilyHistorySummaryPrediction = ({
 }) => {
   const vf = get(vfMap, 'family.0', {});
   const value = get(sections, 'family.0', '');
+  if (!value) {
+    return {};
+  }
   return {
     findingCode: 'F-Family',
     pipelineId,

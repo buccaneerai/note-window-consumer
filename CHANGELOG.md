@@ -1,6 +1,5 @@
 # [1.3.0](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0...v1.3.0) (2023-04-14)
 
-
 ### Bug Fixes
 
 * Add backpain ([bd70e8f](https://github.com/buccaneerai/note-window-consumer/commit/bd70e8fd2eca7465dedb4b337546ed3ae0747daa))
@@ -8,6 +7,12 @@
 * Add missing file ([635b4f1](https://github.com/buccaneerai/note-window-consumer/commit/635b4f16acf007e50f5975ab042a538adce29f4f))
 * Assesment and plan section ([4c1147a](https://github.com/buccaneerai/note-window-consumer/commit/4c1147a87040c62d1d49b5b5f44e3d6e8864a9f4))
 * CHnage HPI and run it again ([32d4f3e](https://github.com/buccaneerai/note-window-consumer/commit/32d4f3e3fb4c925f4c91f5673890fdd1aa8e3261))
+
+# [1.3.0-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0...v1.3.0-dev.1) (2023-04-14)
+
+### Bug Fixes
+
+* Don't override if gpt4 fails to properly return value ([697b0c2](https://github.com/buccaneerai/note-window-consumer/commit/697b0c24fc7ac2c39cfb47e5953bf4680bb82ef4))
 * increase sqs queue message timeout ([c1874bc](https://github.com/buccaneerai/note-window-consumer/commit/c1874bc5f5fba4122bc64a96068691e090af92d2))
 * Increase sqs queue visibility timeout ([069e2e4](https://github.com/buccaneerai/note-window-consumer/commit/069e2e426014429493ca573294a142c8be40076a))
 * Move transcripts to their own file ([3e42d92](https://github.com/buccaneerai/note-window-consumer/commit/3e42d92520ca572790ca445ac119e708b0936879))
