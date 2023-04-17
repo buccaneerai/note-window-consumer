@@ -1,3 +1,12 @@
+## [1.3.1-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.3.0...v1.3.1-dev.1) (2023-04-17)
+
+
+### Bug Fixes
+
+* Don't override if gpt4 fails to properly return value ([697b0c2](https://github.com/buccaneerai/note-window-consumer/commit/697b0c24fc7ac2c39cfb47e5953bf4680bb82ef4))
+* Many fixes ([72ab9c8](https://github.com/buccaneerai/note-window-consumer/commit/72ab9c825fe8772a7da28358cdcac1d3ff685dbd))
+* new model run ([8e6989b](https://github.com/buccaneerai/note-window-consumer/commit/8e6989b7bc3ce5f3a62abb43da8c0540a7a491be))
+
 # [1.3.0](https://github.com/buccaneerai/note-window-consumer/compare/v1.2.0...v1.3.0) (2023-04-14)
 
 ### Bug Fixes
