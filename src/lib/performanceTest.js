@@ -191,6 +191,14 @@ const performanceTest = () => {
       index: 0,
       ...TRANSCRIPTS.allergy,
     }),
+    handleMessage()({
+      index: 0,
+      ...TRANSCRIPTS.openwound,
+    }),
+    handleMessage()({
+      index: 0,
+      ...TRANSCRIPTS.cruise,
+    }),
   ];
   const done$ = concat(...tests);
   done$.subscribe((d) => console.log('DONE!'));  // eslint-disable-line
