@@ -67,7 +67,23 @@ const fetchVerifiedFindings = ({
 };
 
 const parseSection = (val) => {
-  const value = val.trim();
+  let value = val.trim();
+  value = value.replace('Review of systems:', '')
+               .replace('Denial of symptoms:', '')
+               .replace('Family history:', '')
+               .replace('Medications:', '')
+               .replace('Social history:', '')
+               .replace('Chief complaint:', '')
+               .replace('Assessment and plan:', '')
+               .replace('Assessment and Plan:', '')
+               .replace('History of present illness:', '')
+               .replace('Past medical history:', '')
+               .replace('List of medications:', '')
+               .replace('List of assessment and plan:', '')
+               .replace('Symptoms the patient is experiencing:', '')
+               .replace('Symptoms patient denies experiencing:', '')
+               .replace('The patient has taken:', '')
+               .trim();
   const arr = value.split('\n');
   const values = arr.filter((v) => {
     if (!v || !v.length || v === '\n') {
@@ -117,16 +133,16 @@ const parseResponse = (response) => {
     return sections;
   }
   sections = {
-    cc: parseSection(arr[1]),
-    hpi: parseSection(arr[6]),
-    ros: parseSection(arr[0]),
-    rosDenial: parseSection(arr[8]),
-    problems: parseSection(arr[2]),
-    rx: parseSection(arr[3]),
-    family: parseSection(arr[5]),
-    allergies: parseSection(arr[4]),
-    pmh: parseSection(arr[7]),
-    social: parseSection(arr[9])
+    cc: parseSection(arr[0]),
+    hpi: parseSection(arr[1]),
+    ros: parseSection(arr[2]),
+    rosDenial: parseSection(arr[3]),
+    problems: parseSection(arr[9]),
+    rx: parseSection(arr[7]),
+    family: parseSection(arr[4]),
+    allergies: parseSection(arr[8]),
+    pmh: parseSection(arr[5]),
+    social: parseSection(arr[6])
   };
   return sections;
 };
@@ -150,19 +166,86 @@ const toOpenAI = ({
     model,
     temperature: 0.5,
     messages: [
-        {"role": "system", "content": "You are an assistant that reads transcripts between a patient and a doctor.  Your job is to answer the following questions about the conversation as accurately as possible. Never write the patient's name, gender or pronouns. After each response say \`STOP\`"},
-        {"role": "user", "content": `The following is a transcript between a patient and a doctor: \`${fullText}\``},
-        {"role": "user", "content": `\
-Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. What were the patient's symptoms? \n
-Answer the following question as a short one sentence summary of the patient and the primary symptom or issues they presented with. Example: \`31-year old patient with history of diabetes presents with worst headache of his life.\`. \n
-Answer the following question as a numbered list with each answer on a new line, if there is no assessment or plan, then reply \`NONE\`. What was the doctor's assessment and plan? Include any diagnosis, medications, procedures, referrals, lab orders, or other recommendations the doctor says. Answer with the fewest words possible for any problem or diganosis identified by the doctor, followed by a colon and then a very short summary of the plan of action for that issue. Example: \`Pain: IV Treatment in Office Today\` \n
-Answer the following question as a numbered list with each answer on a new line, using as few words as possible. If there is no medications, then reply \`NONE\`. What medications does the patient say they are taking? Only include the medication name if it's a real drug or medication. \n
-Answer the following question as a numbered list with each answer on a new line, if there were no allergies discussed, then reply \`NONE\`. If the doctor asks the patient if they have any allergies and the patient denies having any allergies, say: \`Patient denied allergies\`: List each allergy that was discussed, if the patient denies having an allergy say, \`Patient denied allergy [ALLERGY]\`. \n
-Answer the following question as a numbered list with each answer on a new line, if there is no family history present, then reply \`NONE\`. What information did the patient provide about their family history?  Don't include any recent contact, only include historical family symptoms and diagnosis. \n
-Answer the following question as a detailed summary. Include as much detail as possible. If there is no history of the present illness, then reply \`NONE\`. Without including the patient's name or any of the doctor's assessment or plan, write a detailed history of the patient's present illness, symptoms or complaints. \n
-Answer the following question as a numbered list with each answer on a new line, if there is no allergies, then reply \`NONE\`. Without including the family history or current illness, what is the patient's past medical history? \n
-Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. What symptoms did the patient deny having? \n
-Write a paragraph describing any of the following topics found in the transcript: diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, relationship status, suicide, sexuality or sexual activity, spouse and children. If there none of these topics are discussed, then reply \`NONE\`.`}
+        {"role": "system", "content": `
+You are an assistant that reads transcripts between a patient and a doctor to generate a clinical SOAP note. Medical notes require a very high degree of accuracy. Your job is to answer the following questions about the conversation as accurately as possible from the perspective of the doctor. \n
+Additionally, you will never write the patient's name, gender or pronouns. After each response, you will say "\nSTOP" or if there is not an adequate answer to the question or enough information to answer the question, you will say "\nNONE\nSTOP". \n
+Never include the question in the response.  Medical notes \n
+`},
+        {"role": "user", "content": `The following is a transcript between a patient and a doctor: "${fullText}"`},
+        {"role": "user", "content": `
+Write a one-sentence summary of the patient and the primary symptom or issues they presented with: \n
+Example: "31-year old patient with history of diabetes presents with worst headache of his life." \n
+Example: "Patient with a history of asthma presents with a severe sore throat and feverish feeling." \n
+\n
+Write a detailed summary of the patient's present illness, symptoms, complaints or issues. The summary should include qualifying information about what makes the symptoms better or worse as well as anything the patient has tried to alleviate the symtpoms.  It should include any questions and answers the doctor asks about the present illness.  Do not include any of the doctor's assessment or plan: \n
+Example: \n
+"The patient woke up with a severe headache, describing it as the worst pain they've ever had, and it has persisted since 5 AM. The patient felt slightly feverish the night before and has a sick child at home. The pain was so intense that it caused the patient to vomit. The patient tried taking extra strength Tylenol, but it did not help. The doctor asked about additional symptoms like blurred vision, rash, diarrhea, swollen joints, and recent travel, but the patient had none of those. During the physical exam, the patient experienced pain in some parts of the exam." \n
+\n
+Write a numbered list of symptoms the patient indicated they are experiencing. Include any symptoms the doctor asks the patient if they are experiencing: \n
+\n
+Write a numbered list of symptoms the patient denied experiencing. Include any symptoms the doctor asks the patient if they are experiencing: \n
+\n
+Write a numbered list of family history that includes any historical medical information about the patient's family and relatives.  Do not include any recent illness, only historical diagnosis and diseases for relatives of the patient: \n
+Example: \n
+1. Father has diabetes \n
+2. Mother has a history of migraines \n
+Example: \n
+1. Brother had his gallbladder removed \n
+2. Son has asthma \n
+\n
+Write a numbered list of past medical history that includes information about the patient's past medical conditions, including prior diseases, prior diagnosis, prior surgeries, prior labs, prior conditions, and prior findings. Do not include anything from the family history or the social history: \n
+Example: \n
+1. Gallbladder removed \n
+2. History of asthma \n
+Example: \n
+1. Hip replacement surgery \n
+2. Laser-eye surgery \n
+\n
+Write a paragraph that includes any information about the patient's social history including; diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, relationship status, suicide, sexuality or sexual activity, marital or relationship status, and number of children. Do not include any of the patient's family medical history or any of the patient's medical history: \n
+Example: "The patient is in retirement, enjoying their life with their spouse in their house. They see their son, who is a doctor, quite often. The patient uses a smart watch for exercise and walking and is not consuming alcohol, not smoking, and not using any other drugs." \n
+Example: "The patient has a history of cocaine abuse 10 years ago but currently does not smoke cigarettes or drink alcohol. The patient exercises twice a week and they are married and have 2 children." \n
+\n
+Write a numbered list of medications that the patient indicates they have previously taken, are currently taking, or deny currently taking and their dosages (if they provide this information). Do not include any medications that the doctor prescribes during the encounter: \n
+Example: \n
+1. Tylenol 500mg twice a day \n
+2. Effexor 25mg once in the morning \n
+3. Flovent inhaler \n
+Example: \n
+1. Cetirizine \n
+\n
+Write a numbered list of allergies including anything the patient is allergic to or says they are not allergic to. If the patient denies having any or all allergies, say "Patient denied allergies".  If the patient denies having a specific allergy, say "Patient denies allergy to [ALLERGY]".  Otherwise, if the patient asserts or confirms they have an allergy, say, "Patient asserts allergy to [ALLERGY]": \n
+Example transcript excerpt: "Do you have any allergies? No, I don't have any allergies." \n
+Example answer: \n
+1. Patient denied allergies \n
+Example transcript excerpt: "Are you allergic to eggs? Yes. Are you allergic to peanuts? No. Are you allergic to any medications? Yes, Oflaxacin, I think." \n
+Example answer: \n
+1. Patient asserts allergy to egg \n
+2. Patient denies allergy to peanuts \n
+3. Patient asserts allergy to Oflaxacin \n
+\n
+Write a numbered list for the assessment and plan which includes any diagnosis, medications and dosages, procedures, referrals, lab orders, or other recommendations the doctor suggests during the transcript. Each item in the list should be of the form '[ASSESSMENT]: [PLAN]'.  The answer MUST include the specifics of anything administered or prescribed during the patient encounter.  The assessment refers to the issue or diagnosis and the plan refers to any action taken against the assessment: \n
+Example: \n
+1. [ASSESSMENT]: [PLAN] \n
+Example: \n
+1. Migraine: Order CT Scan and CT angio; Prescribe Effexor (37.5 mg daily), can increase as needed; Schedule follow-up in 1 week \n
+2. Allergies: Prescribe Cetirizine; take as needed. \n
+Example: \n
+1. Meningitis concern: CT Scan, followed by lumbar puncture if needed \n
+2. Pain and nausea: Morphine administered during visit; prescribe medication for nausea \n
+3. Foot pain: Prescribe Tylenol 500mg, four times daily or as needed \n
+`},
+//         {"role": "user", "content": `
+// What is the chief complaint? After the answer, say 'STOP'. If the chief complaint was not discussed, reply 'NONE\nSTOP'. Do not include the words 'chief complaint' in the answer. \n
+// What is the history of present illness? After the answer, say 'STOP'. If the history of present illness was not discussed, reply 'NONE\nSTOP'. Do not include the words 'history of present illness' in the answer. \n
+// What were the symptoms? After the answer, say 'STOP'. If there were no symptoms discussed, reply 'NONE\nSTOP'. Do not include the words 'symptoms' in the answer. \n
+// What is the denial of symptoms? After the answer, say 'STOP'. If the denial of symptoms was not discussed, reply 'NONE\nSTOP'. Do not include the words 'denial of symptoms' answer. \n
+// What is the family history? After the answer, say 'STOP'. If the family history was not discussed, reply 'NONE\nSTOP'. Do not include tthe words 'family history' answer. \n
+// What is the past medical history? After the answer, say 'STOP'. If the past medical history was not discussed, reply 'NONE\nSTOP'. Do not include the words 'past medical history' in the answer. \n
+// What is the social history? After the answer, say 'STOP'. If the social history was not discussed, reply 'NONE\nSTOP'. Do not include the words 'social history' in the answer. \n
+// What is the medications? After the answer, say 'STOP'. If the medications were not discussed, reply 'NONE\nSTOP'. Do not include the words 'medications' in the answer. \n
+// What is the allergies? After the answer, say 'STOP'. If the allergies were not discussed, reply 'NONE\nSTOP'. Do not include the words 'allergies' in the answer. \n
+// What is the assessment and plan? After the answer, say 'STOP'. If the asssment and plan was not discussed, reply 'NONE\nSTOP'. Do not include the words 'assessment and plan' in the answer. \n
+// `}
     ]
   })).pipe(
     map((response) => {
@@ -370,7 +453,7 @@ const getAllergyPredictions = ({
   const vfs = get(vfMap, 'allergies', []);
   const _allergies = get(sections, 'allergies', []);
   const allergies = _allergies.map((a) => {
-    return a.replace('Allergic to', '').replace('Allergy to', '').replace('Allergy', '').replace('allergy', '').trim();
+    return a.trim();
   });
   const matchingAllergies = vfs.filter((s) => s.findingAttributeKey === 'text' && allergies.includes(s.stringValues[0]));
   const matchingAllergiesLabels = matchingAllergies.map((s) => s.stringValues[0]);
@@ -472,7 +555,8 @@ const getFamilyHistorySummaryPrediction = ({
   sections = {},
 }) => {
   const vf = get(vfMap, 'family.0', {});
-  const value = get(sections, 'family.0', '');
+  const family = get(sections, 'family', []);
+  const value = family.join('\n');
   if (!value) {
     return {};
   }

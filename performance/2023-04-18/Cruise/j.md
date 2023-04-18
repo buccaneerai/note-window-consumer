@@ -6,39 +6,36 @@ Okay. Hi, I'm Dr. [NAME]. I'm a neurologist. What brings you in today? Oh, did y
 ```
 
 #### CC 
-Patient born in 1980 presents with a severe headache, swaying feeling, nausea, and noise sensitivity. 
+Patient presents with a severe headache and swaying sensation. 
 
 #### HPI 
-The patient began experiencing their worst headache, which is located in the front of their head and has a sensation of pressure. It started earlier in the day and is accompanied by a swaying feeling, nausea, and worsens with noise. The swaying sensation has been on and off since going on a cruise a month ago. The headache is slightly relieved in a quiet place with eyes open.
+The patient started experiencing a severe headache earlier today, described as the worst headache they've ever had, located at the front of their head and extending throughout. The pain is not throbbing, stabbing, or aching, but rather feels like pressure. The headache is worse when exposed to loud noises and slightly better in a quiet environment with eyes open. The patient also experiences a swaying sensation, which has been on and off since going on a cruise last month, but has worsened with the current headache. The patient has some nausea but no vomiting, and has tried ibuprofen to alleviate the headache with minimal relief.
 
 #### ROS 
 - neurological: [true] headache 
 - gastrointestinal: [true] nausea 
 - ent: [true] hearing loss 
-- constitutional: [false] fever 
-- genitourinary: [false] urinary incontinence 
 - cardiovascular: [false] chest pain 
 - respiratory: [false] difficulty breathing 
 
 #### Past Medical History 
-- No medical conditions
-- No major surgeries, except one in foot
+- Prior foot surgery
 
 #### Family History 
 - Father has diabetes
+- Sister has depression
 
 #### Social History 
-The patient mentioned that they do not smoke cigarettes but do consume alcohol. They have used marijuana in the past but not recently. They have not had any major surgeries or medical conditions. The patient's father has diabetes and their sister has depression.
+The patient is a non-smoker and drinks alcohol occasionally. They have used marijuana in the past but are not currently using any drugs. The patient has no significant social history information provided.
 
 #### Allergies 
-- Patient denied allergies.
+- Patient denied allergies
 
 #### Medications 
 - Ibuprofen
-- Excedrin
 
 #### Assessment & Plan 
-- Complex migraine or vestibular migraine: Order CT Scan and CT angio; Prescribe Effexor (37.5 mg daily), can increase as needed; Schedule follow-up in 1 week
-- Mal de Debarquement syndrome: Consider as alternative diagnosis
-- Allergies: Consider as alternative diagnosis
+- New onset headache: Order CT Scan and CT angio; Prescribe Effexor (37.5 mg daily), can increase as needed; Schedule follow-up in 1 week
+- Swaying sensation: Prescribe Effexor (37.5 mg daily), can increase as needed
+- Nausea: Monitor and address during follow-up if persistent
 

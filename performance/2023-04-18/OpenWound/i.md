@@ -6,12 +6,15 @@ Good morning, Mr. [NAME]. How are you doing today? Not so well. I stabbed myself
 ```
 
 #### CC 
-NONE 
+Patient presents with a stab wound in their left forearm from an accident while changing an air filter in their furnace. 
 
 #### HPI 
-NONE
+Patient accidentally stabbed their left forearm with a screwdriver while changing the air filter in their furnace at 8pm the previous night. They cleaned the wound with alcohol, applied Neosporin, and covered it with a bandaid. The patient has not had a tetanus shot in over five years and is concerned about the possibility of needing one.
 
 #### ROS 
+- neurological: [true] numbness 
+- constitutional: [true] chills 
+- gastrointestinal: [true] nausea 
 
 #### Past Medical History 
 - NONE
@@ -20,14 +23,15 @@ NONE
 - NONE
 
 #### Social History 
-NONE
+Patient does not smoke cigarettes.
 
 #### Allergies 
-- NONE
+- Patient denied allergies
 
 #### Medications 
 - NONE
 
 #### Assessment & Plan 
-- NONE
+- Stab wound: Irrigate and bandage wound; wash twice daily and apply topical antibiotic ointment; monitor for infection and return if no improvement in 5-7 days or if signs of infection appear
+- Tetanus shot: Administer tetanus booster shot today
 
