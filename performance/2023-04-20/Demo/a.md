@@ -6,16 +6,18 @@ Hi. Hi, my name is Aspen Fieldscout. I'm Dr. Briar Hayfield. How can I help you?
 ```
 
 #### INTRO 
-The patient presents with a severe headache that began upon waking up. 
+Patient presents with a severe headache that started in the morning. 
 
 #### CC 
 Severe headache 
 
 #### HPI 
-The patient woke up with a severe headache, which has persisted since around 5 AM. The pain is described as the worst they have ever experienced and has caused vomiting due to its intensity. The patient felt feverish the night before and mentioned their son has been sick for a couple of days. The headache is not accompanied by blurred vision, numbness, or weakness. The patient tried taking Tylenol for the pain, but it made no difference.
+The patient woke up with a severe headache that has been ongoing since around 5 am. The pain is described as terrible and the worst pain they have ever experienced. The headache is accompanied by nausea and vomiting due to the intensity of the pain. The patient's son has been sick for a few days, and the patient felt feverish the night before. They took Tylenol for the pain, but it made no difference.
 
 #### ROS 
 - neurological: [true] headache 
+- gastrointestinal: [true] nausea 
+- gastrointestinal: [true] vomiting 
 - eyes: [false] blurred vision 
 - neurological: [false] numbness 
 - neurological: [false] weakness 
@@ -23,23 +25,21 @@ The patient woke up with a severe headache, which has persisted since around 5 A
 #### Past Medical History 
 - Asthma
 - Car sickness
-- Family history of migraines
 
 #### Family History 
-- Large family history of migraines
+- Family history of migraines
 
 #### Social History 
-Son has been sick recently
+The patient is married and has a son who has been sick recently. The patient has not traveled outside of the country recently.
 
 #### Allergies 
 - Patient denies allergies
 
 #### Medications 
-- Orange puffer (possibly Flovent or Fluticasone)
+- Orange puffer (Flovent or Fluticasone)
 - Blue puffer (rarely used)
 
 #### Assessment & Plan 
-- Severe headache: Administer IV for pain relief, order CT Scan of the brain, and consider lumbar puncture if necessary
-- Nausea: Provide medication for nausea
-- Possible meningitis or brain bleed: Investigate further with imaging and tests
+- Pain management: Administer IV morphine and medication for nausea
+- Possible meningitis: Perform physical examination, order CT Scan of the brain, and consider lumbar puncture if needed
 

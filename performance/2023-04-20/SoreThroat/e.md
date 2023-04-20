@@ -6,13 +6,13 @@ Hello. Hi John. I saw from your chart that you've been sick for a little bit. Ca
 ```
 
 #### INTRO 
-Patient presents with a sore throat and swollen neck for five days, with worsening symptoms. 
+Patient presents with a sore throat and swollen neck for five days, worsening over time. 
 
 #### CC 
 Sore throat and swollen neck 
 
 #### HPI 
-The patient started experiencing a sore throat five days ago, which has been getting worse. The neck is swollen, making it difficult to swallow. The patient has had a fever of 99 degrees. A few friends and family members were sick a couple of days ago, and the patient attended a birthday party where they drank from a friend's cup who was recovering from an illness. The patient went to urgent care and was treated for strep throat with amoxicillin. However, the throat has continued to worsen, and a rash has developed on the abdomen. The patient also experiences stomach pain on the left side.
+The patient started experiencing a sore throat five days ago, which has been getting worse over time. They also have a swollen neck, making it difficult to swallow. The patient had a fever of 99 degrees and was around friends and family who had been sick at a birthday party. The patient was given amoxicillin after an urgent care visit, but their throat has continued to worsen, and they have developed a rash on their abdomen that appeared after starting the amoxicillin. The patient also experiences stomach pain on the left side.
 
 #### ROS 
 - ent: [true] sore throat 
@@ -33,7 +33,7 @@ The patient started experiencing a sore throat five days ago, which has been get
 - NONE
 
 #### Social History 
-Attended a birthday party
+The patient was at a birthday party where they shared a drink with a friend who had been sick but was recovering.
 
 #### Allergies 
 - Patient denies allergies
@@ -42,7 +42,8 @@ Attended a birthday party
 - Amoxicillin
 
 #### Assessment & Plan 
-- Possible strep throat not responding to amoxicillin: Re-evaluate and consider alternative treatments
-- Rash and stomach pain: Investigate possible connection to current illness or medication
-- Dehydration: Encourage patient to drink fluids and monitor for improvement
+- Sore throat and swollen neck: Continue monitoring and consider alternative diagnosis if no improvement
+- Rash: Monitor and consider stopping amoxicillin if rash worsens or does not improve
+- Stomach pain: Investigate further and monitor for worsening symptoms
+- Possible mono: Perform tests to rule out or confirm diagnosis
 

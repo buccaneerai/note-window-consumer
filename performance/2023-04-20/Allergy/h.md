@@ -6,37 +6,37 @@ Hi, how's it going? Good. How are you doing? Doctor? I'm doing fine. Thanks for 
 ```
 
 #### INTRO 
-Patient presents with a stuffy nose and post nasal drip for a couple of weeks. 
+Patient presents with a stuffy nose, post nasal drip, and a cough that has been gradually getting worse over the past few weeks. 
 
 #### CC 
-Stuffy nose and post nasal drip 
+Stuffy nose and cough 
 
 #### HPI 
-The patient has been experiencing a stuffy nose and post nasal drip for a couple of weeks. The symptoms have been gradually getting worse, with some days being worse than others. The patient has experienced these symptoms before, typically during springtime. The symptoms seem to worsen when spending time outdoors. The patient has tried Benadryl and Claritin for relief, with Benadryl providing some help but causing drowsiness.
+The patient has been experiencing a stuffy nose, post nasal drip, and a cough for a couple of weeks. The symptoms have been gradually getting worse, with some days worse than others. The patient has had similar symptoms in the past, usually around springtime. They believe the symptoms are more allergy-related than flu or cold. The patient has tried Benadryl, which helps but causes drowsiness, and Claritin, which was not effective. The symptoms seem to worsen after spending time outdoors.
 
 #### ROS 
 - ent: [true] sinus congestion 
 - respiratory: [true] cough 
 - ent: [true] sore throat 
 - constitutional: [true] tiredness 
-- respiratory: [false] difficulty breathing 
+- constitutional: [false] fever 
 - cardiovascular: [false] chest pain 
+- cardiovascular: [false] palpitations 
 - gastrointestinal: [false] nausea 
 - gastrointestinal: [false] vomiting 
-- constitutional: [false] fever 
 - constitutional: [false] chills 
 - musculoskeletal: [false] muscle pain 
 - musculoskeletal: [false] joint pain 
 
 #### Past Medical History 
-- NONE
+- No known past medical issues
 
 #### Family History 
 - Father has bad allergies
 - Grandmother was diabetic
 
 #### Social History 
-NONE
+Patient does not provide any information about their social history.
 
 #### Allergies 
 - Patient denies allergies
@@ -46,6 +46,5 @@ NONE
 - Claritin
 
 #### Assessment & Plan 
-- Possible allergies: Recommend trying over-the-counter Zyrtec (10 mg nightly) for a week; Consider prescription if needed
-- Rapid tests for flu and COVID: Perform tests to rule out flu and COVID
+- Possible allergies: Perform rapid tests for flu and COVID; Recommend trying over-the-counter Zyrtec or prescription Zyrtec; Follow up if symptoms persist or worsen
 

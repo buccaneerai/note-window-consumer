@@ -6,13 +6,13 @@ Hi Sarah. Hi Doctor McCoy. What brings you in today? It looks like you're still 
 ```
 
 #### INTRO 
-The patient presents with worsening difficulty breathing and a cough with blood. 
+Patient presents with difficulty breathing and worsening asthma symptoms. 
 
 #### CC 
 Difficulty breathing 
 
 #### HPI 
-The patient had an asthma attack four weeks ago and was prescribed Flovent steroids, which they finished two weeks ago. Their difficulty breathing has worsened over the past few days, and they've been using an albuterol inhaler when it gets really bad. Three days ago, they started feeling more short of breath. They have also been coughing up green-yellow phlegm with a little bit of blood.
+The patient had an asthma attack four weeks ago and was prescribed Flovent steroids, which were finished two weeks ago. However, the asthma symptoms returned and have worsened over the past couple of days. The patient has been using an albuterol inhaler when it gets really bad. The shortness of breath has become worse when walking, and the patient has also been experiencing coughing with a little bit of blood and coughing up green yellow stuff.
 
 #### ROS 
 - respiratory: [true] difficulty breathing 
@@ -34,17 +34,17 @@ The patient had an asthma attack four weeks ago and was prescribed Flovent stero
 - NONE
 
 #### Social History 
-Smokes half a pack of cigarettes per day since age 20
+The patient has been smoking cigarettes since the age of 20 and currently smokes about half a pack per day. The patient has been previously advised about the risks of smoking.
 
 #### Allergies 
 - Patient denies allergies
 
 #### Medications 
-- Flovent steroids
+- Flovent steroid
 - Albuterol inhaler
 
 #### Assessment & Plan 
-- Worsening difficulty breathing: Breathing treatment, prescribe another steroid, follow up after test results
-- Cough with blood and green-yellow phlegm: Chest x-ray, CBC panel, follow up after test results
-- Smoking: Discuss smoking cessation at the end of the appointment
+- Worsening asthma symptoms: Administer breathing treatment, prescribe another steroid, and schedule follow-up visit
+- Possible infection: Order chest x-ray and CBC panel
+- Smoking: Discuss smoking cessation during appointment
 

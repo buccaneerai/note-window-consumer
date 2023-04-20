@@ -6,18 +6,20 @@ Hi August Clancy, how are you doing today? Not so good, doctor. Actually, we're 
 ```
 
 #### INTRO 
-Patient has had a cough for about two weeks and cannot seem to get rid of it. 
+Patient has had a cough for about two weeks that they can't seem to get rid of. 
 
 #### CC 
 Persistent cough 
 
 #### HPI 
-The patient has had a cough for about two weeks, which started three weeks ago with a cold. The cough has been consistent and has not improved or worsened. It is worse during exercise and in cold air. The patient had a fever and nasal congestion during the cold, but those symptoms have subsided. The cough is dry and non-productive. The patient also experiences occasional wheezing and chest discomfort. There is no pain associated with the cough, and the patient denies any other symptoms such as headaches or changes in vision.
+The patient's cough started about three weeks ago, but it became really bad in the last two weeks. The cough has been consistent and is worse during exercise or when exposed to cold air. The patient previously had a cold with symptoms like fever, nasal congestion, and throat gunk, but those symptoms have subsided, leaving only the cough. The cough is dry and unproductive, and the patient experiences some wheezing and chest tightness. The patient was previously given an inhaler for potential asthma but has not used it in months.
 
 #### ROS 
 - respiratory: [true] cough 
-- cardiovascular: [true] chest pain 
+- cardiovascular: [true] chest tightness 
 - neurological: [false] headache 
+- ent: [false] sore throat 
+- cardiovascular: [false] chest pain 
 
 #### Past Medical History 
 - Possible asthma
@@ -32,10 +34,9 @@ NONE
 - Patient denies allergies
 
 #### Medications 
-- Inhaler (Flovent) - not currently taking
+- Patient denies taking medication
 
 #### Assessment & Plan 
-- Residual cough post URI: Prescribe Tessalon pearls and recommend over-the-counter dextromethorphan cough suppressant; Reevaluate in 1-2 weeks
-- Rule out flu and COVID: Perform rapid flu test and rapid COVID test
-- Possible asthma or allergy: Consider further evaluation if cough persists
+- Residual cough post URI: Prescribe Tessalon pearls; Suggest over-the-counter cough suppressant with dextromethorphan; Schedule follow-up in 1-2 weeks
+- Ruling out flu and COVID: Perform rapid flu test and rapid COVID test
 

@@ -6,15 +6,16 @@ Good morning, Mr. [NAME]. How are you doing today? Not so well. I stabbed myself
 ```
 
 #### INTRO 
-Patient accidentally stabbed themselves in the left arm while changing the air filter in their furnace. 
+Patient presents with a stab wound in their left arm from an accident while changing an air filter in their furnace. 
 
 #### CC 
-Accidental stab wound 
+Stab wound in left arm 
 
 #### HPI 
-The patient accidentally stabbed themselves in the left arm while changing the air filter in their furnace. The incident occurred last night at 8pm. The wound bled significantly and the patient used alcohol to clean it up. The patient's wife suggested coming in for a possible tetanus shot as the patient had not received one in years. The patient applied Neosporin and a bandaid to the wound, but has not experienced any numbness, tingling, fever, chills, nausea, vomiting, or streaking redness.
+The patient accidentally stabbed themselves in the left arm while trying to change the air filter in their furnace using a screwdriver. The incident happened last night at around 8pm. The wound bled a lot, and the patient used alcohol to clean it. The patient's wife suggested they come in for a possible tetanus shot, as they haven't had one in years or decades. The patient applied Neosporin and a bandaid on the wound, and fortunately, they haven't experienced any numbness, tingling, or other adverse symptoms.
 
 #### ROS 
+- gastrointestinal: [true] abdominal pain 
 - neurological: [false] numbness 
 - constitutional: [false] fever 
 - constitutional: [false] chills 
@@ -28,7 +29,7 @@ The patient accidentally stabbed themselves in the left arm while changing the a
 - NONE
 
 #### Social History 
-No history of diabetes
+Patient denies smoking cigarettes.
 
 #### Allergies 
 - Patient denies allergies
@@ -37,6 +38,5 @@ No history of diabetes
 - Neosporin
 
 #### Assessment & Plan 
-- Stab wound: Irrigate wound, apply topical antibiotic ointment, and bandage; Monitor for infection and follow up in 5-7 days if not improving
-- Tetanus booster: Administer tetanus booster shot
+- Stab wound in left arm: No stitches needed; Tetanus booster shot; Irrigate wound; Apply bandage; Wash wound twice daily; Apply topical antibiotic ointment; Monitor for infection and return if not improved within 5-7 days
 

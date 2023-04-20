@@ -12,7 +12,7 @@ The patient presents with a severe sore throat for about five days.
 Sore throat 
 
 #### HPI 
-The patient has been experiencing a severe sore throat for the past five days, rating the pain as an 8 out of 10. The patient also mentioned feeling feverish at the onset of the sore throat. The patient's son had a similar illness recently, with a sore throat and fever, and was diagnosed with strep throat. The patient has tried taking ibuprofen to alleviate the pain, which provided some relief.
+The patient has been experiencing a severe sore throat for about five days, rating the pain as an 8 on a scale of 1 to 10. When the sore throat started, the patient felt feverish and experienced a sensation of running hot. The patient's son was also sick with a sore throat and fever prior to the patient's symptoms. The patient has been taking ibuprofen to alleviate the pain.
 
 #### ROS 
 - ent: [true] sore throat 
@@ -22,17 +22,18 @@ The patient has been experiencing a severe sore throat for the past five days, r
 - Wisdom teeth removal
 
 #### Family History 
-- Son had strep throat
+- Son had sore throat and fever
 
 #### Social History 
-No smoking
+The patient denies smoking cigarettes and drinking alcohol. The patient has a history of cocaine abuse, which occurred about 10 years ago. The patient is currently taking Flovent to control asthma.
 
 #### Allergies 
 - Allergic to C-chlor
 
 #### Medications 
-- Flovent for asthma control
+- Flovent for asthma
+- Ibuprofen for sore throat pain
 
 #### Assessment & Plan 
-- Strep throat: Perform strep throat swab test; Prescribe Amoxicillin (1 pill twice a day for 10 days); Advise drinking fluids, rest, and taking Tylenol or ibuprofen for pain; Follow-up if not better in 3-4 days or if symptoms worsen
+- Sore throat: Perform strep throat swab test; Prescribe Amoxicillin (one pill twice a day for ten days); Recommend rest, fluids, and Tylenol or ibuprofen for pain; Follow up if not better in three to four days or if symptoms worsen
 

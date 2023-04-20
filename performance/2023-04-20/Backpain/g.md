@@ -6,13 +6,13 @@ All right, so can you tell me your first and last name please?  Brook Canterburr
 ```
 
 #### INTRO 
-The patient came in with a history of back problems and has been experiencing pains down their left leg when sitting down for long periods of time, especially on hard surfaces. 
+The patient came in with a history of back problems and has been experiencing pain down their left leg when sitting down for long periods of time, particularly on harder surfaces. 
 
 #### CC 
-Back problems and left leg pain 
+Left leg pain 
 
 #### HPI 
-The patient has had back problems since their teenage years, but the pain down their left leg started about two years ago. They noticed it gets worse when sitting on hard surfaces and somewhat improves with exercise, stretching, and yoga. They have had an x-ray of their lower back and were told that one of their vertebrae is fused to their hip on the left side. The patient has been seeing a chiropractor for about 10 years and has tried physical therapy, including deep myofascial release and dry needling, but did not notice any significant improvement. They've also tried using a lacrosse ball for relief, non-steroidal anti-inflammatory drugs (NSAIDs), and ice, which all seem to help temporarily.
+The patient has had back problems since their teenage years, but the left leg pain started about two years ago. The pain seems to be related to sitting on hard surfaces for extended periods of time and is somewhat alleviated by exercise, stretching, or doing yoga. The patient has previously had an x-ray of their lower back, which showed a fused vertebra on the left side. The pain can range from a 2 to a 5 on a daily basis and can worsen to an 8 if sitting for too long. Using a lacrosse ball to apply pressure to the painful area provides temporary relief, but the patient is unsure if this is causing more harm in the long run.
 
 #### ROS 
 - gastrointestinal: [true] abdominal pain 
@@ -23,21 +23,21 @@ The patient has had back problems since their teenage years, but the pain down t
 
 #### Family History 
 - Mother has Crohn's disease, fibromyalgia, and interstitial cystitis
-- Mother has a history of back problems and back surgery
+- Father is healthy
+- Brother had gallbladder removed
 
 #### Social History 
-Software engineer
+The patient is a software engineer who spends most of their day sitting down. They exercise by going to the gym and doing weight training. They drink alcohol about once a week, mainly beer, and denies any tobacco or drug use.
 
 #### Allergies 
 - Patient denies allergies
 
 #### Medications 
 - Naproxen (500 mg; twice a day)
-- Cetirizine (10 mg; during summer and fall)
+- Cetirizine (10 mg; daily during summer and fall)
 
 #### Assessment & Plan 
-- Reevaluation of physical and occupational therapy
-- Consultation with an ergonomist for workstation adjustments
-- Prescription of Toradol for as-needed pain relief
-- Trial of acetaminophen 500 mg four times a day for two weeks
+- Reevaluate physical therapy and occupational therapy: Consult PT and OT and consider ergonomics assessment
+- Pain management: Trial of acetaminophen (500 mg; four times a day) and prescription Toradol as needed
+- Consider other treatment options: Revisit the possibility of muscle relaxants, patches, or creams after PT/OT evaluation and ergonomics assessment
 
