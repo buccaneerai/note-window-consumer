@@ -84,6 +84,10 @@ const handleMessage = ({
       str += `${text}\n`;
       str += `\`\`\`\n\n`;
 
+      // INTRO
+      str += `#### INTRO \n`;
+      str += `${get(vfMap, 'cc[0].findingAttributes[0].findingAttributeDescription', 'NONE') || 'NONE'} \n\n`;
+
       // CC
       str += `#### CC \n`;
       str += `${get(vfMap, 'cc[0].findingAttributes[0].stringValues[0]', 'NONE') || 'NONE'} \n\n`;

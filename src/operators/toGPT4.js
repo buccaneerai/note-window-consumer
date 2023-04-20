@@ -1,5 +1,6 @@
 const { of, from, forkJoin } = require('rxjs');
 const get = require('lodash/get');
+const isString = require('lodash/isString');
 const _map = require('lodash/map');
 const { map, mergeMap, toArray, catchError, filter } = require('rxjs/operators');
 const {Configuration, OpenAIApi} = require('openai');
@@ -66,52 +67,31 @@ const fetchVerifiedFindings = ({
   );
 };
 
-const parseSection = (val) => {
-  let value = val.trim();
-  value = value.replace('Review of systems:', '')
-               .replace('Denial of symptoms:', '')
-               .replace('Family history:', '')
-               .replace('Medications:', '')
-               .replace('Social history:', '')
-               .replace('Chief complaint:', '')
-               .replace('Assessment and plan:', '')
-               .replace('Assessment and Plan:', '')
-               .replace('History of present illness:', '')
-               .replace('Past medical history:', '')
-               .replace('List of medications:', '')
-               .replace('List of assessment and plan:', '')
-               .replace('Symptoms the patient is experiencing:', '')
-               .replace('Symptoms patient denies experiencing:', '')
-               .replace('The patient has taken:', '')
-               .trim();
-  const arr = value.split('\n');
-  const values = arr.filter((v) => {
-    if (!v || !v.length || v === '\n') {
-      return false;
-    }
-    if (v.includes('NONE')) {
-      return false;
-    }
-    const trimmed = v.trim();
-    if (!trimmed || !trimmed.length) {
-      return false;
-    }
-    return true;
+const parseSection = (val, type) => {
+  let value = val;
+  if (isString(val)) {
+    value = [val];
+  }
+  value = value.map((v) => {
+    return v.replace('CAT Scan', 'CT Scan')
+            .replace('cat scan', 'CT Scan')
+            .replace('CAT scan', 'CT Scan')
+            .trim();
   });
-  return values.map((v) => {
-    let _value = v.trim();
-    _value = _value.replace(/^\d+\s*[-\\.)]?\s+/g, '');
-    // @TODO we may want to move this into it's own function
-    _value = _value.replace('CAT Scan', 'CT Scan')
-                   .replace('cat scan', 'CT Scan')
-                   .replace('CAT scan', 'CT Scan')
-                   .replace('Family history of ', '');
-    return _value;
-  });
+  if (type === 'ros') {
+    value = value.filter((v) => v.toLowerCase().includes('asserts'));
+    value = value.map((v) => v.replace('Asserts', '').replace('asserts', '').trim());
+  }
+  if (type === 'rosDenial') {
+    value = value.filter((v) => v.toLowerCase().includes('denies'));
+    value = value.map((v) => v.replace('Denies', '').replace('denies', '').trim());
+  }
+  return value;
 };
 
 const parseResponse = (response) => {
   let sections = {
+    intro: [],
     cc: [],
     hpi: [],
     ros: [],
@@ -123,26 +103,26 @@ const parseResponse = (response) => {
     pmh: [],
     social: [],
   }
-  // Split on the "STOP" keyword
-  const arr = response.split('STOP');
-  // If we don't get the same numnber of questions back, assume something failed.
-  const numSections = Object.keys(sections).length;
-  if (arr.length !== numSections && arr.length !== numSections + 1) { // configured based on number of questions
-    logger.error(`Response from OPENAI did not have the requisite number of sections ${numSections}. Skipping...`);
+  let json = null;
+  try {
+    json = JSON.parse(response);
+  } catch (e) {
+    logger.error(`Response from OPENAI was not JSON. Skipping...`);
     console.dir(response); // eslint-disable-line
     return sections;
   }
   sections = {
-    cc: parseSection(arr[0]),
-    hpi: parseSection(arr[1]),
-    ros: parseSection(arr[2]),
-    rosDenial: parseSection(arr[3]),
-    problems: parseSection(arr[9]),
-    rx: parseSection(arr[7]),
-    family: parseSection(arr[4]),
-    allergies: parseSection(arr[8]),
-    pmh: parseSection(arr[5]),
-    social: parseSection(arr[6])
+    intro: parseSection(json.intro),
+    cc: parseSection(json.cc),
+    hpi: parseSection(json.hpi),
+    ros: parseSection(json.ros, 'ros'),
+    rosDenial: parseSection(json.ros, 'rosDenial'),
+    problems: parseSection(json.problems),
+    rx: parseSection(json.rx),
+    family: parseSection(json.fhx),
+    allergies: parseSection(json.allergies),
+    pmh: parseSection(json.pmh),
+    social: parseSection(json.shx)
   };
   return sections;
 };
@@ -167,85 +147,23 @@ const toOpenAI = ({
     temperature: 0.5,
     messages: [
         {"role": "system", "content": `
-You are an assistant that reads transcripts between a patient and a doctor to generate a clinical SOAP note. Medical notes require a very high degree of accuracy. Your job is to answer the following questions about the conversation as accurately as possible from the perspective of the doctor. \n
-Additionally, you will never write the patient's name, gender or pronouns. After each response, you will say "\nSTOP" or if there is not an adequate answer to the question or enough information to answer the question, you will say "\nNONE\nSTOP". \n
-Never include the question in the response.  Medical notes \n
+You are an assistant that reads transcripts between a patient and a doctor, your job is to answer the following questions about the conversation as accurately as possible from the perpsective of the doctor.
+You must never write the patient's name, gender or pronouns.
+You must give the entire response back in JSON format.
 `},
-        {"role": "user", "content": `The following is a transcript between a patient and a doctor: "${fullText}"`},
         {"role": "user", "content": `
-Write a one-sentence summary of the patient and the primary symptom or issues they presented with: \n
-Example: "31-year old patient with history of diabetes presents with worst headache of his life." \n
-Example: "Patient with a history of asthma presents with a severe sore throat and feverish feeling." \n
-\n
-Write a detailed summary of the patient's present illness, symptoms, complaints or issues. The summary should include qualifying information about what makes the symptoms better or worse as well as anything the patient has tried to alleviate the symtpoms.  It should include any questions and answers the doctor asks about the present illness.  Do not include any of the doctor's assessment or plan: \n
-Example: \n
-"The patient woke up with a severe headache, describing it as the worst pain they've ever had, and it has persisted since 5 AM. The patient felt slightly feverish the night before and has a sick child at home. The pain was so intense that it caused the patient to vomit. The patient tried taking extra strength Tylenol, but it did not help. The doctor asked about additional symptoms like blurred vision, rash, diarrhea, swollen joints, and recent travel, but the patient had none of those. During the physical exam, the patient experienced pain in some parts of the exam." \n
-\n
-Write a numbered list of symptoms the patient indicated they are experiencing. Include any symptoms the doctor asks the patient if they are experiencing: \n
-\n
-Write a numbered list of symptoms the patient denied experiencing. Include any symptoms the doctor asks the patient if they are experiencing: \n
-\n
-Write a numbered list of family history that includes any historical medical information about the patient's family and relatives.  Do not include any recent illness, only historical diagnosis and diseases for relatives of the patient: \n
-Example: \n
-1. Father has diabetes \n
-2. Mother has a history of migraines \n
-Example: \n
-1. Brother had his gallbladder removed \n
-2. Son has asthma \n
-\n
-Write a numbered list of past medical history that includes information about the patient's past medical conditions, including prior diseases, prior diagnosis, prior surgeries, prior labs, prior conditions, and prior findings. Do not include anything from the family history or the social history: \n
-Example: \n
-1. Gallbladder removed \n
-2. History of asthma \n
-Example: \n
-1. Hip replacement surgery \n
-2. Laser-eye surgery \n
-\n
-Write a paragraph that includes any information about the patient's social history including; diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, relationship status, suicide, sexuality or sexual activity, marital or relationship status, and number of children. Do not include any of the patient's family medical history or any of the patient's medical history: \n
-Example: "The patient is in retirement, enjoying their life with their spouse in their house. They see their son, who is a doctor, quite often. The patient uses a smart watch for exercise and walking and is not consuming alcohol, not smoking, and not using any other drugs." \n
-Example: "The patient has a history of cocaine abuse 10 years ago but currently does not smoke cigarettes or drink alcohol. The patient exercises twice a week and they are married and have 2 children." \n
-\n
-Write a numbered list of medications that the patient indicates they have previously taken, are currently taking, or deny currently taking and their dosages (if they provide this information). Do not include any medications that the doctor prescribes during the encounter: \n
-Example: \n
-1. Tylenol 500mg twice a day \n
-2. Effexor 25mg once in the morning \n
-3. Flovent inhaler \n
-Example: \n
-1. Cetirizine \n
-\n
-Write a numbered list of allergies including anything the patient is allergic to or says they are not allergic to. If the patient denies having any or all allergies, say "Patient denied allergies".  If the patient denies having a specific allergy, say "Patient denies allergy to [ALLERGY]".  Otherwise, if the patient asserts or confirms they have an allergy, say, "Patient asserts allergy to [ALLERGY]": \n
-Example transcript excerpt: "Do you have any allergies? No, I don't have any allergies." \n
-Example answer: \n
-1. Patient denied allergies \n
-Example transcript excerpt: "Are you allergic to eggs? Yes. Are you allergic to peanuts? No. Are you allergic to any medications? Yes, Oflaxacin, I think." \n
-Example answer: \n
-1. Patient asserts allergy to egg \n
-2. Patient denies allergy to peanuts \n
-3. Patient asserts allergy to Oflaxacin \n
-\n
-Write a numbered list for the assessment and plan which includes any diagnosis, medications and dosages, procedures, referrals, lab orders, or other recommendations the doctor suggests during the transcript. Each item in the list should be of the form '[ASSESSMENT]: [PLAN]'.  The answer MUST include the specifics of anything administered or prescribed during the patient encounter.  The assessment refers to the issue or diagnosis and the plan refers to any action taken against the assessment: \n
-Example: \n
-1. [ASSESSMENT]: [PLAN] \n
-Example: \n
-1. Migraine: Order CT Scan and CT angio; Prescribe Effexor (37.5 mg daily), can increase as needed; Schedule follow-up in 1 week \n
-2. Allergies: Prescribe Cetirizine; take as needed. \n
-Example: \n
-1. Meningitis concern: CT Scan, followed by lumbar puncture if needed \n
-2. Pain and nausea: Morphine administered during visit; prescribe medication for nausea \n
-3. Foot pain: Prescribe Tylenol 500mg, four times daily or as needed \n
+The following is a transcript between a patient and a doctor: "${fullText}" \n\n
+Looking over the transcript, what was the primary complaint the patient had? The answer should be a sentence long. The JSON key is 'intro'. Example: '34-year old patient presents with a severe headache that started last night.' \n
+Looking over the transcript, what was the primary complaint the patient had? The answer should be as short as possible. The JSON key is 'cc'. Example: 'Severe headache' \n
+Looking over the transcript, write a detailed summary of the history of the patient's current illness.  The answer should be 1 to 2 paragraphs long and should include any information the patient gives that qualifies the symptoms including things that alleviate or aggravate the pain, when and where the symptoms started, how severe they are, etc.  The JSON key is 'hpi'.  Example: 'The patient is a 24 yo African-American man with h/o sickle cell disease who presented to the ED with a 2 day h/o bilateral knee pain. The pain began Thursday morning at approx 4:00 am while the patient was working the night shift at a department store. The pain was described as aching and had a gradual onset. The patient had difficulty sleeping Thursday because of the pain. The pain continued to gradually increase in severity to an 8/10 today. The pain was exacerbated with walking or standing and was not significantly relieved with Percocet that the patient had by prescription. The knee pain is unlike any prior episode of pain crisis. The patient reports some chills and mild SOB, but denies fever, N/V, cough, chest pain, abdominal pain or recent trauma to the knees. In the ED, the pain was primarily localized to the right knee and was 8/10 in intensity. The patient was started on NS at 125ml/hr and received two doses (6mg and 8mg) of morphine.' \n
+Looking over the transcript, write a detailed list of the patient's prior medical history.  This should include the patient's past illnesses, diseases, surgical history, hospitalizations, and injuries.  Do not include anything about their family's medical history. This should be an array, the JSON key is 'pmh'. Example: '[\"Foot surgery\", \"Hospitalization for chest pain March 2023\", \"Prostate cancer\"]'. \n
+Looking over the transcript, write a detailed list of the patient's family's medical history.  This should include past illnesses, diseases, surgical history, and hospitalizations for the patient's family including mother, father, brothers, sisters or grandparents. This should be an array, the JSON key is 'fhx'.  Example: '[\"Mother has diabetes\", \"Father had his gallbladder removed\", \"Family history of arthritis\"]' \n
+Looking over the transcript, write a detailed list of the patient's social history.  This should include things like recent travel, relationship status, marital status, diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, thoughts of suicide, sexuality or sexual activity, number of children, etc. This should be an array, the JSON key is 'shx'.  Example: '[\"Patient smokes a pack of cigarettes a day\", \"Patient is married with 2 children\", \"Patient exercises twice a week\"]'. \n
+Looking over the transcript, write a list of the patient's allergies, as well as any allergy the patient denies having.  If the patient denies having any allergies, say, 'Patient denies allergies'. This should be an array, the JSON key is 'allergies'.  Example 1: '[\"Patient is allergic to peanuts\", \"Patient denies allergy to egg\"]'. Example 2: '[\"Patient denies allergies\"]' \n
+Looking over the transcript, write a list of every medication the patient says they are currently taking. Do not include any medications the doctor prescribes in the transcript. Include any dosages if they are discussed, and only include real medications.  If you are unsure if the medication is spelled correctly, don't include it. If the patient denies taking any medication, then say, 'Patient denies taking any medication'. This should be an array, the JSON key is 'rx'. Example 1: '[\"Tylenol (500 mg; twice a day)\", \"Oflaxicin\"]' Example 2: '[\"Patient denies taking medication\"]' \n
+Looking over the transcript, write a list of the symptoms that were discussed in the transcript.  These should be as few words as possible to describe the symptom. If the patient asserts or confirms they are experiencing the symtpom, say 'Asserts [SYMPTOM]'.  If the patient denies having a symptom, say 'Denies [SYMPTOM]'. This should be an array, the JSON key is 'ros'.  Example: '[\"Asserts Headache\", \"Denies Nausea\", \"Asserts Blurred Vision\"]' \n
+Looking over the transcript, write a detailed list of the doctor's assessment and the plan for that assessment. The assessment is the issue the doctor thinks they have or what needs to be addressed.  The plan is how the doctor is going to address the issue.  The format is '[ASSESSMENT]: [PLAN]'.  This should be an array, the JSON key is 'problems'.  Example: '[\"Nausea: Have patient take OTC Bismuth subsalicylate; Monitor and address during follow-up if persistent\", \"Possible meningitis: Order CT scan of the brain, followed by lumbar puncture if needed\", \"Pain: Administer morphine during visit; Prescribe Oxycodone (500mg; twice a day or as needed)\"] \n
 `},
-//         {"role": "user", "content": `
-// What is the chief complaint? After the answer, say 'STOP'. If the chief complaint was not discussed, reply 'NONE\nSTOP'. Do not include the words 'chief complaint' in the answer. \n
-// What is the history of present illness? After the answer, say 'STOP'. If the history of present illness was not discussed, reply 'NONE\nSTOP'. Do not include the words 'history of present illness' in the answer. \n
-// What were the symptoms? After the answer, say 'STOP'. If there were no symptoms discussed, reply 'NONE\nSTOP'. Do not include the words 'symptoms' in the answer. \n
-// What is the denial of symptoms? After the answer, say 'STOP'. If the denial of symptoms was not discussed, reply 'NONE\nSTOP'. Do not include the words 'denial of symptoms' answer. \n
-// What is the family history? After the answer, say 'STOP'. If the family history was not discussed, reply 'NONE\nSTOP'. Do not include tthe words 'family history' answer. \n
-// What is the past medical history? After the answer, say 'STOP'. If the past medical history was not discussed, reply 'NONE\nSTOP'. Do not include the words 'past medical history' in the answer. \n
-// What is the social history? After the answer, say 'STOP'. If the social history was not discussed, reply 'NONE\nSTOP'. Do not include the words 'social history' in the answer. \n
-// What is the medications? After the answer, say 'STOP'. If the medications were not discussed, reply 'NONE\nSTOP'. Do not include the words 'medications' in the answer. \n
-// What is the allergies? After the answer, say 'STOP'. If the allergies were not discussed, reply 'NONE\nSTOP'. Do not include the words 'allergies' in the answer. \n
-// What is the assessment and plan? After the answer, say 'STOP'. If the asssment and plan was not discussed, reply 'NONE\nSTOP'. Do not include the words 'assessment and plan' in the answer. \n
-// `}
     ]
   })).pipe(
     map((response) => {
@@ -290,6 +208,7 @@ const getChiefComplaintPrediction = ({
   sections = {},
 }) => {
   const vf = get(vfMap, 'cc.0', {});
+  const description = get(sections, 'intro.0', '');
   let value = get(sections, 'cc.0', '');
   if (!value) {
     return {};
@@ -301,6 +220,7 @@ const getChiefComplaintPrediction = ({
     _id: vf._id,
     findingAttributes: [{
       findingAttributeKey: 'text',
+      findingAttributeDescription: description,
       stringValues: [value],
       findingAttributeScore: 0.5,
       pipelineId,
