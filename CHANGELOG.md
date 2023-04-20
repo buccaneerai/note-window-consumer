@@ -1,3 +1,16 @@
+# [1.4.0-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.3.1-dev.1...v1.4.0-dev.1) (2023-04-20)
+
+
+### Bug Fixes
+
+* Adjust promptl, re-run perf ([f4ebba4](https://github.com/buccaneerai/note-window-consumer/commit/f4ebba482d3d7d5f27eba5ab2008a95205fdabba))
+* shx prompt fix ([cb264c5](https://github.com/buccaneerai/note-window-consumer/commit/cb264c5316fdb3ea081707302bb36faa5196753b))
+
+
+### Features
+
+* Re-write prompts ([87f5f08](https://github.com/buccaneerai/note-window-consumer/commit/87f5f082b3024ccf398cebb91100ba47b4db269a))
+
 ## [1.3.1-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.3.0...v1.3.1-dev.1) (2023-04-17)
 
 
