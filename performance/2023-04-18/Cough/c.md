@@ -6,28 +6,36 @@ Hi August Clancy, how are you doing today? Not so good, doctor. Actually, we're 
 ```
 
 #### CC 
-NONE 
+Patient with a history of asthma presents with a persistent dry cough for three weeks. 
 
 #### HPI 
-NONE
+The patient initially had a cold with a fever and nasal congestion three weeks ago, which has since subsided, but the cough remains. The cough is dry and unproductive, and has been consistent for the past two weeks. The patient experiences wheezing and chest tightness, but not pain. The cough worsens with exercise and exposure to cold air. The patient mentioned a previous doctor thought they might have asthma, and they were given a Flovent inhaler, but have not used it in months and no longer have a prescription. The patient also experiences postnasal drip but denies having a sore throat, headaches, vision changes, difficulty breathing, nausea (except for one instance of vomiting after a cough), constipation, diarrhea, or pain elsewhere in the body.
 
 #### ROS 
+- respiratory: [true] cough 
+- cardiovascular: [true] chest tightness 
+- ent: [false] sore throat 
+- neurological: [false] headache 
+- respiratory: [false] difficulty breathing 
+- gastrointestinal: [false] abdominal pain 
 
 #### Past Medical History 
-- NONE
+- History of asthma-like symptoms
+- Previous use of Flovent inhaler
 
 #### Family History 
 - NONE
 
 #### Social History 
-NONE
+Patient's social history is not provided in the transcript.
 
 #### Allergies 
-- NONE
+- Patient denied allergies
 
 #### Medications 
-- NONE
+- Flovent inhaler (no longer taking)
 
 #### Assessment & Plan 
-- NONE
+- Persistent cough post-URI: Perform rapid flu test and rapid COVID test; prescribe Tessalon pearls; recommend over-the-counter cough suppressant with dextromethorphan; follow up in 1-2 weeks
+- Possible asthma or allergies: Consider reevaluating for asthma and allergies if cough persists or worsens
 

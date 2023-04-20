@@ -1,5 +1,6 @@
 const { of, from, forkJoin } = require('rxjs');
 const get = require('lodash/get');
+const isString = require('lodash/isString');
 const _map = require('lodash/map');
 const { map, mergeMap, toArray, catchError, filter } = require('rxjs/operators');
 const {Configuration, OpenAIApi} = require('openai');
@@ -66,36 +67,31 @@ const fetchVerifiedFindings = ({
   );
 };
 
-const parseSection = (val) => {
-  const value = val.trim();
-  const arr = value.split('\n');
-  const values = arr.filter((v) => {
-    if (!v || !v.length || v === '\n') {
-      return false;
-    }
-    if (v.includes('NONE')) {
-      return false;
-    }
-    const trimmed = v.trim();
-    if (!trimmed || !trimmed.length) {
-      return false;
-    }
-    return true;
+const parseSection = (val, type) => {
+  let value = val;
+  if (isString(val)) {
+    value = [val];
+  }
+  value = value.map((v) => {
+    return v.replace('CAT Scan', 'CT Scan')
+            .replace('cat scan', 'CT Scan')
+            .replace('CAT scan', 'CT Scan')
+            .trim();
   });
-  return values.map((v) => {
-    let _value = v.trim();
-    _value = _value.replace(/^\d+\s*[-\\.)]?\s+/g, '');
-    // @TODO we may want to move this into it's own function
-    _value = _value.replace('CAT Scan', 'CT Scan')
-                   .replace('cat scan', 'CT Scan')
-                   .replace('CAT scan', 'CT Scan')
-                   .replace('Family history of ', '');
-    return _value;
-  });
+  if (type === 'ros') {
+    value = value.filter((v) => v.toLowerCase().includes('asserts'));
+    value = value.map((v) => v.replace('Asserts', '').replace('asserts', '').trim());
+  }
+  if (type === 'rosDenial') {
+    value = value.filter((v) => v.toLowerCase().includes('denies'));
+    value = value.map((v) => v.replace('Denies', '').replace('denies', '').trim());
+  }
+  return value;
 };
 
 const parseResponse = (response) => {
   let sections = {
+    intro: [],
     cc: [],
     hpi: [],
     ros: [],
@@ -107,26 +103,26 @@ const parseResponse = (response) => {
     pmh: [],
     social: [],
   }
-  // Split on the "STOP" keyword
-  const arr = response.split('STOP');
-  // If we don't get the same numnber of questions back, assume something failed.
-  const numSections = Object.keys(sections).length;
-  if (arr.length !== numSections && arr.length !== numSections + 1) { // configured based on number of questions
-    logger.error(`Response from OPENAI did not have the requisite number of sections ${numSections}. Skipping...`);
+  let json = null;
+  try {
+    json = JSON.parse(response);
+  } catch (e) {
+    logger.error(`Response from OPENAI was not JSON. Skipping...`);
     console.dir(response); // eslint-disable-line
     return sections;
   }
   sections = {
-    cc: parseSection(arr[1]),
-    hpi: parseSection(arr[6]),
-    ros: parseSection(arr[0]),
-    rosDenial: parseSection(arr[8]),
-    problems: parseSection(arr[2]),
-    rx: parseSection(arr[3]),
-    family: parseSection(arr[5]),
-    allergies: parseSection(arr[4]),
-    pmh: parseSection(arr[7]),
-    social: parseSection(arr[9])
+    intro: parseSection(json.intro),
+    cc: parseSection(json.cc),
+    hpi: parseSection(json.hpi),
+    ros: parseSection(json.ros, 'ros'),
+    rosDenial: parseSection(json.ros, 'rosDenial'),
+    problems: parseSection(json.problems),
+    rx: parseSection(json.rx),
+    family: parseSection(json.fhx),
+    allergies: parseSection(json.allergies),
+    pmh: parseSection(json.pmh),
+    social: parseSection(json.shx)
   };
   return sections;
 };
@@ -150,19 +146,24 @@ const toOpenAI = ({
     model,
     temperature: 0.5,
     messages: [
-        {"role": "system", "content": "You are an assistant that reads transcripts between a patient and a doctor.  Your job is to answer the following questions about the conversation as accurately as possible. Never write the patient's name, gender or pronouns. After each response say \`STOP\`"},
-        {"role": "user", "content": `The following is a transcript between a patient and a doctor: \`${fullText}\``},
-        {"role": "user", "content": `\
-Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. What were the patient's symptoms? \n
-Answer the following question as a short one sentence summary of the patient and the primary symptom or issues they presented with. Example: \`31-year old patient with history of diabetes presents with worst headache of his life.\`. \n
-Answer the following question as a numbered list with each answer on a new line, if there is no assessment or plan, then reply \`NONE\`. What was the doctor's assessment and plan? Include any diagnosis, medications, procedures, referrals, lab orders, or other recommendations the doctor says. Answer with the fewest words possible for any problem or diganosis identified by the doctor, followed by a colon and then a very short summary of the plan of action for that issue. Example: \`Pain: IV Treatment in Office Today\` \n
-Answer the following question as a numbered list with each answer on a new line, using as few words as possible. If there is no medications, then reply \`NONE\`. What medications does the patient say they are taking? Only include the medication name if it's a real drug or medication. \n
-Answer the following question as a numbered list with each answer on a new line, if there were no allergies discussed, then reply \`NONE\`. If the doctor asks the patient if they have any allergies and the patient denies having any allergies, say: \`Patient denied allergies\`: List each allergy that was discussed, if the patient denies having an allergy say, \`Patient denied allergy [ALLERGY]\`. \n
-Answer the following question as a numbered list with each answer on a new line, if there is no family history present, then reply \`NONE\`. What information did the patient provide about their family history?  Don't include any recent contact, only include historical family symptoms and diagnosis. \n
-Answer the following question as a detailed summary. Include as much detail as possible. If there is no history of the present illness, then reply \`NONE\`. Without including the patient's name or any of the doctor's assessment or plan, write a detailed history of the patient's present illness, symptoms or complaints. \n
-Answer the following question as a numbered list with each answer on a new line, if there is no allergies, then reply \`NONE\`. Without including the family history or current illness, what is the patient's past medical history? \n
-Answer the following question as a numbered list with each answer on a new line, if there were no symptoms present, then reply \`NONE\`. What symptoms did the patient deny having? \n
-Write a paragraph describing any of the following topics found in the transcript: diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, relationship status, suicide, sexuality or sexual activity, spouse and children. If there none of these topics are discussed, then reply \`NONE\`.`}
+        {"role": "system", "content": `
+You are an assistant that reads transcripts between a patient and a doctor, your job is to answer the following questions about the conversation as accurately as possible from the perpsective of the doctor.
+You must never write the patient's name, gender or pronouns.
+You must give the entire response back in JSON format.
+`},
+        {"role": "user", "content": `
+The following is a transcript between a patient and a doctor: "${fullText}" \n\n
+Looking over the transcript, what was the primary complaint the patient had? The answer should be a sentence long. The JSON key is 'intro'. Example: '34-year old patient presents with a severe headache that started last night.' \n
+Looking over the transcript, what was the primary complaint the patient had? The answer should be as short as possible. The JSON key is 'cc'. Example: 'Severe headache' \n
+Looking over the transcript, write a detailed summary of the history of the patient's current illness.  The answer should be 1 to 2 paragraphs long and should include any information the patient gives that qualifies the symptoms including things that alleviate or aggravate the pain, when and where the symptoms started, how severe they are, etc.  The JSON key is 'hpi'.  Example: 'The patient is a 24 yo African-American man with h/o sickle cell disease who presented to the ED with a 2 day h/o bilateral knee pain. The pain began Thursday morning at approx 4:00 am while the patient was working the night shift at a department store. The pain was described as aching and had a gradual onset. The patient had difficulty sleeping Thursday because of the pain. The pain continued to gradually increase in severity to an 8/10 today. The pain was exacerbated with walking or standing and was not significantly relieved with Percocet that the patient had by prescription. The knee pain is unlike any prior episode of pain crisis. The patient reports some chills and mild SOB, but denies fever, N/V, cough, chest pain, abdominal pain or recent trauma to the knees. In the ED, the pain was primarily localized to the right knee and was 8/10 in intensity. The patient was started on NS at 125ml/hr and received two doses (6mg and 8mg) of morphine.' \n
+Looking over the transcript, write a detailed list of the patient's prior medical history.  This should include the patient's past illnesses, diseases, surgical history, hospitalizations, and injuries.  Do not include anything about their family's medical history. This should be an array, the JSON key is 'pmh'. Example: '[\"Foot surgery\", \"Hospitalization for chest pain March 2023\", \"Prostate cancer\"]'. \n
+Looking over the transcript, write a detailed list of the patient's family's medical history.  This should include past illnesses, diseases, surgical history, and hospitalizations for the patient's family including mother, father, brothers, sisters or grandparents. This should be an array, the JSON key is 'fhx'.  Example: '[\"Mother has diabetes\", \"Father had his gallbladder removed\", \"Family history of arthritis\"]' \n
+Looking over the transcript, write a detailed summary of the patient's social history.  This should include things like recent travel, relationship status, marital status, diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, thoughts of suicide, sexuality or sexual activity, number of children, etc. This should be 1 to 2 paragraphs long. The JSON key is 'shx'.  Example: 'Patient smokes a pack of cigarettes a day and is married with 2 children. Patient exercises twice a week.' \n
+Looking over the transcript, write a list of the patient's allergies, as well as any allergy the patient denies having.  If the patient denies having any allergies, say, 'Patient denies allergies'. This should be an array, the JSON key is 'allergies'.  Example 1: '[\"Patient is allergic to peanuts\", \"Patient denies allergy to egg\"]'. Example 2: '[\"Patient denies allergies\"]' \n
+Looking over the transcript, write a list of every medication the patient says they are currently taking. Do not include any medications the doctor prescribes in the transcript. Include any dosages if they are discussed, and only include real medications.  If you are unsure if the medication is spelled correctly, don't include it. If the patient denies taking any medication, then say, 'Patient denies taking any medication'. This should be an array, the JSON key is 'rx'. Example 1: '[\"Tylenol (500 mg; twice a day)\", \"Oflaxicin\"]' Example 2: '[\"Patient denies taking medication\"]' \n
+Looking over the transcript, write a list of the symptoms that were discussed in the transcript.  These should be as few words as possible to describe the symptom. If the patient asserts or confirms they are experiencing the symtpom, say 'Asserts [SYMPTOM]'.  If the patient denies having a symptom, say 'Denies [SYMPTOM]'. This should be an array, the JSON key is 'ros'.  Example: '[\"Asserts Headache\", \"Denies Nausea\", \"Asserts Blurred Vision\"]' \n
+Looking over the transcript, write a detailed list of the doctor's assessment and the plan for that assessment. The assessment is the issue the doctor thinks they have or what needs to be addressed.  The plan is how the doctor is going to address the issue.  The format is '[ASSESSMENT]: [PLAN]'.  This should be an array, the JSON key is 'problems'.  Example: '[\"Nausea: Have patient take OTC Bismuth subsalicylate; Monitor and address during follow-up if persistent\", \"Possible meningitis: Order CT scan of the brain, followed by lumbar puncture if needed\", \"Pain: Administer morphine during visit; Prescribe Oxycodone (500mg; twice a day or as needed)\"] \n
+`},
     ]
   })).pipe(
     map((response) => {
@@ -207,6 +208,7 @@ const getChiefComplaintPrediction = ({
   sections = {},
 }) => {
   const vf = get(vfMap, 'cc.0', {});
+  const description = get(sections, 'intro.0', '');
   let value = get(sections, 'cc.0', '');
   if (!value) {
     return {};
@@ -218,6 +220,7 @@ const getChiefComplaintPrediction = ({
     _id: vf._id,
     findingAttributes: [{
       findingAttributeKey: 'text',
+      findingAttributeDescription: description,
       stringValues: [value],
       findingAttributeScore: 0.5,
       pipelineId,
@@ -370,7 +373,7 @@ const getAllergyPredictions = ({
   const vfs = get(vfMap, 'allergies', []);
   const _allergies = get(sections, 'allergies', []);
   const allergies = _allergies.map((a) => {
-    return a.replace('Allergic to', '').replace('Allergy to', '').replace('Allergy', '').replace('allergy', '').trim();
+    return a.trim();
   });
   const matchingAllergies = vfs.filter((s) => s.findingAttributeKey === 'text' && allergies.includes(s.stringValues[0]));
   const matchingAllergiesLabels = matchingAllergies.map((s) => s.stringValues[0]);
@@ -472,7 +475,8 @@ const getFamilyHistorySummaryPrediction = ({
   sections = {},
 }) => {
   const vf = get(vfMap, 'family.0', {});
-  const value = get(sections, 'family.0', '');
+  const family = get(sections, 'family', []);
+  const value = family.join('\n');
   if (!value) {
     return {};
   }

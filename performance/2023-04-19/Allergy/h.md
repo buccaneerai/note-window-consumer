@@ -6,42 +6,28 @@ Hi, how's it going? Good. How are you doing? Doctor? I'm doing fine. Thanks for 
 ```
 
 #### CC 
-The patient presents with worsening allergy-like symptoms, including a stuffy nose, post nasal drip, coughing up green mucus, and tiredness, particularly during springtime. 
+NONE 
 
 #### HPI 
-The patient has been experiencing a stuffy nose, post nasal drip, cough, and green mucus for a couple of weeks. The symptoms are particularly worse during springtime and after spending time outdoors. The patient also has a sore throat and feels tired. The symptoms have been gradually getting worse, with some days being worse than others. The patient has tried Benadryl and Claritin, but the medications did not provide complete relief.
+NONE
 
 #### ROS 
-- ent: [true] sinus congestion 
-- respiratory: [true] cough 
-- ent: [true] sore throat 
-- constitutional: [true] tiredness 
-- constitutional: [false] fever 
-- respiratory: [false] difficulty breathing 
-- cardiovascular: [false] chest pain 
-- cardiovascular: [false] palpitations 
-- gastrointestinal: [false] nausea 
-- gastrointestinal: [false] vomiting 
-- constitutional: [false] chills 
-- musculoskeletal: [false] muscle pain 
-- musculoskeletal: [false] joint pain 
 
 #### Past Medical History 
 - NONE
 
 #### Family History 
-- Father has severe allergies
+- NONE
 
 #### Social History 
 NONE
 
 #### Allergies 
-- Patient denied allergies.
+- NONE
 
 #### Medications 
-- Benadryl
-- Claritin
+- NONE
 
 #### Assessment & Plan 
-- Allergy-like symptoms: Rapid flu and COVID tests, try 10 mg Zyrtec nightly for a week, and follow up with the doctor as needed.
+- NONE
 

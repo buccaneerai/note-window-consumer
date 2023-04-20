@@ -6,10 +6,10 @@ Hello. Hi John. I saw from your chart that you've been sick for a little bit. Ca
 ```
 
 #### CC 
-Patient with a sore throat, swollen neck, and fever for five days. 
+Patient presents with a severe sore throat, swollen neck, and fever for five days. 
 
 #### HPI 
-The patient has been experiencing a sore throat for five days, which has progressively become worse. Their neck is swollen, making it difficult to swallow. They have had a fever of 99 degrees and noticed a rash on their abdomen. Additionally, they have reported stomach pain on their left side and mild lightheadedness. The patient initially went to urgent care, where they were suspected to have strep throat and were given amoxicillin. However, their symptoms have not improved since taking the medication.
+Patient has been experiencing a severe sore throat and swollen neck for five days, making it difficult to swallow. They measured a fever of 99 degrees. They mentioned being around friends and family who were sick a few days ago and shared a drink with a friend who was recovering from an illness. The patient was initially suspected to have strep throat and was prescribed amoxicillin, but their condition has not improved, and they have developed a rash on their abdomen and pain in their left side. The doctor inquired about other symptoms, but the patient denied experiencing cough, shortness of breath, chest pain, vomiting, nausea, urinary symptoms, or back pain.
 
 #### ROS 
 - ent: [true] sore throat 
@@ -19,23 +19,27 @@ The patient has been experiencing a sore throat for five days, which has progres
 - cardiovascular: [false] chest pain 
 - gastrointestinal: [false] vomiting 
 - gastrointestinal: [false] nausea 
+- genitourinary: [false] urinary incontinence 
 
 #### Past Medical History 
-- NONE
+- No major illnesses
+- No abdominal surgeries
 
 #### Family History 
 - NONE
 
 #### Social History 
-NONE
+The patient's social history was not discussed in the transcript.
 
 #### Allergies 
-- Patient denied allergies.
+- Patient denied allergies
 
 #### Medications 
 - Amoxicillin
 
 #### Assessment & Plan 
-- Possible mono instead of strep: Conduct tests
-- Dry mucous membranes: Encourage hydration
+- Possible mono: Perform additional tests; ensure proper hydration
+- Rash: Monitor and assess for any changes or worsening
+- Sore throat and swollen neck: Continue amoxicillin, if mono is ruled out; consider alternative treatment if mono is confirmed
+- Pain in left side: Monitor and assess for any changes or worsening
 

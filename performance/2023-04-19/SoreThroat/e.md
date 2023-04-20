@@ -6,10 +6,10 @@ Hello. Hi John. I saw from your chart that you've been sick for a little bit. Ca
 ```
 
 #### CC 
-Patient with a sore throat, swollen neck, and fever for five days. 
+Sore throat and swollen neck 
 
 #### HPI 
-The patient has been experiencing a sore throat for five days, which has progressively become worse. Their neck is swollen, making it difficult to swallow. They have had a fever of 99 degrees and noticed a rash on their abdomen. Additionally, they have reported stomach pain on their left side and mild lightheadedness. The patient initially went to urgent care, where they were suspected to have strep throat and were given amoxicillin. However, their symptoms have not improved since taking the medication.
+The patient started experiencing a sore throat five days ago, which has been progressively getting worse. They also have a swollen neck, making it difficult to swallow. They have had a fever of 99 degrees. The patient attended a birthday party a few days ago where some friends and family were sick. They were given amoxicillin after an urgent care visit where strep throat was suspected. Since then, their throat has continued to worsen, and they developed a rash on their abdomen and pain in their left side stomach.
 
 #### ROS 
 - ent: [true] sore throat 
@@ -19,23 +19,26 @@ The patient has been experiencing a sore throat for five days, which has progres
 - cardiovascular: [false] chest pain 
 - gastrointestinal: [false] vomiting 
 - gastrointestinal: [false] nausea 
+- genitourinary: [false] urinary incontinence 
 
 #### Past Medical History 
-- NONE
+- No major illnesses
+- No abdominal surgeries
 
 #### Family History 
 - NONE
 
 #### Social History 
-NONE
+Attended a birthday party with sick individuals
 
 #### Allergies 
-- Patient denied allergies.
+- Patient denies allergies
 
 #### Medications 
 - Amoxicillin
 
 #### Assessment & Plan 
-- Possible mono instead of strep: Conduct tests
-- Dry mucous membranes: Encourage hydration
+- Possible strep throat: Continue amoxicillin treatment
+- Possible mononucleosis: Perform additional tests to confirm diagnosis
+- Dehydration: Encourage patient to increase fluid intake
 

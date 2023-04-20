@@ -6,36 +6,36 @@ Hi. Hi, my name is Aspen Fieldscout. I'm Dr. Briar Hayfield. How can I help you?
 ```
 
 #### CC 
-Patient presents with the worst headache of their life, nausea, and vomiting due to pain. 
+Severe headache 
 
 #### HPI 
-The patient woke up with a severe headache, describing it as the worst pain they've ever had, and it has persisted since 5 AM. The patient felt slightly feverish the night before and has a sick child at home. The pain was so intense that it caused the patient to vomit. The patient tried taking extra strength Tylenol, but it did not help. The doctor asked about additional symptoms like blurred vision, rash, diarrhea, swollen joints, and recent travel, but the patient had none of those. During the physical exam, the patient experienced pain in some parts of the exam.
+The patient woke up with a severe headache that has persisted since about 5 AM. The pain is so intense that it caused the patient to vomit. The patient tried taking extra strength Tylenol, but it did not alleviate the pain. The patient also mentioned feeling feverish the night before and having a sick child at home. No other symptoms such as blurred vision, numbness, or weakness were reported.
 
 #### ROS 
 - neurological: [true] headache 
-- gastrointestinal: [true] nausea 
 - eyes: [false] blurred vision 
 - neurological: [false] numbness 
-- integumentary: [false] rash 
-- musculoskeletal: [false] swollen joint 
+- neurological: [false] weakness 
 
 #### Past Medical History 
 - Asthma
+- Car sickness
 
 #### Family History 
-- Large family history of migraines
+- Family history of migraines
 
 #### Social History 
-NONE
+Has a son who is currently sick
 
 #### Allergies 
-- Patient denied allergies.
+- Patient denies allergies
 
 #### Medications 
-- Orange puffer (Fluticasone/Flowvent)
+- Orange puffer (possibly Flovent or Fluticasone)
 - Blue puffer (rarely used)
 
 #### Assessment & Plan 
-- Meningitis concern: CT Scan, followed by lumbar puncture if needed
-- Pain and nausea: Morphine and a medication for nausea
+- Pain management: Administer IV morphine and give medication for nausea
+- Possible meningitis: Perform physical examination, order CT Scan of the brain, and consider lumbar puncture if needed
+- Worst headache of patient's life: Investigate for potential brain bleed by performing a CT Scan
 

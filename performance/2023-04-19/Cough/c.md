@@ -6,15 +6,20 @@ Hi August Clancy, how are you doing today? Not so good, doctor. Actually, we're 
 ```
 
 #### CC 
-NONE 
+Persistent cough 
 
 #### HPI 
-NONE
+The patient has had a cough for about two weeks, which started after a cold three weeks ago. The cold symptoms, including fever and nasal congestion, have mostly subsided, but the cough remains. The cough is dry and non-productive, and it worsens with exercise and exposure to cold air. The patient also experiences occasional wheezing and chest tightness. They have a history of possibly having asthma and previously used a Flovent inhaler, but they have not used it in months.
 
 #### ROS 
+- respiratory: [true] cough 
+- cardiovascular: [true] chest tightness 
+- neurological: [false] headache 
+- ent: [false] sore throat 
+- cardiovascular: [false] chest pain 
 
 #### Past Medical History 
-- NONE
+- Possible asthma
 
 #### Family History 
 - NONE
@@ -23,11 +28,13 @@ NONE
 NONE
 
 #### Allergies 
-- NONE
+- Patient denies allergies
 
 #### Medications 
-- NONE
+- Flovent inhaler (not currently in use)
 
 #### Assessment & Plan 
-- NONE
+- Persistent cough: Perform throat and nose examination, rapid flu test, and rapid COVID test
+- Possible asthma or allergies: Consider reevaluating asthma diagnosis and treatment
+- Cough management: Prescribe Tessalon pearls; Recommend over-the-counter cough suppressants like Robitussin or dextromethorphan
 

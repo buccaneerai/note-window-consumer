@@ -6,28 +6,34 @@ Hi Sarah. Hi Doctor McCoy. What brings you in today? It looks like you're still 
 ```
 
 #### CC 
-NONE 
+Patient with a history of asthma presents with worsening shortness of breath and coughing up blood-tinged phlegm. 
 
 #### HPI 
-NONE
+The patient had an asthma attack four weeks ago and was prescribed Flovent steroids, which they finished two weeks ago. The patient's asthma symptoms have worsened over the past few days, with increased shortness of breath, especially during walking, and coughing up green-yellow phlegm with a small amount of blood. The patient has been using an albuterol inhaler for relief when symptoms are severe. The doctor asked about other symptoms, including chest pain, fever, and various other issues, but the patient only reported breathing difficulties.
 
 #### ROS 
+- respiratory: [true] cough 
+- cardiovascular: [false] chest pain 
+- constitutional: [false] fever 
 
 #### Past Medical History 
-- NONE
+- History of asthma
+- Asthma attack four weeks ago
 
 #### Family History 
 - NONE
 
 #### Social History 
-NONE
+The patient is a smoker, having started at the age of 20 and currently smoking half a pack of cigarettes per day. No other social history was discussed in the transcript.
 
 #### Allergies 
-- NONE
+- Patient denied allergies.
 
 #### Medications 
-- NONE
+- Flovent steroid (previously prescribed and finished)
+- Albuterol inhaler (as needed)
 
 #### Assessment & Plan 
-- NONE
+- Asthma exacerbation: Administer breathing treatment, order chest x-ray, and CBC panel; Prescribe another steroid course; Schedule follow-up after test results
+- Smoking cessation: Discuss smoking cessation at the end of the appointment
 

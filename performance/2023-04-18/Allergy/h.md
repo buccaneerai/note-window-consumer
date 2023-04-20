@@ -6,10 +6,10 @@ Hi, how's it going? Good. How are you doing? Doctor? I'm doing fine. Thanks for 
 ```
 
 #### CC 
-The patient presents with worsening allergy-like symptoms, including a stuffy nose, post nasal drip, coughing up green mucus, and tiredness, particularly during springtime. 
+Patient presents with worsening stuffy nose and post-nasal drip over the past few weeks, likely related to allergies. 
 
 #### HPI 
-The patient has been experiencing a stuffy nose, post nasal drip, cough, and green mucus for a couple of weeks. The symptoms are particularly worse during springtime and after spending time outdoors. The patient also has a sore throat and feels tired. The symptoms have been gradually getting worse, with some days being worse than others. The patient has tried Benadryl and Claritin, but the medications did not provide complete relief.
+Patient has been experiencing a stuffy nose and post-nasal drip for a couple of weeks, which has been gradually getting worse. The symptoms are not new and typically occur around springtime. The patient noticed that the symptoms worsen after spending time outdoors. They have tried Benadryl, which helps but causes drowsiness, and Claritin, which did not help much. The patient also has a cough and occasionally coughs up green mucus. They have experienced some sore throat and tiredness but deny fever, chills, muscle pain, joint pain, shortness of breath, wheezing, chest pain, heart racing, nausea, vomiting, constipation, and diarrhea.
 
 #### ROS 
 - ent: [true] sinus congestion 
@@ -17,31 +17,31 @@ The patient has been experiencing a stuffy nose, post nasal drip, cough, and gre
 - ent: [true] sore throat 
 - constitutional: [true] tiredness 
 - constitutional: [false] fever 
-- respiratory: [false] difficulty breathing 
+- constitutional: [false] chills 
+- musculoskeletal: [false] muscle pain 
+- musculoskeletal: [false] joint pain 
 - cardiovascular: [false] chest pain 
 - cardiovascular: [false] palpitations 
 - gastrointestinal: [false] nausea 
 - gastrointestinal: [false] vomiting 
-- constitutional: [false] chills 
-- musculoskeletal: [false] muscle pain 
-- musculoskeletal: [false] joint pain 
 
 #### Past Medical History 
 - NONE
 
 #### Family History 
 - Father has severe allergies
+- Grandmother had diabetes
 
 #### Social History 
 NONE
 
 #### Allergies 
-- Patient denied allergies.
+- Patient denied allergies
 
 #### Medications 
 - Benadryl
 - Claritin
 
 #### Assessment & Plan 
-- Allergy-like symptoms: Rapid flu and COVID tests, try 10 mg Zyrtec nightly for a week, and follow up with the doctor as needed.
+- Allergic symptoms: Perform rapid tests for flu and COVID; prescribe or recommend over-the-counter Zyrtec (10 mg nightly) for a week trial; follow-up as needed.
 

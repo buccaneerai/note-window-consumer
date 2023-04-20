@@ -6,36 +6,33 @@ All right, so can you tell me your first and last name please?  Brook Canterburr
 ```
 
 #### CC 
-Software engineer with back problems experiencing pain and discomfort radiating down their left leg. 
+Patient is a 32-year-old software engineer presenting with chronic left-sided back pain and left leg pain, worsening over the past two years. 
 
 #### HPI 
-The patient has a history of back problems since their teenage years, but their symptoms became worse about two years ago. They experience pain, pins and needles, and a cold sensation in their left leg primarily when sitting down for long periods, especially on hard surfaces. Stretching and yoga provide temporary relief, but the issue persists. The patient has a mostly sedentary job as a software engineer, which contributes to their back pain. They have tried physical therapy, chiropractic treatments, and using a lacrosse ball for relief, but have had limited success.
+The patient has been experiencing back problems since their teenage years, but the pain in their left leg began about two years ago. The pain is described as pins and needles and a cold sensation, which worsens when sitting on hard surfaces for long periods of time. The pain seems to improve with exercise, stretching, and yoga. The patient has had x-rays of their lower back and was told that one of their vertebrae is fused on the left side. They have tried chiropractic care, physical therapy, and using a lift in their shoe, but the pain persists and is now interfering with their daily activities. The patient finds relief from non-steroidal anti-inflammatory drugs (NSAIDs) and icing the affected area. They have not tried any prescription medications or patches for the pain.
 
 #### ROS 
-- gastrointestinal: [true] abdominal pain 
-- neurological: [true] numbness 
-- musculoskeletal: [true] muscle pain 
 
 #### Past Medical History 
-- Childhood back injury from sliding down a slide
-- Allergic rhinitis
+- Childhood back injury from sliding down a slide and hitting tree roots
+- X-ray of lower back showing fused vertebrae on the left side
 
 #### Family History 
-- Mother: Crohn's disease, fibromyalgia, Ehlers-Danlos, interstitial cystitis, back problems
+- Mother has Crohn's disease, fibromyalgia, and a history of back problems
+- Brother had his gallbladder removed
 
 #### Social History 
-The patient is a software engineer who spends most of their day sitting down due to the nature of their job. They exercise and noticed that some symptoms improve with stretching and yoga. They drink alcohol about once a week, typically beer. The patient is a non-smoker and denies any other drug use.
+The patient is a software engineer who sits for long periods of time at work. They exercise regularly, primarily focusing on weight training. They do not smoke or use drugs and consume alcohol about once a week. The patient is in a relationship and has no children.
 
 #### Allergies 
 - Patient denied allergies.
 
 #### Medications 
-- Naproxen
-- Cetirizine
+- Naproxen (500mg twice a day, as needed)
+- Cetirizine (10mg daily during summer and fall)
 
 #### Assessment & Plan 
-- Re-evaluate with physical therapy and occupational therapy
-- Consult ergonomist for workstation adjustments
-- Trial of acetaminophen 500 mg four times a day
-- Prescription of Toradol for as-needed pain relief
+- Chronic left-sided back pain and leg pain: Reevaluate with physical therapy and occupational therapy, consult with an ergonomist for workstation adjustments, prescribe Toradol for as-needed pain relief, trial of acetaminophen 500mg four times a day for two weeks
+- Consider prescription patches or creams for pain relief in the future, depending on the effectiveness of the initial treatment plan
+- Reassess the need for further imaging or additional treatments after implementing the initial treatment plan and evaluating its effectiveness
 

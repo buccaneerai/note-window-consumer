@@ -6,10 +6,10 @@ Hi Brian. How are you doing today? I’m doing fine, Dr. Mollon. I followed up w
 ```
 
 #### CC 
-The patient visited the doctor to discuss smart watch-detected heart rates and a gradual decrease in hemoglobin. 
+Patient presented with concerns about heart rate readings on their smart watch and a gradual decrease in hemoglobin. 
 
 #### HPI 
-The patient's current illness includes concerns related to high heart rates detected by their smart watch and a gradual decrease in their hemoglobin levels. They had a 24-hour Holter monitor test which showed no abnormal readings. The cardiologist recommended no further evaluation, and both the primary doctor and cardiologist agreed. The patient also mentioned a decrease in their hemoglobin levels over the last six months, which led the doctor to recommend a colonoscopy to ensure that there's no blood loss in the gastrointestinal tract.
+The patient had high heart rate readings on their smart watch, which led to a cardiology evaluation and a 24-hour Holter monitor test. Both the cardiologist and the primary care doctor found no abnormal readings and agreed that no further workup or testing is needed. The patient was advised to continue monitoring their heart rate and report any symptoms accompanying high readings. The patient also had a gradual decrease in hemoglobin over the last six months, and the doctor recommended a colonoscopy to rule out any blood loss in the gastrointestinal tract.
 
 #### ROS 
 - neurological: [false] headache 
@@ -17,11 +17,12 @@ The patient's current illness includes concerns related to high heart rates dete
 - ent: [false] hearing loss 
 - respiratory: [false] difficulty breathing 
 - cardiovascular: [false] chest pain 
+- cardiovascular: [false] palpitations 
 - gastrointestinal: [false] nausea 
 - gastrointestinal: [false] vomiting 
 
 #### Past Medical History 
-- Inguinal repairs
+- Past surgical history of inguinal repairs
 
 #### Family History 
 - NONE
@@ -33,14 +34,15 @@ The patient is in retirement, enjoying their life with their spouse in their hou
 - Patient denied allergies.
 
 #### Medications 
-- Metformin
-- Atorvastatin
+- Metformin for pre-diabetes
+- Atorvastatin for cholesterol
 
 #### Assessment & Plan 
-- Smart watch heart rate concerns: No additional workup or testing required, monitor as needed.
-- Hemoglobin decrease: Consider colonoscopy, monitor blood tests every three months.
-- Pre-diabetes: Continue Metformin, check fasting blood sugar every three months.
-- Cholesterol: Continue Atorvastatin.
-- Cardiology follow-up: Once a year.
-- Lab orders: Blood count, hemoglobin, lipids, and fasting glucose tests every three months.
+- High heart rate on smart watch: No further workup or testing needed; continue monitoring and report any symptoms accompanying high readings
+- Decrease in hemoglobin: Consider colonoscopy; continue monitoring every three months with blood tests
+- Pre-diabetes: Continue Metformin; check fasting blood sugar every three months
+- Cholesterol: Continue Atorvastatin; monitor lipids and cholesterol every three months
+- Cardiology follow-up: Annual visit with cardiologist
+- Blood tests: Hemoglobin, lipids, cholesterol, and fasting glucose every three months
+- Primary care follow-up: Every three months
 

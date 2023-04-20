@@ -9,27 +9,28 @@ Alright, so it's listening now. Good morning John. How are you today? Not so goo
 Patient with a history of asthma presents with a severe sore throat and feverish feeling. 
 
 #### HPI 
-The patient experienced a severe sore throat for about five days, rated at an eight on a scale of 1 to 10, and initially felt feverish. The pain was alleviated slightly by taking ibuprofen, but swallowing liquids and saliva was still difficult and painful. The patient's son had also recently been sick with a sore throat and fever; he was diagnosed with and treated for strep throat as well. The patient had not taken their temperature at home, but they noticed feeling feverish when the sore throat began.
+The patient has been experiencing a severe sore throat for about five days, rating the pain as an 8 out of 10. They also felt feverish when the symptoms started. The patient's son was recently sick with a sore throat and fever as well. The patient has tried taking ibuprofen to alleviate the pain. The patient can swallow liquids and their own saliva, but it is painful. The doctor plans to examine the patient and order a strep throat swab.
 
 #### ROS 
 - ent: [true] sore throat 
 
 #### Past Medical History 
-- Asthma
+- Asthma for 10 years
+- Wisdom teeth removal surgery
 
 #### Family History 
-- NONE
+- Son had a sore throat and fever
 
 #### Social History 
-The patient has a history of cocaine abuse 10 years ago but currently does not smoke cigarettes or drink alcohol. They had their wisdom teeth removed in the past.
+The patient has a history of cocaine abuse 10 years ago but currently does not smoke cigarettes or drink alcohol. The patient takes Flovent to control their asthma.
 
 #### Allergies 
-- C-chlor
+- Patient asserts allergy to C-chlor
 
 #### Medications 
-- Flovent
+- Ibuprofen
+- Flovent for asthma control
 
 #### Assessment & Plan 
-- Strep throat: Prescribe amoxicillin, one pill twice a day for ten days, drink fluids, rest, use Tylenol or ibuprofen for pain, and follow up if not better in three to four days or if symptoms worsen
-- Strep throat swab: Perform in-office test
+- Strep throat: Perform strep throat swab, prescribe Amoxicillin (one pill twice a day for 10 days), advise drinking fluids, getting rest, and taking Tylenol or ibuprofen for pain relief. Follow up with primary care physician if not improved in 3-4 days or worsens with higher fever, vomiting, difficulty swallowing saliva, or breathing issues.
 

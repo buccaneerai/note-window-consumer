@@ -6,30 +6,28 @@ Alright, so it's listening now. Good morning John. How are you today? Not so goo
 ```
 
 #### CC 
-Patient with a history of asthma presents with a severe sore throat and feverish feeling. 
+NONE 
 
 #### HPI 
-The patient experienced a severe sore throat for about five days, rated at an eight on a scale of 1 to 10, and initially felt feverish. The pain was alleviated slightly by taking ibuprofen, but swallowing liquids and saliva was still difficult and painful. The patient's son had also recently been sick with a sore throat and fever; he was diagnosed with and treated for strep throat as well. The patient had not taken their temperature at home, but they noticed feeling feverish when the sore throat began.
+NONE
 
 #### ROS 
-- ent: [true] sore throat 
 
 #### Past Medical History 
-- Asthma
+- NONE
 
 #### Family History 
 - NONE
 
 #### Social History 
-The patient has a history of cocaine abuse 10 years ago but currently does not smoke cigarettes or drink alcohol. They had their wisdom teeth removed in the past.
+NONE
 
 #### Allergies 
-- C-chlor
+- NONE
 
 #### Medications 
-- Flovent
+- NONE
 
 #### Assessment & Plan 
-- Strep throat: Prescribe amoxicillin, one pill twice a day for ten days, drink fluids, rest, use Tylenol or ibuprofen for pain, and follow up if not better in three to four days or if symptoms worsen
-- Strep throat swab: Perform in-office test
+- NONE
 

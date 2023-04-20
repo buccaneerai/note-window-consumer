@@ -6,36 +6,28 @@ All right, so can you tell me your first and last name please?  Brook Canterburr
 ```
 
 #### CC 
-Software engineer with back problems experiencing pain and discomfort radiating down their left leg. 
+NONE 
 
 #### HPI 
-The patient has a history of back problems since their teenage years, but their symptoms became worse about two years ago. They experience pain, pins and needles, and a cold sensation in their left leg primarily when sitting down for long periods, especially on hard surfaces. Stretching and yoga provide temporary relief, but the issue persists. The patient has a mostly sedentary job as a software engineer, which contributes to their back pain. They have tried physical therapy, chiropractic treatments, and using a lacrosse ball for relief, but have had limited success.
+NONE
 
 #### ROS 
-- gastrointestinal: [true] abdominal pain 
-- neurological: [true] numbness 
-- musculoskeletal: [true] muscle pain 
 
 #### Past Medical History 
-- Childhood back injury from sliding down a slide
-- Allergic rhinitis
+- NONE
 
 #### Family History 
-- Mother: Crohn's disease, fibromyalgia, Ehlers-Danlos, interstitial cystitis, back problems
+- NONE
 
 #### Social History 
-The patient is a software engineer who spends most of their day sitting down due to the nature of their job. They exercise and noticed that some symptoms improve with stretching and yoga. They drink alcohol about once a week, typically beer. The patient is a non-smoker and denies any other drug use.
+NONE
 
 #### Allergies 
-- Patient denied allergies.
+- NONE
 
 #### Medications 
-- Naproxen
-- Cetirizine
+- NONE
 
 #### Assessment & Plan 
-- Re-evaluate with physical therapy and occupational therapy
-- Consult ergonomist for workstation adjustments
-- Trial of acetaminophen 500 mg four times a day
-- Prescription of Toradol for as-needed pain relief
+- NONE
 

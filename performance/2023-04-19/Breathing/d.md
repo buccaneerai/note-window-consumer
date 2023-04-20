@@ -6,28 +6,43 @@ Hi Sarah. Hi Doctor McCoy. What brings you in today? It looks like you're still 
 ```
 
 #### CC 
-NONE 
+Difficulty breathing 
 
 #### HPI 
-NONE
+The patient had an asthma attack four weeks ago and was prescribed Flovent steroids, which they finished two weeks ago. However, the patient's difficulty breathing has worsened over the past couple of days, accompanied by a cough with some blood and green-yellow phlegm. The shortness of breath has also become more noticeable when walking.
 
 #### ROS 
+- respiratory: [true] difficulty breathing 
+- respiratory: [true] cough 
+- cardiovascular: [false] chest pain 
+- gastrointestinal: [false] abdominal pain 
+- gastrointestinal: [false] nausea 
+- gastrointestinal: [false] vomiting 
+- genitourinary: [false] urinary incontinence 
+- ent: [false] sore throat 
+- integumentary: [false] rash 
+- neurological: [false] headache 
+- cardiovascular: [false] palpitations 
 
 #### Past Medical History 
-- NONE
+- History of asthma
 
 #### Family History 
 - NONE
 
 #### Social History 
-NONE
+Smokes half a pack of cigarettes per day since age 20
 
 #### Allergies 
-- NONE
+- Patient denies allergies
 
 #### Medications 
-- NONE
+- Flovent steroids
+- Albuterol inhaler
 
 #### Assessment & Plan 
-- NONE
+- Difficulty breathing: Prescribe another steroid; Follow up after test results
+- Cough with blood and phlegm: Order chest x-ray; Follow up after test results
+- Worsening asthma symptoms: Administer breathing treatment; Follow up after test results
+- Bloodwork: Order CBC panel; Follow up after test results
 
