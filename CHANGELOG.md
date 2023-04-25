@@ -1,3 +1,11 @@
+# [1.4.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.1...v1.4.0-dev.2) (2023-04-25)
+
+
+### Features
+
+* added ground truth notes ([7626545](https://github.com/buccaneerai/note-window-consumer/commit/76265455d9ba3ffec8bf488213d7ebaf0cafafe8))
+* more ground truth notes ([18941fd](https://github.com/buccaneerai/note-window-consumer/commit/18941fdb5437cd3ac29c2e860ffdf95c2959af37))
+
 # [1.4.0-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.3.1-dev.1...v1.4.0-dev.1) (2023-04-20)
 
 
