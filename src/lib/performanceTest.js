@@ -1,10 +1,15 @@
 const get = require('lodash/get');
 const fs = require('fs');
-const {concat} = require('rxjs');
-const {map} = require('rxjs/operators');
+const {concat,from,of} = require('rxjs');
+const {map, catchError, mergeMap, tap} = require('rxjs/operators');
+const {Configuration, OpenAIApi} = require('openai');
+
 
 const toPredictions = require('../operators/toPredictions');
 const transcripts = require('./transcripts.js');
+
+const openAiConf = new Configuration({apiKey: process.env.OPENAI_API_KEY});
+const openai = new OpenAIApi(openAiConf);
 
 if (!process.env.OPENAI_API_KEY) {
   console.error('OPENAI_API_KEY must be set!');  // eslint-disable-line
@@ -12,6 +17,41 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 const TRANSCRIPTS = transcripts;
+
+const toOpenAI = ({
+  model = 'gpt-4',
+  _openai = openai,
+}) => ({truth, note}) => {
+  return from(_openai.createChatCompletion({
+    model,
+    temperature: 0.7,
+    top_p: 0.5,
+    messages: [
+        {"role": "system", "content": `
+You are an assistant that grades and describes the differences between clinical medical notes created by a doctor.
+The grading scale is from 0 to 10.  A score of "0" means that section is completely different and a score of "10" means that the section is 100% identical.
+The format of the notes is Markdown.
+`},
+        {"role": "user", "content": `
+The first note is: \n
+${truth}
+\n\n
+The second note is: \n
+${note}
+\n\n
+Grade and list the differences for each section of the note:`},
+    ]
+  })).pipe(
+    map((response) => {
+      const value = get(response, 'data.choices[0].message.content', '');
+      return value;
+    }),
+    catchError((error) => {
+      console.error(error); // eslint-disable-line
+      return '';
+    })
+  );
+};
 
 // this should return an observable
 const handleMessage = ({
@@ -77,12 +117,12 @@ const handleMessage = ({
       });
 
       // Heading
-      str += `${name}\n`
-      str += `---\n`;
-      str += '#### Transcript\n';
-      str += `\`\`\`\n`;
-      str += `${text}\n`;
-      str += `\`\`\`\n\n`;
+      // str += `${name}\n`
+      // str += `---\n`;
+      // str += '#### Transcript\n';
+      // str += `\`\`\`\n`;
+      // str += `${text}\n`;
+      // str += `\`\`\`\n\n`;
 
       // INTRO
       str += `#### INTRO \n`;
@@ -155,7 +195,31 @@ const handleMessage = ({
       console.log(str); // eslint-disable-line
       fs.writeFileSync(`${dir}/${runId}.md`, str);
 
-      return predictions;
+      return str;
+    }),
+    mergeMap((note) => {
+      let truth = '';
+      const file = `./performance/ground-truth/${name}.md`;
+      try   {
+        if (fs.existsSync(file)) {
+          truth = fs.readFileSync(file);
+        }
+      } catch(err) {
+        console.error(err); // eslint-disable-line
+      }
+      if (truth && truth.toString) {
+        return toOpenAI({})({truth: truth.toString(), note}).pipe(
+          tap((diff) => {
+            const dir = `./performance/${new Date().toJSON().slice(0,10)}/${name}`;
+            if (!fs.existsSync(dir)){
+                fs.mkdirSync(dir, { recursive: true });
+            }
+            console.log(diff); // eslint-disable-line
+            fs.writeFileSync(`${dir}/diff.md`, diff);
+          })
+        );
+      }
+      return of({name, note});
     })
   );
   return done$;
