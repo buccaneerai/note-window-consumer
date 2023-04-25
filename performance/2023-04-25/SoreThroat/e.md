@@ -1,11 +1,11 @@
 #### INTRO 
-The patient has been experiencing a sore throat for five days, with swelling in the neck and difficulty swallowing. 
+Patient presents with a sore throat and swollen neck for five days, getting progressively worse. 
 
 #### CC 
-Sore throat and neck swelling 
+Sore throat and swollen neck 
 
 #### HPI 
-The patient started feeling sick with a sore throat five days ago. The sore throat has been getting worse, and the patient's neck has become swollen, making it hard to swallow. They also had a fever of 99 degrees. The patient mentioned being at a birthday party a few days ago, where they shared a drink with a friend who was recovering from an illness. The patient was initially diagnosed with strep throat at urgent care and was prescribed amoxicillin. However, their condition has not improved, and they have developed a rash on their abdomen and chest, as well as pain in the left side of their stomach.
+The patient started experiencing a sore throat five days ago, which has been getting progressively worse. Their neck is swollen and it is difficult for them to swallow. They have had a fever of 99 degrees. The patient attended a birthday party a few days ago where some friends and family were sick. They took a drink from a friend's cup who had been sick but was recovering. They went to urgent care and were treated for suspected strep throat with amoxicillin. However, their condition has not improved, and they have developed a rash on their abdomen and chest, as well as pain in the left side of their stomach.
 
 #### ROS 
 - ent: [true] sore throat 
@@ -26,7 +26,7 @@ The patient started feeling sick with a sore throat five days ago. The sore thro
 - NONE
 
 #### Social History 
-NONE
+Patient attended a birthday party where some friends and family were sick. They shared a drink with a friend who had been sick but was recovering.
 
 #### Allergies 
 - Patient denies allergies
@@ -35,6 +35,7 @@ NONE
 - Amoxicillin
 
 #### Assessment & Plan 
-- Possible misdiagnosis of strep throat: Perform additional tests to determine if the patient has mono or another condition
-- Dehydration: Encourage the patient to drink more fluids and monitor their hydration status
+- Possible strep throat not responding to amoxicillin: Perform further tests to confirm diagnosis and adjust treatment if necessary
+- Rash and abdominal pain: Investigate possible causes and treat accordingly
+- Dehydration: Encourage patient to drink more fluids and monitor their hydration status
 

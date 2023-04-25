@@ -1,11 +1,11 @@
 #### INTRO 
-Patient had concerns about heart rates on their smart watch going up to 200. 
+Patient had concerns about high heart rates on their smart watch. 
 
 #### CC 
-High heart rates on smart watch 
+High heart rates 
 
 #### HPI 
-The patient noticed high heart rates on their smart watch, reaching up to 200. They followed up with a cardiologist as recommended by Dr. Mollon. The cardiologist ordered a 24-hour Holter monitor, which showed no abnormal readings. Both the cardiologist and Dr. Mollon agreed that no additional workup or testing is needed for the heart rates seen on the smart watch. The patient will continue to monitor their heart rate and notify the doctor if any symptoms accompany the high heart rates.
+The patient noticed high heart rates on their smart watch, reaching up to 200 beats per minute. They consulted with a cardiologist as recommended by Dr. Mollon. The cardiologist ordered a 24-hour Holter monitor, which showed no abnormal readings. Both the cardiologist and Dr. Mollon agreed that no additional workup or testing was necessary for the heart rates observed on the smart watch.
 
 #### ROS 
 - neurological: [false] headache 
@@ -20,10 +20,10 @@ The patient noticed high heart rates on their smart watch, reaching up to 200. T
 - Inguinal repairs
 
 #### Family History 
-- NONE
+- Son is a doctor
 
 #### Social History 
-The patient is retired, living with their spouse in their house. Their son, who is a doctor, lives nearby and they see him often. They enjoy walking and exercising, using their smart watch to monitor their activities. The patient denies drinking alcohol, smoking, or using any other drugs.
+The patient is retired and lives with their spouse. They enjoy spending time with their son, who is a doctor, and often ask him questions about their health. The patient uses their smart watch for exercise and walking regularly. They deny any alcohol, tobacco, or drug usage.
 
 #### Allergies 
 - Patient denies allergies
@@ -33,8 +33,8 @@ The patient is retired, living with their spouse in their house. Their son, who 
 - Atorvastatin for cholesterol
 
 #### Assessment & Plan 
-- High heart rates on smart watch: No further testing or evaluation needed; Monitor and report any symptoms accompanying high heart rates
-- Hemoglobin decrease: Consider colonoscopy; Monitor every three months with blood tests
+- High heart rates: No additional workup or testing needed; Monitor with smart watch and report any symptoms
+- Hemoglobin: Monitor every three months with blood tests; Consider colonoscopy to rule out blood loss in gastrointestinal tract
 - Pre-diabetes: Continue Metformin; Check fasting blood sugar every three months
-- Cholesterol: Continue Atorvastatin; Monitor lipids and fasting glucose every three months
+- Cholesterol: Continue Atorvastatin; Check lipids every three months
 

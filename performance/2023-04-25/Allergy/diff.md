@@ -1,39 +1,62 @@
 #### INTRO
-Grade: 8
-Differences: The first note mentions a cough that has been gradually getting worse, while the second note does not mention the cough in the intro.
+Grade: 9
+Differences: The first note mentions "over the past few weeks" while the second note mentions "for a couple of weeks."
 
 #### CC
-Grade: 9
-Differences: The first note includes "cough" in the chief complaint, while the second note does not.
+Grade: 10
+Differences: None
 
 #### HPI
-Grade: 9
-Differences: The first note mentions the cough being productive with thick, green sputum, while the second note does not mention this detail. The first note also mentions the patient denying sick contact, while the second note does not.
+Grade: 8
+Differences: 
+- The first note mentions the patient denies sick contact, while the second note does not.
+- The first note states the patient believes the symptoms are more allergy-related than flu or cold, while the second note states they have not noticed any fever or other symptoms typically associated with the flu or cold.
+- The first note mentions the cough is productive with thick, green sputum, while the second note does not.
+- The first note mentions rhinorrhea, while the second note does not.
+- The first note mentions the patient tried Benadryl and Claritin with their respective effects, while the second note mentions the effects but not the specific medications.
 
 #### ROS
 Grade: 9
-Differences: The first note includes more details in the ROS, such as rhinorrhea, dyspnea, wheezing, palpitations, constipation, and diarrhea, while the second note does not mention these.
+Differences: 
+- The first note includes more detailed information with true/false indications for each symptom.
+- The first note mentions rhinorrhea, dyspnea, and wheezing, while the second note does not.
 
 #### Past Medical History
 Grade: 9
-Differences: The first note states that the patient denies any other chronic medical issues, while the second note simply states "NONE."
+Differences: The first note states the patient denies any other chronic medical issues, while the second note states no known past medical conditions.
 
 #### Family History
 Grade: 10
-Differences: None, both notes have the same information.
+Differences: None
 
 #### Social History
 Grade: 9
-Differences: The first note states that the patient does not provide any information about their social history, while the second note simply states "NONE."
+Differences: The first note states the patient does not provide any information about their social history, while the second note states no social history information provided in the transcript.
 
 #### Allergies
 Grade: 10
-Differences: None, both notes have the same information.
+Differences: None
 
 #### Medications
 Grade: 10
-Differences: None, both notes have the same information.
+Differences: None
 
 #### Assessment & Plan
 Grade: 8
-Differences: The first note suggests possible allergies and recommends trying over-the-counter Zyrtec or prescription Zyrtec, while the second note prescribes or recommends over-the-counter Zyrtec (10 mg; nightly) for a week trial. The first note also mentions possible COVID and flu, while the second note only mentions performing rapid tests for flu and COVID to rule them out.
+Differences: 
+- The first note suggests possible allergies and recommends trying over-the-counter Zyrtec or prescription Zyrtec, while the second note prescribes or recommends over-the-counter Zyrtec (10 mg nightly) for a week trial.
+- The first note mentions possible COVID and flu, while the second note only mentions allergy-like symptoms.
+- The first note suggests following up if symptoms persist or worsen, while the second note suggests following up if symptoms persist or worsen after a week trial of Zyrtec.
+
+| Section           | Grade |
+|-------------------|-------|
+| INTRO             | 9     |
+| CC                | 10    |
+| HPI               | 8     |
+| ROS               | 9     |
+| Past Medical History | 9   |
+| Family History    | 10    |
+| Social History    | 9     |
+| Allergies         | 10    |
+| Medications       | 10    |
+| Assessment & Plan | 8     |

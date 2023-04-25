@@ -1,14 +1,15 @@
 #### INTRO 
-The patient has difficulty breathing and worsening asthma symptoms despite taking prescribed steroids. 
+Patient presents with difficulty breathing and worsening asthma symptoms. 
 
 #### CC 
 Difficulty breathing 
 
 #### HPI 
-The patient had an asthma attack four weeks ago and was prescribed Flovent steroids. They finished the steroids two weeks ago, but their symptoms have returned and worsened over the past few days. They have been using an albuterol inhaler when their breathing gets really bad. The shortness of breath has become more noticeable when walking, and they have developed a cough with some blood and green-yellow phlegm.
+Patient had an asthma attack four weeks ago and was prescribed Flovent steroid. They finished the medication two weeks ago, but the asthma symptoms returned and worsened over the past couple of days. The patient has been using an albuterol inhaler when it gets really bad. About three days ago, they started to feel more short of breath and have been coughing up green-yellow mucus with a little bit of blood. The shortness of breath has become worse while walking.
 
 #### ROS 
 - respiratory: [true] difficulty breathing 
+- respiratory: [true] cough 
 - cardiovascular: [false] chest pain 
 - gastrointestinal: [false] abdominal pain 
 - gastrointestinal: [false] nausea 
@@ -26,15 +27,17 @@ The patient had an asthma attack four weeks ago and was prescribed Flovent stero
 - NONE
 
 #### Social History 
-The patient has been smoking cigarettes since the age of 20 and currently smokes about half a pack per day. They have been previously counseled about their smoking habits.
+Patient has been smoking cigarettes since the age of 20 and currently smokes about half a pack per day. They have been previously counseled about their smoking habit.
 
 #### Allergies 
 - Patient denies allergies
 
 #### Medications 
-- Flovent steroids
+- Flovent steroid
 - Albuterol inhaler
 
 #### Assessment & Plan 
-- Worsening asthma symptoms: Provide breathing treatment, order chest x-ray, and CBC panel; Prescribe another steroid and follow up after test results
+- Worsening asthma symptoms: Prescribe another steroid; Schedule follow-up visit
+- Cough with mucus and blood: Order chest x-ray and CBC panel
+- Breathing difficulties: Administer breathing treatment
 

@@ -1,17 +1,19 @@
 #### INTRO 
-Patient presents with a left arm stab wound from an accident while changing the air filter in their furnace. 
+Patient presents with a stab wound in their left arm from an accident while changing an air filter in their furnace. 
 
 #### CC 
 Stab wound in left arm 
 
 #### HPI 
-The patient accidentally stabbed themselves in the left arm with a not-so-clean screwdriver while trying to change the air filter in their furnace. The incident occurred last night at around 8pm. The wound bled quite a bit, and the patient used alcohol to clean it up. The patient's wife suggested they come in for a tetanus shot, as they have not had one in years, possibly decades. The patient applied Neosporin and a bandaid over the wound, and has not experienced any numbness, tingling, fevers, chills, nausea, vomiting, or streaking redness.
+The patient accidentally stabbed themselves in the left forearm area with a not-so-clean screwdriver while trying to change the air filter in their furnace. The incident occurred last night at around 8 pm. The wound bled a lot, and the patient used alcohol to clean it up. The patient's wife suggested coming in for a possible tetanus shot, as the patient hasn't had one in years or decades. The patient applied Neosporin and a bandaid to the wound. There is no discharge, redness, or streaking redness around the wound, and the patient denies having numbness, tingling, fevers, chills, nausea, vomiting, or a history of diabetes.
 
 #### ROS 
 - gastrointestinal: [true] abdominal pain 
 - neurological: [false] numbness 
+- constitutional: [false] fever 
 - constitutional: [false] chills 
 - gastrointestinal: [false] nausea 
+- gastrointestinal: [false] vomiting 
 
 #### Past Medical History 
 - NONE
@@ -29,5 +31,6 @@ Patient does not smoke cigarettes.
 - Neosporin
 
 #### Assessment & Plan 
-- Stab wound in left arm: No stitches needed; Update tetanus shot; Irrigate wound and apply bandage; Wash twice a day and apply topical antibiotic ointment; Monitor for infection and return if not improving in 5-7 days or if signs of infection appear
+- Stab wound in left arm: Clean and irrigate wound; Apply topical antibiotic ointment and bandage; Monitor for infection and follow up in 5-7 days if not improving
+- Outdated tetanus vaccination: Administer tetanus booster shot
 
