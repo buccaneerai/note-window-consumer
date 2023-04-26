@@ -1,52 +1,52 @@
 #### INTRO
-Grade: 9
-Differences: Slight difference in phrasing, but the content is the same.
+Grade: 10
+Differences: None
 
 #### CC
 Grade: 10
-Differences: None, both sections are identical.
+Differences: None
 
 #### HPI
 Grade: 8
-Differences: The second note does not mention the patient's son being sick for a few days, and it does not mention the patient reporting fever, headache, and vomiting. The second note also does not mention the patient denying blurred vision, rash, numbness, diarrhea, and swollen joints.
+Differences: The AI-generated note did not mention the fever and vomiting as separate symptoms. It also did not mention the patient denying blurred vision, rash, numbness, diarrhea, and swollen joints.
 
 #### ROS
 Grade: 7
-Differences: The first note includes more information, such as constitutional (fever), gastrointestinal (vomiting), and eyes (blurred vision). The second note does not include these details.
+Differences: The AI-generated note missed the constitutional and gastrointestinal sections, which include fever and vomiting.
 
 #### Past Medical History
-Grade: 10
-Differences: None, both sections are identical.
+Grade: 9
+Differences: The AI-generated note did not mention the patient denying any other chronic conditions.
 
 #### Family History
 Grade: 10
-Differences: None, both sections are identical.
+Differences: None
 
 #### Social History
 Grade: 9
-Differences: The first note mentions the patient is married, while the second note mentions the patient has a wife. The second note also mentions the son being sick for a couple of days instead of a few days.
+Differences: The AI-generated note did not mention the patient's son being sick recently in this section, although it was mentioned in the HPI section.
 
 #### Allergies
 Grade: 10
-Differences: None, both sections are identical.
+Differences: None
 
 #### Medications
 Grade: 9
-Differences: The second note mentions the blue puffer is "rarely taken" instead of "rarely used."
+Differences: The AI-generated note used the word "possibly" instead of "or" when referring to the orange puffer medication.
 
 #### Assessment & Plan
 Grade: 8
-Differences: The first note mentions administering IV morphine and medication for nausea, while the second note mentions administering morphine during the visit. The second note also has a slightly different order of actions for possible meningitis.
+Differences: The AI-generated note mentioned administering IV for pain relief and giving morphine, while the perfect note mentioned administering IV morphine and medication for nausea. The AI-generated note also mentioned performing a CT Scan of the brain before considering a lumbar puncture, while the perfect note mentioned ordering a CT Scan and considering a lumbar puncture if needed.
 
-| Section          | Grade |
-|------------------|-------|
-| INTRO            | 9     |
-| CC               | 10    |
-| HPI              | 8     |
-| ROS              | 7     |
-| Past Medical     | 10    |
-| Family History   | 10    |
-| Social History   | 9     |
-| Allergies        | 10    |
-| Medications      | 9     |
-| Assessment & Plan| 8     |
+| Section           | Grade |
+|-------------------|-------|
+| INTRO             | 10    |
+| CC                | 10    |
+| HPI               | 8     |
+| ROS               | 7     |
+| Past Medical      | 9     |
+| Family History    | 10    |
+| Social History    | 9     |
+| Allergies         | 10    |
+| Medications       | 9     |
+| Assessment & Plan | 8     |

@@ -1,11 +1,11 @@
 #### INTRO 
-Patient presents with a stab wound in their left arm from an accident while changing the air filter in their furnace. 
+Patient presents with a self-inflicted stab wound on the left arm from a screwdriver while changing an air filter in their furnace. 
 
 #### CC 
-Stab wound in left arm 
+Stab wound on left arm 
 
 #### HPI 
-The patient accidentally stabbed themselves in the left arm with a not-so-clean screwdriver while trying to change the air filter in their furnace. The incident occurred last night at around 8pm. The wound bled a lot, and the patient used alcohol to clean it up. The patient's wife suggested they come in for a possible tetanus shot, as they haven't had one in years or even decades. The patient applied Neosporin and a bandaid on the wound, and fortunately, they have not experienced any numbness or tingling in their hand.
+The patient accidentally stabbed themselves in the left forearm with a screwdriver while attempting to change the air filter in their furnace. The incident occurred last night at around 8pm. The wound bled significantly, and the patient cleaned it with alcohol and applied Neosporin before covering it with a bandaid. The patient's wife suggested they come in for a possible tetanus shot, as the patient has not had one in over five years.
 
 #### ROS 
 - neurological: [false] numbness 
@@ -21,7 +21,7 @@ The patient accidentally stabbed themselves in the left arm with a not-so-clean 
 - NONE
 
 #### Social History 
-Patient denies having diabetes and smoking cigarettes.
+Patient denies smoking cigarettes.
 
 #### Allergies 
 - Patient denies allergies
@@ -30,6 +30,6 @@ Patient denies having diabetes and smoking cigarettes.
 - Neosporin
 
 #### Assessment & Plan 
-- Stab wound: Clean and irrigate the wound; Apply topical antibiotic ointment and bandage; Wash twice a day; Monitor for infection and return if not improving in 5-7 days
-- Outdated tetanus shot: Update with a tetanus booster shot
+- Stab wound: Irrigate and clean wound; Apply topical antibiotic ointment and bandage; Monitor for infection and follow up in 5-7 days if not improving
+- Tetanus shot: Administer tetanus booster shot
 

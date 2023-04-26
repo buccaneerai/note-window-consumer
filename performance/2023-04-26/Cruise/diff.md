@@ -7,33 +7,24 @@ Grade: 10
 Differences: None
 
 #### HPI
-Grade: 7
-Differences:
-- The first note describes the headache as the worst one they've ever had, while the second note does not mention this.
-- The first note states that the headache improves slightly in a quiet environment with eyes open, while the second note does not mention this.
-- The first note mentions additional symptoms like phonophobia and back pain, while the second note does not.
-- The first note lists symptoms that the patient denies, while the second note does not.
+Grade: 8
+Differences: The AI note omits mentioning that the headache improves slightly in a quiet environment with eyes open. The AI note also does not mention the patient's back pain, phonophobia, and denial of photophobia, vomiting, neck pain, painful urination, blood in urine, dypsnea, and chest pain.
 
 #### ROS
 Grade: 6
-Differences:
-- The first note includes more systems and symptoms, both positive and negative, while the second note only includes four systems and symptoms.
-- The first note mentions chills, which the second note does not.
+Differences: The AI note omits chills, diarrhea, weight loss, difficulty urinating, blood in urine, anxiety, and depressed mood. The AI note also incorrectly includes hearing loss and difficulty breathing.
 
 #### Past Medical History
-Grade: 8
-Differences:
-- The first note states that the patient denies having any other chronic medical conditions and surgeries, while the second note does not mention this.
+Grade: 7
+Differences: The AI note omits the patient's denial of having any other chronic medical conditions and any other surgeries.
 
 #### Family History
-Grade: 7
-Differences:
-- The first note mentions that the mother has depression, while the second note mentions that the mother has hypertension.
+Grade: 8
+Differences: The AI note omits the mother's depression.
 
 #### Social History
 Grade: 9
-Differences:
-- The first note does not mention the patient's employment status or the recent cruise, while the second note does.
+Differences: The AI note omits the patient's denial of smoking and includes additional information not present in the perfect note.
 
 #### Allergies
 Grade: 10
@@ -41,23 +32,20 @@ Differences: None
 
 #### Medications
 Grade: 9
-Differences:
-- The first note mentions that the patient denies taking other medications, while the second note does not.
+Differences: The AI note omits the patient's denial of taking other medications.
 
 #### Assessment & Plan
 Grade: 8
-Differences:
-- The first note prescribes Effexor, while the second note prescribes Venlafaxine (which is the generic name for Effexor).
-- The first note lists possible diagnoses, while the second note does not.
+Differences: The AI note omits the possible diagnoses of complex migraine, vestibular migraine, Mal de Debarquement Syndrome (MDDS), and allergies. The AI note also suggests taking ibuprofen or acetaminophen as needed for headaches, which is not present in the perfect note.
 
 | Section          | Grade |
 |------------------|-------|
 | INTRO            | 10    |
 | CC               | 10    |
-| HPI              | 7     |
+| HPI              | 8     |
 | ROS              | 6     |
-| Past Medical     | 8     |
-| Family History   | 7     |
+| Past Medical     | 7     |
+| Family History   | 8     |
 | Social History   | 9     |
 | Allergies        | 10    |
 | Medications      | 9     |

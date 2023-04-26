@@ -1,18 +1,18 @@
 #### INTRO
-Grade: 8
-Differences: The first note mentions that the patient "can't seem to get rid of" the cough, while the second note simply states that the patient has a persistent cough for about two weeks.
+Grade: 9
+Differences: The AI-generated note states "Patient presents with a persistent cough for about two weeks" instead of "Patient has had a cough for about two weeks that they can't seem to get rid of."
 
 #### CC
 Grade: 10
 Differences: None
 
 #### HPI
-Grade: 7
-Differences: The first note mentions throat gunk and evenly distributed cough on both sides, while the second note does not. The second note mentions that the chest discomfort feels inflamed, while the first note mentions chest tightness and wheezing.
+Grade: 8
+Differences: The AI-generated note does not mention the cough being evenly distributed on both sides, the patient's throat gunk, and the patient denying sore throat, chest pain, and headache. It also refers to the inhaler as "Flowvent" instead of not specifying the inhaler's name.
 
 #### ROS
-Grade: 6
-Differences: The first note has a more extensive ROS list, including dypsnea, vision changes, blurry vision, rhinorhea, nasal congestion, vomiting, nausea, diarrhea, and muscle pain. The second note only includes sinus congestion and chest pain in addition to the common items.
+Grade: 4
+Differences: The AI-generated note only includes four items from the ROS, missing the wheezing, dypsnea, and all the false items except for headache and sore throat.
 
 #### Past Medical History
 Grade: 10
@@ -31,22 +31,22 @@ Grade: 10
 Differences: None
 
 #### Medications
-Grade: 7
-Differences: The first note states that the patient denies taking medication, while the second note mentions the patient has a Flowvent inhaler but hasn't used it in months.
+Grade: 10
+Differences: None
 
 #### Assessment & Plan
-Grade: 7
-Differences: The first note includes ruling out flu and COVID, while the second note does not explicitly mention this. The second note suggests performing a throat and nose examination, which is not mentioned in the first note. The first note mentions possible asthma as a separate item, while the second note does not.
+Grade: 8
+Differences: The AI-generated note suggests reevaluating in a week or two instead of scheduling a follow-up in 1-2 weeks, and it mentions considering reevaluating and treating for possible asthma or allergies if the cough persists, which is not in the perfect note.
 
-| Section           | Grade |
-|-------------------|-------|
-| INTRO             | 8     |
-| CC                | 10    |
-| HPI               | 7     |
-| ROS               | 6     |
-| Past Medical      | 10    |
-| Family History    | 10    |
-| Social History    | 10    |
-| Allergies         | 10    |
-| Medications       | 7     |
-| Assessment & Plan | 7     |
+| Section          | Grade |
+|------------------|-------|
+| INTRO            | 9     |
+| CC               | 10    |
+| HPI              | 8     |
+| ROS              | 4     |
+| Past Medical     | 10    |
+| Family History   | 10    |
+| Social History   | 10    |
+| Allergies        | 10    |
+| Medications      | 10    |
+| Assessment & Plan| 8     |

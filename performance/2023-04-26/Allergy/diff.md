@@ -1,68 +1,66 @@
 #### INTRO
 Grade: 8
 Differences:
-- The first note mentions a cough that has been gradually getting worse, while the second note does not mention the cough in the intro.
-- The second note mentions that the stuffy nose and post nasal drip have been going on for a couple of weeks, while the first note says "the past few weeks."
+- The AI-generated note does not mention the cough that has been gradually getting worse over the past few weeks.
 
 #### CC
-Grade: 9
+Grade: 8
 Differences:
-- The first note includes "cough" in the chief complaint, while the second note does not.
+- The AI-generated note includes "post nasal drip" instead of "cough."
 
 #### HPI
-Grade: 9
+Grade: 7
 Differences:
-- The first note mentions the patient denies sick contact, while the second note does not.
-- The first note provides more details about the cough, mentioning it is productive with thick, green sputum, while the second note only briefly mentions the cough and green mucus at the end.
-- The first note mentions additional symptoms such as sore throat and tiredness, while the second note only mentions tiredness.
+- The AI-generated note does not mention the productive cough with thick, green sputum.
+- The AI-generated note does not mention the patient denying sick contact.
+- The AI-generated note does not mention the patient's belief that the symptoms are more allergy-related than flu or cold.
+- The AI-generated note does not mention the patient's symptoms of sinus congestion, rhinorrhea, cough, sore throat, and tiredness, as well as the symptoms they deny.
 
 #### ROS
 Grade: 9
 Differences:
-- The first note includes more detailed information about the review of systems, including true/false for each symptom, while the second note only lists the symptoms that are true.
-- The first note mentions a sore throat, while the second note does not.
+- The AI-generated note does not include the following symptoms: rhinorrhea, dyspnea, wheezing, constipation, and diarrhea.
 
 #### Past Medical History
 Grade: 9
 Differences:
-- The first note states that the patient denies any other chronic medical issues, while the second note simply says "NONE."
+- The AI-generated note states "No known past medical conditions" instead of "Patient denies any other chronic medical issues."
 
 #### Family History
 Grade: 10
 Differences:
-- None, both notes are identical in this section.
+- None
 
 #### Social History
-Grade: 9
+Grade: 8
 Differences:
-- The first note states that the patient does not provide any information about their social history, while the second note simply says "NONE."
+- The AI-generated note states "Patient's social history was not discussed in the transcript" instead of "Patient does not provide any information about their social history."
 
 #### Allergies
 Grade: 10
 Differences:
-- None, both notes are identical in this section.
+- None
 
 #### Medications
 Grade: 10
 Differences:
-- None, both notes are identical in this section.
+- None
 
 #### Assessment & Plan
-Grade: 8
+Grade: 7
 Differences:
-- The first note suggests possible allergies and recommends trying over-the-counter Zyrtec or prescription Zyrtec, while the second note only recommends trying Zyrtec (10 mg nightly) for a week.
-- The first note mentions following up if symptoms persist or worsen, while the second note says to follow up if symptoms change or questions arise.
-- The first note lists possible COVID and flu as separate assessments, while the second note combines them under "Allergy symptoms."
+- The AI-generated note recommends trying over-the-counter Zyrtec (10 mg nightly) for a week instead of trying over-the-counter Zyrtec or prescription Zyrtec.
+- The AI-generated note suggests performing rapid tests for flu and COVID to rule out flu and COVID as causes of symptoms, while the perfect note recommends performing rapid tests for COVID and flu separately.
 
-| Section          | Grade |
-|------------------|-------|
-| INTRO            | 8     |
-| CC               | 9     |
-| HPI              | 9     |
-| ROS              | 9     |
-| Past Medical     | 9     |
-| Family History   | 10    |
-| Social History   | 9     |
-| Allergies        | 10    |
-| Medications      | 10    |
-| Assessment & Plan| 8     |
+| Section           | Grade |
+|-------------------|-------|
+| INTRO             | 8     |
+| CC                | 8     |
+| HPI               | 7     |
+| ROS               | 9     |
+| Past Medical History | 9  |
+| Family History    | 10    |
+| Social History    | 8     |
+| Allergies         | 10    |
+| Medications       | 10    |
+| Assessment & Plan | 7     |

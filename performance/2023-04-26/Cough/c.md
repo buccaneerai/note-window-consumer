@@ -5,12 +5,11 @@ Patient presents with a persistent cough for about two weeks.
 Persistent cough 
 
 #### HPI 
-The patient has had a cough for about two weeks, which started three weeks ago with a cold. The cold symptoms, such as fever and nasal congestion, have subsided, but the cough remains. The cough is dry, non-productive, and has been about the same for the last two weeks. It worsens with exercise and exposure to cold air. The patient also experiences wheezing and chest discomfort, which is not painful but feels inflamed. The patient's previous doctor had suspected asthma, and they were given an inhaler (Flowvent) but haven't used it in months.
+The patient has had a cough for about two weeks, which started three weeks ago with a cold. The cold symptoms, including fever and nasal congestion, have subsided, but the cough remains. The cough is dry and unproductive, and it is aggravated by exercise and cold air. The patient mentioned a previous doctor suggesting they might have asthma and was given an inhaler (Flowvent) in the past, but they haven't used it in months. They also experience occasional wheezing and chest tightness, but no pain.
 
 #### ROS 
 - respiratory: [true] cough 
-- cardiovascular: [true] chest pain 
-- ent: [true] sinus congestion 
+- cardiovascular: [true] chest tightness 
 - neurological: [false] headache 
 - ent: [false] sore throat 
 
@@ -27,8 +26,10 @@ NONE
 - Patient denies allergies
 
 #### Medications 
-- Flowvent (inhaler; not used in months)
+- Patient denies taking medication
 
 #### Assessment & Plan 
-- Persistent cough: Perform throat and nose examination, rapid flu test, and rapid COVID test; Prescribe Tessalon pearls and suggest over-the-counter cough suppressant with dextromethorphan; Reevaluate after 1-2 weeks
+- Residual cough post URI: Prescribe Tessalon pearls; Recommend over-the-counter cough suppressant with dextromethorphan; Reevaluate in a week or two
+- Possible asthma or allergies: Consider reevaluating and treating if cough persists
+- Rapid flu and COVID tests: Perform tests to rule out residual infection
 

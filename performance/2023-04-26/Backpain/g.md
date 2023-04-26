@@ -1,25 +1,25 @@
 #### INTRO 
-The patient came in with a history of back problems and reported experiencing pain in the left leg when sitting down for long periods of time, particularly on hard surfaces. 
+The patient came in with a history of back problems and has been experiencing pain down their left leg when sitting on hard surfaces for long periods of time. 
 
 #### CC 
-Left leg pain 
+Back problems and left leg pain 
 
 #### HPI 
-The patient has had back problems since their teenage years, but the left leg pain began about two years ago. The pain is aggravated when sitting on hard surfaces and somewhat relieved by exercise, stretching, and yoga. The patient has seen a chiropractor and had an x-ray done, which revealed a fused vertebra on the left side. The pain has progressively gotten worse and now interferes with the patient's daily activities.
+The patient has had back problems since their teenage years, but the pain down their left leg started about two years ago. The pain is aggravated when sitting on hard surfaces for long periods of time and seems to be relieved by exercise, stretching, and yoga. The patient has a history of chiropractic treatment and has had an x-ray showing a fused vertebra on the left side. The pain has been getting worse and now interferes with their daily activities and enjoyment of life. The patient has tried physical therapy, chiropractic adjustments, and using a lacrosse ball for relief, but the pain persists.
 
 #### ROS 
 - gastrointestinal: [true] abdominal pain 
 
 #### Past Medical History 
-- Slide accident at age 9 with bruising around vertebrae
+- History of back problems since teenage years
 
 #### Family History 
 - Mother has Crohn's disease, fibromyalgia, and interstitial cystitis
-- Father is healthy
-- Brother had gallbladder removed
+- Mother had back surgery
+- Father and siblings have no significant medical history
 
 #### Social History 
-The patient is a software engineer and spends most of their day sitting down for work. They exercise and go to the gym, initially focusing on cardio and calisthenics, and now focusing on weight training. The patient drinks alcohol once or twice a week, usually beer. They deny any tobacco or drug use.
+The patient is a software engineer who spends most of their day sitting down. They exercise regularly, focusing on weight training and cardio. The patient drinks alcohol occasionally, about once a week, and denies any tobacco or drug use.
 
 #### Allergies 
 - Patient denies allergies
@@ -29,6 +29,5 @@ The patient is a software engineer and spends most of their day sitting down for
 - Cetirizine (10 mg; daily during summer and fall)
 
 #### Assessment & Plan 
-- Lower back and left leg pain: Reevaluate with physical therapy and occupational therapy, consult an ergonomist for workstation adjustments
-- Pain management: Prescribe Toradol as needed, trial of acetaminophen 500 mg four times a day for two weeks
+- Lower back and left leg pain: Reevaluate with physical therapy and occupational therapy, consider ergonomics assessment, prescribe Toradol as needed, and trial of acetaminophen 500 mg four times a day
 

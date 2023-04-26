@@ -1,7 +1,7 @@
 const get = require('lodash/get');
 const fs = require('fs');
 const {forkJoin,from,of} = require('rxjs');
-const {map, catchError, mergeMap, tap} = require('rxjs/operators');
+const {map, catchError, mergeMap, tap, delay} = require('rxjs/operators');
 const {Configuration, OpenAIApi} = require('openai');
 const nsTable = require("nodestringtable");
 
@@ -30,18 +30,18 @@ const toOpenAI = ({
     top_p: 0.5,
     messages: [
         {"role": "system", "content": `
-You are an assistant that grades and describes the differences between clinical medical notes created by a doctor.
-The grading scale is from 0 to 10.  A score of "0" means that section is completely different and a score of "10" means that the section is 100% identical.
-The format of the notes is Markdown.
+You are an assistant that grades and describes the differences between a perfect clinical note created by a doctor and a note created by an AI system.
+The grading scale is from 0 to 10.  A score of "0" means that section is completely different than the perfect note and a score of "10" means that the section is 100% identical to the perfect note.
+Slight variations in the wording or language should not be marked down. The format of the notes is Markdown.
 `},
         {"role": "user", "content": `
-The first note is: \n
+The perfect ground truth note is: \n
 ${truth}
 \n\n
-The second note is: \n
+The note created by an AI is: \n
 ${note}
 \n\n
-Grade and list the differences for each section of the note and then provide a table of the grades for each section:`},
+Grade and list the differences for each section of the AI generated note and then provide a table of the grades for each section:`},
     ]
   })).pipe(
     map((response) => {
@@ -239,6 +239,7 @@ const handleMessage = ({
 
       return str;
     }),
+    delay(Math.floor(Math.random() * 120000)),
     mergeMap((note) => {
       let truth = '';
       const file = `./performance/ground-truth/${name}.md`;
@@ -362,6 +363,8 @@ const performanceTest = () => {
         problems: [],
         duration: [],
       };
+      let meanSum = 0;
+      let meanCount = 0;
       Object.keys(STATS).forEach((name) => {
         const r = STATS[name];
         grades.intro.push(r.intro);
@@ -383,15 +386,22 @@ const performanceTest = () => {
         stats.min[s] = Math.min(...arr);
         stats.max[s] = Math.max(...arr);
         stats.mean[s] = +parseFloat(sum / count).toFixed(2);
+        if (s !== 'duration') {
+          meanSum += stats.mean[s];
+          meanCount += 1;
+        }
       })
       const dir = `./performance/${new Date().toJSON().slice(0,10)}`;
       if (!fs.existsSync(dir)){
           fs.mkdirSync(dir, { recursive: true });
       }
       let str = nsTable(stats);
+      str += `\nOverall Score: ${+parseFloat(meanSum / meanCount).toFixed(2)}`;
       console.log(str); // eslint-disable-line
+
       const pieces = str.split('\n');
       str = pieces.join('  \n');
+      str += '\n\n';
       fs.writeFileSync(`${dir}/stats.md`, str);
     })
   );
