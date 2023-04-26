@@ -1,6 +1,6 @@
 const get = require('lodash/get');
 const fs = require('fs');
-const {concat,from,of} = require('rxjs');
+const {forkJoin,from,of} = require('rxjs');
 const {map, catchError, mergeMap, tap} = require('rxjs/operators');
 const {Configuration, OpenAIApi} = require('openai');
 const nsTable = require("nodestringtable");
@@ -103,13 +103,12 @@ const handleMessage = ({
     return {text: w};
   });
 
-  // @TODO need to figure out a way to capture request duration
-  // const startTime = Date.now(); // this doesn't work, since they run sequentially
-  // let duration = null;
+  const startTime = Date.now(); // this doesn't work, since they run sequentially
+  let duration = null;
   const done$ = _toPredictions()({message: {runId, noteWindowId, start}, words}).pipe(
     map((predictions) => {
-      // const endTime = Date.now();
-      // duration = parseInt(endTime - startTime, 10);
+      const endTime = Date.now();
+      duration = parseInt(endTime - startTime, 10);
       const dir = `./performance/${new Date().toJSON().slice(0,10)}/${name}`;
       if (!fs.existsSync(dir)){
           fs.mkdirSync(dir, { recursive: true });
@@ -283,7 +282,7 @@ const handleMessage = ({
             STATS[name].min = Math.min(...grades);
             STATS[name].max = Math.max(...grades);
             STATS[name].mean = +parseFloat(meanSum / meanCount).toFixed(2);
-            // STATS[name].duration = duration;
+            STATS[name].duration = duration;
             const dir = `./performance/${new Date().toJSON().slice(0,10)}/${name}`;
             if (!fs.existsSync(dir)){
                 fs.mkdirSync(dir, { recursive: true });
@@ -343,7 +342,7 @@ const performanceTest = () => {
       ...TRANSCRIPTS.cruise,
     }),
   ];
-  const done$ = concat(...tests).pipe(
+  const done$ = forkJoin(...tests).pipe(
     tap(() => {
       const stats = {
         min: {},
@@ -361,7 +360,7 @@ const performanceTest = () => {
         allergies: [],
         rx: [],
         problems: [],
-        // duration: [],
+        duration: [],
       };
       Object.keys(STATS).forEach((name) => {
         const r = STATS[name];
@@ -375,7 +374,7 @@ const performanceTest = () => {
         grades.allergies.push(r.allergies);
         grades.rx.push(r.rx);
         grades.problems.push(r.problems);
-        // grades.duration.push(r.duration);
+        grades.duration.push(r.duration);
       });
       Object.keys(grades).forEach((s) => {
         const arr = grades[s];
