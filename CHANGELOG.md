@@ -1,3 +1,10 @@
+# [1.4.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.2...v1.4.0-dev.3) (2023-04-25)
+
+
+### Features
+
+* Add diff files ([9f69281](https://github.com/buccaneerai/note-window-consumer/commit/9f69281dfef18ca89e23ab3fe9ec98d896eba98b))
+
 # [1.4.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.1...v1.4.0-dev.2) (2023-04-25)
 
 
