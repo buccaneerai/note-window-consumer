@@ -8,11 +8,11 @@ Differences: None
 
 #### HPI
 Grade: 8
-Differences: The AI-generated note does not mention the headache improving slightly in a quiet environment with eyes open, nor does it mention the patient's back pain, phonophobia, and the fact that they experienced no alleviation with ibuprofen. The AI-generated note also does not mention the patient denying photophobia, vomiting, neck pain, painful urination, blood in urine, dypsnea, and chest pain.
+Differences: The AI-generated note does not mention the headache being worse when walking outside, the improvement with eyes open, the lack of alleviation with ibuprofen, and the additional symptoms of phonophobia and back pain. The AI-generated note also does not mention the patient denying other symptoms like photophobia, vomiting, neck pain, painful urination, blood in urine, dyspnea, and chest pain.
 
 #### ROS
-Grade: 4
-Differences: The AI-generated note only includes 4 of the 14 items listed in the perfect ground truth note. It misses the following items: chills, vomiting, diarrhea, fever, weight loss, bloody stool, dypsnea, difficulty urinating, blood in urine, anxiety, and depressed mood.
+Grade: 6
+Differences: The AI-generated note is missing the following symptoms from the perfect note: chills, diarrhea, weight loss, dypsnea, difficulty urinating, blood in urine, anxiety, and depressed mood.
 
 #### Past Medical History
 Grade: 7
@@ -24,7 +24,7 @@ Differences: None
 
 #### Social History
 Grade: 9
-Differences: The AI-generated note does not explicitly mention that the patient denies smoking.
+Differences: The AI-generated note adds information about the patient not having any recent travel or significant changes in their social environment, which is not present in the perfect note.
 
 #### Allergies
 Grade: 10
@@ -36,14 +36,14 @@ Differences: The AI-generated note does not mention the patient denying taking o
 
 #### Assessment & Plan
 Grade: 9
-Differences: The AI-generated note does not mention the possible complex migraine, possible vestibular migraine, possible Mal de Debarquement Syndrome (MDDS), and possible allergies.
+Differences: The AI-generated note does not mention the possible diagnoses of complex migraine, vestibular migraine, Mal de Debarquement Syndrome (MDDS), and allergies.
 
 | Section          | Grade |
 |------------------|-------|
 | INTRO            | 10    |
 | CC               | 10    |
 | HPI              | 8     |
-| ROS              | 4     |
+| ROS              | 6     |
 | Past Medical     | 7     |
 | Family History   | 10    |
 | Social History   | 9     |

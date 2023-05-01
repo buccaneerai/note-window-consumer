@@ -5,7 +5,7 @@ Patient had concerns about high heart rates on their smart watch.
 High heart rates 
 
 #### HPI 
-The patient noticed high heart rates on their smart watch, reaching up to 200. They followed up with a cardiologist as recommended by Dr. Mollon. The cardiologist ordered a 24-hour Holter monitor, which showed no abnormal readings. Both the cardiologist and Dr. Mollon agreed that no additional workup or testing is needed for the heart rates seen on the smart watch. The patient will continue to monitor their heart rate and report any symptoms or patterns.
+The patient noticed high heart rates on their smart watch, reaching up to 200 bpm. The doctor recommended a cardiologist visit, and the patient underwent a 24-hour Holter monitor test. The results showed no abnormal readings, and both the cardiologist and the primary doctor agreed that no further workup or testing was needed. The patient will continue to monitor their heart rate with the smart watch and report any symptoms or patterns.
 
 #### ROS 
 - neurological: [false] headache 
@@ -20,10 +20,10 @@ The patient noticed high heart rates on their smart watch, reaching up to 200. T
 - Inguinal repairs
 
 #### Family History 
-- NONE
+- Son is a doctor
 
 #### Social History 
-The patient is retired and lives with their spouse. Their son, who is a doctor, lives nearby and they see him often. The patient uses a smart watch for exercise and walking. They do not drink alcohol, smoke, or use any other drugs.
+The patient is retired and lives with their spouse. Their son, who is a doctor, lives nearby and they see him often. The patient does not drink alcohol, smoke, or use any other drugs. They use their smart watch routinely for exercise and walking.
 
 #### Allergies 
 - Patient denies allergies
@@ -34,7 +34,7 @@ The patient is retired and lives with their spouse. Their son, who is a doctor, 
 
 #### Assessment & Plan 
 - High heart rates: No further action needed; Continue monitoring with smart watch and report any symptoms
+- Hemoglobin decrease: Consider colonoscopy; Monitor every three months with blood tests
 - Pre-diabetes: Continue Metformin; Check fasting blood sugar every three months
-- Cholesterol: Continue Atorvastatin; Monitor lipids and cholesterol every three months
-- Decreasing hemoglobin: Consider colonoscopy; Monitor blood count and hemoglobin every three months
+- Cholesterol: Continue Atorvastatin; Monitor lipids and fasting glucose every three months
 

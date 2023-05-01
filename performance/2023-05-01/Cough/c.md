@@ -5,7 +5,7 @@ Patient presents with a persistent cough for about two weeks.
 Persistent cough 
 
 #### HPI 
-The patient has had a cough for about two weeks, which started three weeks ago with a cold. The cold symptoms, including fever and nasal congestion, have subsided, but the cough remains. The cough is dry and non-productive, and its severity has been consistent over the last two weeks. The cough worsens with exercise and exposure to cold air. The patient also experiences occasional wheezing and chest tightness, but no pain. They have a history of using an inhaler for possible asthma, but have not used it in months.
+The patient has had a cough for about two weeks, which started three weeks ago with a cold. The cold symptoms, including fever and nasal congestion, have subsided, but the cough remains. The cough is dry and non-productive, and its severity has been consistent over the last two weeks. The cough worsens with exercise and exposure to cold air. The patient has a history of possible asthma and was previously given an inhaler, but has not used it in months. They also experience occasional wheezing and chest tightness, but no pain.
 
 #### ROS 
 - respiratory: [true] cough 
@@ -13,7 +13,6 @@ The patient has had a cough for about two weeks, which started three weeks ago w
 - neurological: [false] headache 
 - ent: [false] sore throat 
 - cardiovascular: [false] chest pain 
-- gastrointestinal: [false] nausea 
 
 #### Past Medical History 
 - Possible asthma

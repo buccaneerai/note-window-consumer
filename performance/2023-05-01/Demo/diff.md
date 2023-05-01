@@ -7,16 +7,16 @@ Grade: 10
 Differences: None
 
 #### HPI
-Grade: 8
-Differences: The AI-generated note omits the mention of fever, headache, and vomiting. It also does not mention the patient denying rash, diarrhea, and swollen joints.
+Grade: 9
+Differences: The AI-generated note does not mention the patient's fever, vomiting, and the denial of blurred vision, rash, numbness, diarrhea, and swollen joints.
 
 #### ROS
 Grade: 7
-Differences: The AI-generated note omits the constitutional (fever) and gastrointestinal (nausea and vomiting) systems.
+Differences: The AI-generated note is missing the constitutional and gastrointestinal sections, which include fever and vomiting.
 
 #### Past Medical History
 Grade: 9
-Differences: The AI-generated note omits the patient denying any other chronic conditions.
+Differences: The AI-generated note does not mention the patient's denial of having any other chronic conditions.
 
 #### Family History
 Grade: 10
@@ -31,22 +31,22 @@ Grade: 10
 Differences: None
 
 #### Medications
-Grade: 10
-Differences: None
+Grade: 9
+Differences: The AI-generated note says "possibly Flovent or Fluticasone" instead of "Flovent or Fluticasone."
 
 #### Assessment & Plan
-Grade: 8
-Differences: The AI-generated note does not mention the specific medications for pain management and nausea. It also changes the order of the possible meningitis and intracranial bleed assessments.
+Grade: 9
+Differences: The AI-generated note suggests performing a physical exam and considering a lumbar puncture if necessary, while the perfect note suggests considering a lumbar puncture if needed.
 
 | Section           | Grade |
 |-------------------|-------|
 | INTRO             | 10    |
 | CC                | 10    |
-| HPI               | 8     |
+| HPI               | 9     |
 | ROS               | 7     |
-| Past Medical History | 9  |
+| Past Medical      | 9     |
 | Family History    | 10    |
 | Social History    | 10    |
 | Allergies         | 10    |
-| Medications       | 10    |
-| Assessment & Plan | 8     |
+| Medications       | 9     |
+| Assessment & Plan | 9     |
