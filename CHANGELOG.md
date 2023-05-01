@@ -1,3 +1,10 @@
+# [1.4.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.4...v1.4.0-dev.5) (2023-05-01)
+
+
+### Features
+
+* move scores file ([6ebf97f](https://github.com/buccaneerai/note-window-consumer/commit/6ebf97f75113d217682ce9856f80eeb773b082fb))
+
 # [1.4.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.3...v1.4.0-dev.4) (2023-05-01)
 
 
