@@ -1,8 +1,9 @@
 const get = require('lodash/get');
 const fs = require('fs');
-const {concat,from,of} = require('rxjs');
-const {map, catchError, mergeMap, tap} = require('rxjs/operators');
+const {forkJoin,from,of} = require('rxjs');
+const {map, catchError, mergeMap, tap, delay} = require('rxjs/operators');
 const {Configuration, OpenAIApi} = require('openai');
+const nsTable = require("nodestringtable");
 
 
 const toPredictions = require('../operators/toPredictions');
@@ -17,6 +18,7 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 const TRANSCRIPTS = transcripts;
+const STATS = [];
 
 const toOpenAI = ({
   model = 'gpt-4',
@@ -28,18 +30,18 @@ const toOpenAI = ({
     top_p: 0.5,
     messages: [
         {"role": "system", "content": `
-You are an assistant that grades and describes the differences between clinical medical notes created by a doctor.
-The grading scale is from 0 to 10.  A score of "0" means that section is completely different and a score of "10" means that the section is 100% identical.
-The format of the notes is Markdown.
+You are an assistant that grades and describes the differences between a perfect clinical note created by a doctor and a note created by an AI system.
+The grading scale is from 0 to 10.  A score of "0" means that section is completely different than the perfect note and a score of "10" means that the section is 100% identical to the perfect note.
+Slight variations in the wording or language should not be marked down. The format of the notes is Markdown.
 `},
         {"role": "user", "content": `
-The first note is: \n
+The perfect ground truth note is: \n
 ${truth}
 \n\n
-The second note is: \n
+The note created by an AI is: \n
 ${note}
 \n\n
-Grade and list the differences for each section of the note:`},
+Grade and list the differences for each section of the AI generated note and then provide a table of the grades for each section:`},
     ]
   })).pipe(
     map((response) => {
@@ -53,6 +55,41 @@ Grade and list the differences for each section of the note:`},
   );
 };
 
+const getSection = (val) => {
+  const section = val.toLowerCase().trim();
+  if (section.includes('intro')) {
+    return 'intro';
+  }
+  if (section.includes('cc') || section.includes('chief')) {
+    return 'cc';
+  }
+  if (section.includes('hpi') || section.includes('illness')) {
+    return 'hpi';
+  }
+  if (section.includes('ros') || section.includes('systems')) {
+    return 'ros';
+  }
+  if (section.includes('pmh') || section.includes('medical')) {
+    return 'pmh';
+  }
+  if (section.includes('fmx') || section.includes('family')) {
+    return 'fmx';
+  }
+  if (section.includes('shx') || section.includes('social')) {
+    return 'shx';
+  }
+  if (section.includes('allerg')) {
+    return 'allergies';
+  }
+  if (section.includes('rx') || section.includes('medicat')) {
+    return 'rx';
+  }
+  if (section.includes('problems') || section.includes('assess')) {
+    return 'problems';
+  }
+  return 'unknown';
+}
+
 // this should return an observable
 const handleMessage = ({
   _toPredictions = toPredictions,
@@ -65,8 +102,13 @@ const handleMessage = ({
   words = words.map((w) => {
     return {text: w};
   });
+
+  const startTime = Date.now(); // this doesn't work, since they run sequentially
+  let duration = null;
   const done$ = _toPredictions()({message: {runId, noteWindowId, start}, words}).pipe(
     map((predictions) => {
+      const endTime = Date.now();
+      duration = parseInt(endTime - startTime, 10);
       const dir = `./performance/${new Date().toJSON().slice(0,10)}/${name}`;
       if (!fs.existsSync(dir)){
           fs.mkdirSync(dir, { recursive: true });
@@ -155,7 +197,7 @@ const handleMessage = ({
       str += `- ${pmh}`;
       str += `\n\n`;
 
-      // FHX
+      // FMX
       str += `#### Family History \n`;
       let family = get(vfMap, 'family[0].findingAttributes[0].stringValues[0]', 'NONE') || 'NONE';
       family = family.split('\n');
@@ -197,6 +239,7 @@ const handleMessage = ({
 
       return str;
     }),
+    delay(Math.floor(Math.random() * 120000)),
     mergeMap((note) => {
       let truth = '';
       const file = `./performance/ground-truth/${name}.md`;
@@ -210,12 +253,44 @@ const handleMessage = ({
       if (truth && truth.toString) {
         return toOpenAI({})({truth: truth.toString(), note}).pipe(
           tap((diff) => {
+            STATS[name] = {};
+            const pieces = diff.split('\n');
+            let section;
+            let grade;
+            let meanCount = 0;
+            let meanSum = 0;
+            let grades = [];
+            pieces.forEach((p) => {
+              if (p.startsWith('####')) {
+                const value = p.replace('####', '').trim();
+                section = getSection(value);
+                grade = 0;
+              }
+              if (p.startsWith('Grade:')) {
+                let value = p.replace('Grade:', '').trim();
+                value = parseInt(value, 10);
+                grade = value;
+                if (section) {
+                  STATS[name][section] = grade;
+                  meanSum += grade;
+                  meanCount += 1;
+                  grades.push(grade);
+                }
+                section = '';
+              }
+            });
+            STATS[name].grades = grades;
+            STATS[name].min = Math.min(...grades);
+            STATS[name].max = Math.max(...grades);
+            STATS[name].mean = +parseFloat(meanSum / meanCount).toFixed(2);
+            STATS[name].duration = duration;
             const dir = `./performance/${new Date().toJSON().slice(0,10)}/${name}`;
             if (!fs.existsSync(dir)){
                 fs.mkdirSync(dir, { recursive: true });
             }
             console.log(diff); // eslint-disable-line
             fs.writeFileSync(`${dir}/diff.md`, diff);
+            fs.writeFileSync(`${dir}/stats.json`, JSON.stringify(STATS[name]));
           })
         );
       }
@@ -268,7 +343,68 @@ const performanceTest = () => {
       ...TRANSCRIPTS.cruise,
     }),
   ];
-  const done$ = concat(...tests);
+  const done$ = forkJoin(...tests).pipe(
+    tap(() => {
+      const stats = {
+        min: {},
+        max: {},
+        mean: {},
+      }
+      const grades = {
+        intro: [],
+        cc: [],
+        hpi: [],
+        ros: [],
+        pmh: [],
+        fmx: [],
+        shx: [],
+        allergies: [],
+        rx: [],
+        problems: [],
+        duration: [],
+      };
+      let meanSum = 0;
+      let meanCount = 0;
+      Object.keys(STATS).forEach((name) => {
+        const r = STATS[name];
+        grades.intro.push(r.intro);
+        grades.cc.push(r.cc);
+        grades.hpi.push(r.hpi);
+        grades.ros.push(r.ros);
+        grades.pmh.push(r.pmh);
+        grades.fmx.push(r.fmx);
+        grades.shx.push(r.shx);
+        grades.allergies.push(r.allergies);
+        grades.rx.push(r.rx);
+        grades.problems.push(r.problems);
+        grades.duration.push(r.duration);
+      });
+      Object.keys(grades).forEach((s) => {
+        const arr = grades[s];
+        const count = arr.length;
+        const sum = arr.reduce((partialSum, a) => partialSum + a, 0);
+        stats.min[s] = Math.min(...arr);
+        stats.max[s] = Math.max(...arr);
+        stats.mean[s] = +parseFloat(sum / count).toFixed(2);
+        if (s !== 'duration') {
+          meanSum += stats.mean[s];
+          meanCount += 1;
+        }
+      })
+      const dir = `./performance/${new Date().toJSON().slice(0,10)}`;
+      if (!fs.existsSync(dir)){
+          fs.mkdirSync(dir, { recursive: true });
+      }
+      let str = nsTable(stats);
+      str += `\nOverall Score: ${+parseFloat(meanSum / meanCount).toFixed(2)}`;
+      console.log(str); // eslint-disable-line
+
+      const pieces = str.split('\n');
+      str = pieces.join('  \n');
+      str += '\n\n';
+      fs.writeFileSync(`${dir}/stats.md`, str);
+    })
+  );
   done$.subscribe((d) => console.log('DONE!'));  // eslint-disable-line
 
   return done$;

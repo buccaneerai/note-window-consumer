@@ -1,39 +1,52 @@
 #### INTRO
 Grade: 8
-Differences: The first note mentions that the patient "can't seem to get rid of" the cough, while the second note simply states the patient has a persistent cough for about two weeks.
+Differences: The first note mentions that the patient "can't seem to get rid of" the cough, while the second note simply states that the patient presents with a persistent cough for about two weeks.
 
 #### CC
 Grade: 10
-Differences: None, both notes have the same chief complaint of a persistent cough.
+Differences: None
 
 #### HPI
-Grade: 8
-Differences: The first note provides more details about the patient's previous cold symptoms, mentions the cough being evenly distributed on both sides, and denies sore throat, chest pain, and headache. The second note mentions the history of asthma-like symptoms and the inhaler's possible name (Flovent).
+Grade: 7
+Differences: The first note provides more detailed information about the cough, such as it being evenly distributed on both sides and the patient denying sore throat, chest pain, and headache. The second note mentions sinus congestion as a past symptom and specifies the inhaler as a flow vent inhaler.
 
 #### ROS
-Grade: 7
-Differences: The first note includes more symptoms in the review of systems, such as dypsnea, vision changes, blurry vision, rhinorhea, nasal congestion, chest pain, vomiting, nausea, diarrhea, and muscle pain. The second note only mentions sinus congestion as an additional symptom.
+Grade: 6
+Differences: The first note has a more extensive list of symptoms, both present and absent, while the second note only lists four symptoms. The first note also includes dyspnea as a respiratory symptom, which is not mentioned in the second note.
 
 #### Past Medical History
-Grade: 9
-Differences: The first note mentions "possible asthma," while the second note states "asthma-like symptoms."
+Grade: 10
+Differences: None
 
 #### Family History
 Grade: 10
-Differences: None, both notes have no family history.
+Differences: None
 
 #### Social History
 Grade: 10
-Differences: None, both notes have no social history.
+Differences: None
 
 #### Allergies
 Grade: 10
-Differences: None, both notes state that the patient denies allergies.
+Differences: None
 
 #### Medications
 Grade: 7
-Differences: The first note states that the patient denies taking medication, while the second note mentions the patient has an inhaler (possibly Flovent).
+Differences: The first note states that the patient denies taking medication, while the second note mentions the flow vent inhaler, although not currently in use.
 
 #### Assessment & Plan
-Grade: 8
-Differences: The first note includes scheduling a follow-up in 1-2 weeks and specifically mentions ruling out flu and COVID with rapid tests. The second note suggests reevaluating and treating for asthma or allergies if the cough persists.
+Grade: 9
+Differences: The first note specifically mentions ruling out flu and COVID, while the second note suggests re-evaluating for asthma or allergy after trying cough treatments.
+
+| Section          | Grade |
+|------------------|-------|
+| INTRO            | 8     |
+| CC               | 10    |
+| HPI              | 7     |
+| ROS              | 6     |
+| Past Medical     | 10    |
+| Family History   | 10    |
+| Social History   | 10    |
+| Allergies        | 10    |
+| Medications      | 7     |
+| Assessment & Plan| 9     |

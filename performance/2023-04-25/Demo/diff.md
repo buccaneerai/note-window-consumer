@@ -1,6 +1,6 @@
 #### INTRO
-Grade: 10
-Differences: None
+Grade: 9
+Differences: Slight rephrasing of the sentence.
 
 #### CC
 Grade: 10
@@ -8,16 +8,15 @@ Differences: None
 
 #### HPI
 Grade: 8
-Differences:
-- First note mentions nausea, while the second note does not.
-- First note states that the patient took Tylenol for the pain, while the second note specifies that the patient took extra-strength Tylenol.
-- First note lists fever, headache, and vomiting as patient-reported symptoms, while the second note does not mention fever as a reported symptom.
+Differences: 
+- In the first note, the patient reports fever, headache, and vomiting, while in the second note, this specific mention is not present.
+- In the first note, the patient denies blurred vision, rash, numbness, diarrhea, and swollen joints, while in the second note, these details are not mentioned.
 
 #### ROS
 Grade: 7
 Differences:
-- First note includes constitutional and gastrointestinal sections, while the second note does not.
-- First note mentions fever, nausea, and vomiting, while the second note only mentions vomiting.
+- In the first note, the ROS includes constitutional (fever), gastrointestinal (nausea and vomiting), while in the second note, these are not mentioned.
+- In the second note, the ROS includes integumentary (rash) and musculoskeletal (swollen joint), which are not present in the first note.
 
 #### Past Medical History
 Grade: 10
@@ -29,8 +28,7 @@ Differences: None
 
 #### Social History
 Grade: 9
-Differences:
-- First note does not mention the son's name, while the second note states the son's name is Liam.
+Differences: Slight rephrasing of the sentence.
 
 #### Allergies
 Grade: 10
@@ -38,11 +36,23 @@ Differences: None
 
 #### Medications
 Grade: 9
-Differences:
-- First note specifies that the blue puffer is rarely used, while the second note says it is rarely taken.
+Differences: Slight rephrasing of the sentence.
 
 #### Assessment & Plan
-Grade: 9
+Grade: 7
 Differences:
-- First note mentions administering IV morphine and medication for nausea, while the second note only mentions administering IV morphine.
-- First note suggests considering lumbar puncture if needed, while the second note suggests performing a physical exam and considering lumbar puncture if needed.
+- In the first note, pain management is mentioned as administering IV morphine and medication for nausea, while in the second note, it is mentioned as administering IV morphine and medication for nausea for severe headache.
+- In the first note, possible intracranial bleed is mentioned as ordering a CT Scan of the brain, while in the second note, it is mentioned as investigating potential brain bleed with CT Scan.
+
+| Section          | Grade |
+|------------------|-------|
+| INTRO            | 9     |
+| CC               | 10    |
+| HPI              | 8     |
+| ROS              | 7     |
+| Past Medical     | 10    |
+| Family History   | 10    |
+| Social History   | 9     |
+| Allergies        | 10    |
+| Medications      | 9     |
+| Assessment & Plan| 7     |

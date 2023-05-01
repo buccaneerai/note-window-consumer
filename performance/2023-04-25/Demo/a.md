@@ -1,18 +1,19 @@
 #### INTRO 
-Patient presents with a severe headache that started in the morning. 
+The patient presents with a severe headache that started in the morning. 
 
 #### CC 
 Severe headache 
 
 #### HPI 
-The patient woke up with a severe headache that has persisted since around 5 AM. The pain is described as terrible and the worst they have ever experienced. The patient reported feeling feverish the night before and mentioned their son had been sick for a couple of days. The pain was so intense that it caused the patient to vomit. The patient tried taking extra-strength Tylenol, but it did not alleviate the pain.
+The patient woke up with a severe headache, which has persisted since around 5 am. The pain is described as the worst they have ever experienced and has caused them to vomit due to its intensity. The patient mentioned feeling feverish the night before and having a sick child at home. They tried taking Tylenol to alleviate the headache, but it made no difference.
 
 #### ROS 
 - neurological: [true] headache 
-- gastrointestinal: [true] vomiting 
 - eyes: [false] blurred vision 
 - neurological: [false] numbness 
 - neurological: [false] weakness 
+- integumentary: [false] rash 
+- musculoskeletal: [false] swollen joint 
 
 #### Past Medical History 
 - Asthma
@@ -22,7 +23,7 @@ The patient woke up with a severe headache that has persisted since around 5 AM.
 - Family history of migraines
 
 #### Social History 
-The patient is married and has a son named Liam who has been sick recently. The patient has not traveled outside of the country recently.
+The patient is married with a child who has been sick recently. They have not traveled outside of the country recently.
 
 #### Allergies 
 - Patient denies allergies
@@ -32,7 +33,7 @@ The patient is married and has a son named Liam who has been sick recently. The 
 - Blue puffer (rarely taken)
 
 #### Assessment & Plan 
-- Pain: Administer IV morphine and medication for nausea
-- Possible meningitis: Perform physical exam and consider lumbar puncture if needed
-- Possible brain bleed: Order CT Scan of the brain
+- Severe headache: Administer IV morphine and medication for nausea
+- Possible meningitis: Perform CT Scan of the brain and consider lumbar puncture if needed
+- Worst headache of life: Investigate potential brain bleed with CT Scan
 

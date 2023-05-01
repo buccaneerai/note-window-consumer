@@ -130,6 +130,8 @@ const parseResponse = (response) => {
 const toOpenAI = ({
   start = Date.now(),
   model = 'gpt-4',
+  temperature = 1.0,
+  top_p = 0.1,
   _openai = openai,
   _logger = logger,
   _parseResponse = parseResponse,
@@ -144,7 +146,8 @@ const toOpenAI = ({
   const startTime = Date.now();
   return from(_openai.createChatCompletion({
     model,
-    temperature: 0.5,
+    temperature,
+    top_p,
     messages: [
         {"role": "system", "content": `
 You are an assistant that reads transcripts between a patient and a doctor, your job is to answer the following questions about the conversation as accurately as possible from the perpsective of the doctor.

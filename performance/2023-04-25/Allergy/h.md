@@ -1,11 +1,11 @@
 #### INTRO 
-The patient came in with a stuffy nose and post nasal drip for a couple of weeks. 
+Patient presents with a stuffy nose, post nasal drip, and a cough that has been gradually getting worse for a couple of weeks. 
 
 #### CC 
-Stuffy nose and post nasal drip 
+Stuffy nose and cough 
 
 #### HPI 
-The patient has been experiencing a stuffy nose and post nasal drip for a couple of weeks. The symptoms are not new and usually occur around springtime. The symptoms have gradually gotten worse, with some days worse than others. The patient has not noticed a fever and believes it might be allergies. Spending time outdoors seems to aggravate the symptoms, which is consistent with their past experiences. They have tried Benadryl and Claritin in the past, with Benadryl providing some relief but causing drowsiness.
+The patient has been experiencing a stuffy nose, post nasal drip, and a cough for a couple of weeks. The symptoms have been gradually getting worse, with some days being worse than others. The patient has experienced these symptoms before, usually around springtime. They have not noticed any fever or other symptoms typically associated with the flu or cold. The patient's symptoms seem to worsen after spending time outdoors. In the past, they have tried Benadryl, which helped but made them sleepy, and Claritin, which didn't seem to help much.
 
 #### ROS 
 - ent: [true] sinus congestion 
@@ -22,14 +22,14 @@ The patient has been experiencing a stuffy nose and post nasal drip for a couple
 - musculoskeletal: [false] joint pain 
 
 #### Past Medical History 
-- NONE
+- No known past medical conditions
 
 #### Family History 
 - Father has bad allergies
 - Grandmother was diabetic
 
 #### Social History 
-NONE
+No social history information provided in the transcript.
 
 #### Allergies 
 - Patient denies allergies
@@ -39,5 +39,5 @@ NONE
 - Claritin
 
 #### Assessment & Plan 
-- Allergy symptoms: Perform rapid tests for flu and COVID to rule them out; Prescribe or recommend over-the-counter Zyrtec (10 mg; nightly) for a week trial and follow up if needed
+- Allergy-like symptoms: Perform rapid tests for flu and COVID; Prescribe or recommend over-the-counter Zyrtec (10 mg nightly) for a week trial; Follow up if symptoms persist or worsen
 
