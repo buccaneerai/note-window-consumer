@@ -1,17 +1,18 @@
 #### INTRO 
-Patient presents with a stab wound in the left arm from an accident while changing the air filter in their furnace. 
+The patient accidentally stabbed their left arm while trying to change the air filter in their furnace. 
 
 #### CC 
-Stab wound in left arm 
+Accidental stab wound 
 
 #### HPI 
-The patient accidentally stabbed themselves in the left arm while trying to change the air filter in their furnace using a screwdriver. The incident occurred last night at 8pm. The wound bled a lot, and the patient used alcohol to clean it up. The patient's wife suggested coming in for a possible tetanus shot, as the patient hasn't had one in years or decades. The patient applied Neosporin and a bandaid to the wound.
+The patient accidentally stabbed themselves in the left forearm with a not-so-clean screwdriver while trying to change the air filter in their furnace. The incident occurred last night at around 8pm. The wound bled a lot, and the patient used alcohol to clean it up. The patient's wife suggested coming in for a possible tetanus shot, as the patient hasn't had one in years or decades. The patient applied Neosporin and a bandaid to the wound, and fortunately, they are not experiencing any numbness or tingling in their hand.
 
 #### ROS 
-- gastrointestinal: [true] abdominal pain 
 - neurological: [false] numbness 
+- constitutional: [false] fever 
 - constitutional: [false] chills 
 - gastrointestinal: [false] nausea 
+- gastrointestinal: [false] vomiting 
 
 #### Past Medical History 
 - NONE
@@ -20,7 +21,7 @@ The patient accidentally stabbed themselves in the left arm while trying to chan
 - NONE
 
 #### Social History 
-Patient denies smoking cigarettes.
+The patient does not smoke cigarettes.
 
 #### Allergies 
 - Patient denies allergies
@@ -29,6 +30,6 @@ Patient denies smoking cigarettes.
 - Neosporin
 
 #### Assessment & Plan 
-- Stab wound in left arm: Irrigate wound, apply topical antibiotic ointment, and bandage; Instruct patient to wash wound twice a day and monitor for infection; Follow up in 5-7 days if not improving
-- Outdated tetanus shot: Administer tetanus booster shot
+- Stab wound: Irrigate wound, apply topical antibiotic ointment, and bandage; Wash twice a day and monitor for infection; Return if not improving in 5-7 days or if signs of infection appear
+- Tetanus booster: Administer tetanus booster shot
 

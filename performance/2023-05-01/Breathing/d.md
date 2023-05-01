@@ -1,11 +1,11 @@
 #### INTRO 
-The patient had an asthma attack four weeks ago and is still experiencing difficulty breathing. 
+Patient presents with difficulty breathing and worsening asthma symptoms. 
 
 #### CC 
 Difficulty breathing 
 
 #### HPI 
-The patient has a history of asthma and was prescribed Flovent steroids four weeks ago after an asthma attack. The patient finished the steroids two weeks ago, but the difficulty breathing has returned and worsened over the past couple of days. The patient has been using an albuterol inhaler when the breathing gets really bad. The shortness of breath has been gradually worsening, and the patient has also been experiencing coughing with a little bit of blood and green-yellow phlegm.
+The patient had an asthma attack four weeks ago and was prescribed Flovent steroids, which were finished two weeks ago. However, the patient's asthma symptoms have returned and worsened over the past couple of days. The patient has been using an albuterol inhaler when the symptoms become severe. The shortness of breath has been gradually worsening over the last few days, and it is now worse when walking. The patient has also been coughing, with some blood and green-yellow phlegm.
 
 #### ROS 
 - respiratory: [true] difficulty breathing 
@@ -27,7 +27,7 @@ The patient has a history of asthma and was prescribed Flovent steroids four wee
 - NONE
 
 #### Social History 
-The patient has been smoking cigarettes since the age of 20 and currently smokes about half a pack per day. The patient has been previously advised about the risks of smoking.
+The patient has been smoking cigarettes since the age of 20 and currently smokes about half a pack per day.
 
 #### Allergies 
 - Patient denies allergies
@@ -37,7 +37,7 @@ The patient has been smoking cigarettes since the age of 20 and currently smokes
 - Albuterol inhaler
 
 #### Assessment & Plan 
-- Difficulty breathing: Administer breathing treatment; Prescribe another steroid; Schedule follow-up visit
-- Coughing with blood and phlegm: Order chest x-ray; Perform CBC panel; Schedule follow-up visit
-- Smoking: Discuss risks and cessation options during appointment
+- Worsening asthma symptoms: Administer breathing treatment, prescribe another steroid, and schedule follow-up
+- Cough with blood and phlegm: Order chest x-ray and CBC panel
+- Smoking: Discuss smoking cessation at the end of the appointment
 

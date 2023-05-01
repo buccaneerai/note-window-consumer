@@ -26,8 +26,8 @@ const toOpenAI = ({
 }) => ({truth, note}) => {
   return from(_openai.createChatCompletion({
     model,
-    temperature: 0.7,
-    top_p: 0.5,
+    temperature: 1.0,
+    top_p: 0.1,
     messages: [
         {"role": "system", "content": `
 You are an assistant that grades and describes the differences between a perfect clinical note created by a doctor and a note created by an AI system.
@@ -395,14 +395,12 @@ const performanceTest = () => {
       if (!fs.existsSync(dir)){
           fs.mkdirSync(dir, { recursive: true });
       }
-      let str = nsTable(stats);
-      str += `\nOverall Score: ${+parseFloat(meanSum / meanCount).toFixed(2)}`;
-      console.log(str); // eslint-disable-line
-
+      let str = `\nOverall Score: ${+parseFloat(meanSum / meanCount).toFixed(2)}\n\n`;
+      str += `\`\`\`\n${nsTable(stats)}\n\`\`\``;
       const pieces = str.split('\n');
       str = pieces.join('  \n');
-      str += '\n\n';
       fs.writeFileSync(`${dir}/stats.md`, str);
+      fs.writeFileSync(`./performance/SCORES.md`, str);
     })
   );
   done$.subscribe((d) => console.log('DONE!'));  // eslint-disable-line

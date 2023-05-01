@@ -5,18 +5,18 @@ Patient presents with a sore throat and swollen neck for five days, which has be
 Sore throat and swollen neck 
 
 #### HPI 
-The patient started experiencing a sore throat five days ago, which has progressively worsened. Their neck is swollen and it is difficult for them to swallow. They have had a fever of 99 degrees. The patient attended a birthday party a few days ago where some friends and family were sick. They were given amoxicillin after an urgent care visit, but their condition has not improved. They also developed a rash on their abdomen and have pain on the left side of their stomach.
+The patient started experiencing a sore throat five days ago, which has progressively worsened. Their neck is swollen and it is difficult for them to swallow. They have had a fever of 99 degrees. The patient mentioned being around friends and family who were sick a couple of days ago at a birthday party. They were given amoxicillin after an urgent care visit, but their throat has continued to worsen and they have developed a rash on their abdomen. The patient also experiences stomach pain on the left side.
 
 #### ROS 
 - ent: [true] sore throat 
 - constitutional: [true] fever 
-- integumentary: [true] rash 
 - gastrointestinal: [true] abdominal pain 
 - respiratory: [false] cough 
 - cardiovascular: [false] chest pain 
 - gastrointestinal: [false] vomiting 
 - gastrointestinal: [false] nausea 
 - genitourinary: [false] urinary incontinence 
+- constitutional: [false] loss of consciousness 
 
 #### Past Medical History 
 - No major illnesses
@@ -26,7 +26,7 @@ The patient started experiencing a sore throat five days ago, which has progress
 - NONE
 
 #### Social History 
-NONE
+The patient attended a birthday party a few days ago where they were exposed to sick individuals.
 
 #### Allergies 
 - Patient denies allergies
@@ -35,7 +35,6 @@ NONE
 - Amoxicillin
 
 #### Assessment & Plan 
-- Sore throat and swollen neck: Continue amoxicillin; Monitor and address during follow-up if persistent
-- Rash and stomach pain: Investigate further; Consider additional tests and treatment if needed
-- Possible mono: Perform tests to confirm or rule out diagnosis
+- Possible strep throat or mono: Perform additional tests to determine the cause of the symptoms
+- Dehydration: Encourage patient to drink more fluids
 
