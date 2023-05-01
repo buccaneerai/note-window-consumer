@@ -130,8 +130,8 @@ const parseResponse = (response) => {
 const toOpenAI = ({
   start = Date.now(),
   model = 'gpt-4',
-  temperature = 0.7,
-  top_p = 0.5,
+  temperature = 1.0,
+  top_p = 0.1,
   _openai = openai,
   _logger = logger,
   _parseResponse = parseResponse,
