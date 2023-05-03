@@ -294,7 +294,6 @@ const getROSPredictions = ({
         name: symptom.name,
       };
     }
-    console.error('Unmatched symptom!', s.label);
     return {
       ...s,
       name: s.label.toLowerCase().trim(),
