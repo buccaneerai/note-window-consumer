@@ -1,3 +1,26 @@
+# [1.4.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.4...v1.4.0-dev.5) (2023-05-01)
+
+
+### Features
+
+* move scores file ([6ebf97f](https://github.com/buccaneerai/note-window-consumer/commit/6ebf97f75113d217682ce9856f80eeb773b082fb))
+
+# [1.4.0-dev.4](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.3...v1.4.0-dev.4) (2023-05-01)
+
+
+### Bug Fixes
+
+* Add duration ([259b921](https://github.com/buccaneerai/note-window-consumer/commit/259b9216b1fd9bd893d1161c17d120fca0195e8e))
+* Add the scores ([9a670ef](https://github.com/buccaneerai/note-window-consumer/commit/9a670ef4068653e2d1c7420c64b68b070e0b3f96))
+* Move files around ([a3da2e9](https://github.com/buccaneerai/note-window-consumer/commit/a3da2e9ee4a190c3165cf2f3a033ecf4d498c49c))
+* Remove groundtruth from transcripts file, as its not needed ([c9d826e](https://github.com/buccaneerai/note-window-consumer/commit/c9d826eeaf8bad967039c4a15a6be0099839ba83))
+
+
+### Features
+
+* add new stats ([5fce284](https://github.com/buccaneerai/note-window-consumer/commit/5fce284ce10bd8bfb93e510793806839566184bd))
+* Added stats file ([0d4ad1b](https://github.com/buccaneerai/note-window-consumer/commit/0d4ad1b8403b8e61dd1fe578cfa43fc7c29a89f4))
+
 # [1.4.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.2...v1.4.0-dev.3) (2023-04-25)
 
 
