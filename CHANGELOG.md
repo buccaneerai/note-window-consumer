@@ -1,3 +1,15 @@
+# [1.4.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.5...v1.4.0-dev.6) (2023-05-04)
+
+
+### Bug Fixes
+
+* Fix lint ([bc8afde](https://github.com/buccaneerai/note-window-consumer/commit/bc8afdeeb3ae7f3a1d0952ee589916bdf529d093))
+
+
+### Features
+
+* Move ROS mapping to gpt ([2bb529b](https://github.com/buccaneerai/note-window-consumer/commit/2bb529bd612f3504c1949e489830bb9c5466f3d7))
+
 # [1.4.0-dev.5](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.4...v1.4.0-dev.5) (2023-05-01)
 
 
