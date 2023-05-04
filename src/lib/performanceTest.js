@@ -32,7 +32,7 @@ const toOpenAI = ({
         {"role": "system", "content": `
 You are an assistant that grades and describes the differences between a perfect clinical note created by a doctor and a note created by an AI system.
 The grading scale is from 0 to 10.  A score of "0" means that section is completely different than the perfect note and a score of "10" means that the section is 100% identical to the perfect note.
-Slight variations in the wording or language should not be marked down. The format of the notes is Markdown.
+Slight variations in the wording or language should not be marked down. Don't mark down the problem section for including codes and descriptions like [R.15 Headache]. The format of the notes is Markdown.
 `},
         {"role": "user", "content": `
 The perfect ground truth note is: \n
