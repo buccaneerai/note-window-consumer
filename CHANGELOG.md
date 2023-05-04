@@ -1,3 +1,10 @@
+# [1.4.0-dev.7](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.6...v1.4.0-dev.7) (2023-05-04)
+
+
+### Features
+
+* Add icd10 codes ([75947c6](https://github.com/buccaneerai/note-window-consumer/commit/75947c6c8288347058bde4bc79cfce02b7ac63dc))
+
 # [1.4.0-dev.6](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.5...v1.4.0-dev.6) (2023-05-04)
 
 
