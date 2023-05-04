@@ -9,10 +9,21 @@ const {Configuration, OpenAIApi} = require('openai');
 const {client} = require('@buccaneerai/graphql-sdk');
 const logger = require('@buccaneerai/logging-utils');
 
+const {
+  ComprehendMedicalClient,
+  // InferSNOMEDCTCommand,
+  InferICD10CMCommand,
+  // InferRxNormCommand,
+ } = require("@aws-sdk/client-comprehendmedical");
+
+const config = require('../lib/config');
 const symptoms = require('../lib/symptoms');
 
 const openAiConf = new Configuration({apiKey: process.env.OPENAI_API_KEY});
 const openai = new OpenAIApi(openAiConf);
+
+const medicalClient = new ComprehendMedicalClient({ region: config().AWS_REGION || config().AWS_DEFAULT_REGION });
+
 
 const fetchVerifiedFindings = ({
   runId,
@@ -102,6 +113,7 @@ const parseResponse = (response) => {
     allergies: [],
     pmh: [],
     social: [],
+    codes: [],
   }
   let json = null;
   try {
@@ -122,7 +134,8 @@ const parseResponse = (response) => {
     family: parseSection(json.fhx || []),
     allergies: parseSection(json.allergies || []),
     pmh: parseSection(json.pmh || []),
-    social: parseSection(json.shx || [])
+    social: parseSection(json.shx || []),
+    codes: [],
   };
   return sections;
 };
@@ -164,7 +177,7 @@ Looking over the transcript, write a detailed list of the patient's family's med
 Looking over the transcript, write a detailed summary of the patient's social history.  This should include things like recent travel, relationship status, marital status, diet, exercise, drug/tobacco/alcohol usage, education, employment, profession/work environment, thoughts of suicide, sexuality or sexual activity, number of children, etc. This should be 1 to 2 paragraphs long. The JSON key is 'shx'.  Example: 'Patient smokes a pack of cigarettes a day and is married with 2 children. Patient exercises twice a week.' \n
 Looking over the transcript, write a list of the patient's allergies, as well as any allergy the patient denies having.  If the patient denies having any allergies, say, 'Patient denies allergies'. This should be an array, the JSON key is 'allergies'.  Example 1: '[\"Patient is allergic to peanuts\", \"Patient denies allergy to egg\"]'. Example 2: '[\"Patient denies allergies\"]' \n
 Looking over the transcript, write a list of every medication the patient says they are currently taking. Do not include any medications the doctor prescribes in the transcript. Include any dosages if they are discussed, and only include real medications.  If you are unsure if the medication is spelled correctly, don't include it. If the patient denies taking any medication, then say, 'Patient denies taking any medication'. This should be an array, the JSON key is 'rx'. Example 1: '[\"Tylenol (500 mg; twice a day)\", \"Oflaxicin\"]' Example 2: '[\"Patient denies taking medication\"]' \n
-Looking over the transcript, write a comprehensive list of the symptoms that were discussed in the transcript.  These should be as few words as possible to describe the symptom. If the patient asserts or confirms they are experiencing the symtpom, say 'Asserts [SYMPTOM]'.  If the patient denies having a symptom, say 'Denies [SYMPTOM]'. This should be an array, the JSON key is 'ros'.  Example: '[\"Asserts Headache\", \"Denies Nausea\", \"Asserts Blurred Vision\"]' \n
+Looking over the transcript, write a comprehensive list of the symptoms that were discussed in the transcript. A medical symptom is a physical or mental problem that a person experiences that may indicate a disease or condition. Use as few words as possible to describe the symptom. If the patient asserts or confirms they are experiencing the symtpom, say 'Asserts [SYMPTOM]'.  If the patient denies having a symptom, say 'Denies [SYMPTOM]'. This should be an array, the JSON key is 'ros'.  Example: '[\"Asserts Headache\", \"Denies Nausea\", \"Asserts Blurred Vision\"]' \n
 Looking over the transcript, write a detailed list of the doctor's assessment and the plan for that assessment. The assessment is the issue the doctor thinks they have or what needs to be addressed.  The plan is how the doctor is going to address the issue.  The format is '[ASSESSMENT]: [PLAN]'.  This should be an array, the JSON key is 'problems'.  Example: '[\"Nausea: Have patient take OTC Bismuth subsalicylate; Monitor and address during follow-up if persistent\", \"Possible meningitis: Order CT scan of the brain, followed by lumbar puncture if needed\", \"Pain: Administer morphine during visit; Prescribe Oxycodone (500mg; twice a day or as needed)\"] \n
 `},
     ]
@@ -811,6 +824,52 @@ Write a comprehensive list of the symptoms that were discussed in the transcript
   );
 };
 
+const toMedicalComprehend = ({
+  _client = medicalClient,
+}) => ({sections, ...rest }) => {
+  if (!sections.problems.length) {
+    return of({...rest, sections});
+  }
+  const reqs = sections.problems.map((Text) => {
+    const icd10 = new InferICD10CMCommand({Text});
+    return from(_client.send(icd10)).pipe(
+      map((response) => {
+        return {
+          type: 'rawICD10',
+          response,
+        };
+      })
+    );
+  });
+  return forkJoin(
+    ...reqs
+  ).pipe(
+    map((responses = []) => {
+      const newSections = {
+        ...sections
+      };
+      const { problems } = sections;
+      let problemIndex = 0;
+      responses.forEach((r) => {
+        const { Entities: entities = [] } = r.response;
+        let codes = '';
+        entities.forEach((e) => {
+          const code = e.ICD10CMConcepts[0] || null;
+          if (code) {
+            codes += `[${code.Code} (${code.Description})] `;
+          }
+        });
+        if (codes.length) {
+          codes += "| ";
+        }
+        problems[problemIndex] = `${codes}${problems[problemIndex]}`;
+        problemIndex += 1;
+      });
+      newSections.problems = problems;
+      return {sections: newSections, ...rest};
+    })
+  );
+};
 
 const toGPT4 = ({
   runId,
@@ -823,6 +882,7 @@ const toGPT4 = ({
   _toOpenAI = toOpenAI,
   _toOpenAIHPI = toOpenAIHPI,
   _toOpenAISymptoms = toOpenAISymptoms,
+  _toMedicalComprehend = toMedicalComprehend,
   _logger = logger,
 } = {}) => words$ => {
   return words$.pipe(
@@ -844,6 +904,11 @@ const toGPT4 = ({
       start,
     })),
     mergeMap(_toOpenAIHPI({
+      runId,
+      model,
+      start,
+    })),
+    mergeMap(_toMedicalComprehend({
       runId,
       model,
       start,
