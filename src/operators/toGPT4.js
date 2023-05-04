@@ -1,5 +1,4 @@
 const { of, from, forkJoin } = require('rxjs');
-const fs = require('fs');
 const get = require('lodash/get');
 const isString = require('lodash/isString');
 const _map = require('lodash/map');
@@ -10,7 +9,6 @@ const {Configuration, OpenAIApi} = require('openai');
 const {client} = require('@buccaneerai/graphql-sdk');
 const logger = require('@buccaneerai/logging-utils');
 
-const sendWordsToTopicModel = require('../lib/sendWordsToTopicModel');
 const symptoms = require('../lib/symptoms');
 
 const openAiConf = new Configuration({apiKey: process.env.OPENAI_API_KEY});
