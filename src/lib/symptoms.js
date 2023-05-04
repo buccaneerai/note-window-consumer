@@ -1323,6 +1323,39 @@ symptoms.insert({
 });
 
 symptoms.insert({
+    "_id": "7276e2e89573c62623310b2d",
+    "code": "HEMOPTYSIS",
+    "codes": [
+      "66857006",
+    ],
+    "name": "hemoptysis",
+    "sctid": "66857006",
+    "bodySystem": "respiratory",
+});
+
+symptoms.insert({
+    "_id": "7276e2e89573c62623310b1a",
+    "code": "HEMATURIA",
+    "codes": [
+      "34436003",
+    ],
+    "name": "hematuria",
+    "sctid": "34436003",
+    "bodySystem": "genitourinary",
+});
+
+symptoms.insert({
+    "_id": "7276e2e89573c62623310b1b",
+    "code": "WEIGHT_LOSS",
+    "codes": [
+      "89362005",
+    ],
+    "name": "weight loss",
+    "sctid": "89362005",
+    "bodySystem": "constitutional",
+});
+
+symptoms.insert({
     "_id": "6276e2e89573c62623310b2e",
     "code": "WHEEZING",
     "codes": [
@@ -1407,6 +1440,17 @@ symptoms.insert({
     ],
     "name": "difficulty breathing",
     "sctid": "230145002",
+    "bodySystem": "respiratory",
+});
+
+symptoms.insert({
+    "_id": "7276e2e89573c62623310b1d",
+    "code": "PAINFUL_BREATHING",
+    "codes": [
+      "75483001"
+    ],
+    "name": "painful breathing",
+    "sctid": "75483001",
     "bodySystem": "respiratory",
 });
 
@@ -1886,6 +1930,17 @@ symptoms.insert({
     ],
     "name": "numbness",
     "sctid": "44077006",
+    "bodySystem": "neurological",
+});
+
+symptoms.insert({
+    "_id": "7276e2e89573c62623310b1c",
+    "code": "TINGLING",
+    "codes": [
+      "62507009",
+    ],
+    "name": "tingling",
+    "sctid": "62507009",
     "bodySystem": "neurological",
 });
 
