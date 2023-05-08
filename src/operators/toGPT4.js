@@ -114,6 +114,7 @@ const parseResponse = (response) => {
     pmh: [],
     social: [],
     codes: [],
+    diagnosis: [],
   }
   let json = null;
   try {
@@ -135,6 +136,7 @@ const parseResponse = (response) => {
     allergies: parseSection(json.allergies || []),
     pmh: parseSection(json.pmh || []),
     social: parseSection(json.shx || []),
+    diagnosis: parseSection(json.diagnosis || []),
     codes: [],
   };
   return sections;
@@ -179,6 +181,7 @@ Looking over the transcript, write a list of the patient's allergies, as well as
 Looking over the transcript, write a list of every medication the patient says they are currently taking. Do not include any medications the doctor prescribes in the transcript. Include any dosages if they are discussed, and only include real medications.  If you are unsure if the medication is spelled correctly, don't include it. If the patient denies taking any medication, then say, 'Patient denies taking any medication'. This should be an array, the JSON key is 'rx'. Example 1: '[\"Tylenol (500 mg; twice a day)\", \"Oflaxicin\"]' Example 2: '[\"Patient denies taking medication\"]' \n
 Looking over the transcript, write a comprehensive list of the symptoms that were discussed in the transcript. A medical symptom is a physical or mental problem that a person experiences that may indicate a disease or condition. Use as few words as possible to describe the symptom. If the patient asserts or confirms they are experiencing the symtpom, say 'Asserts [SYMPTOM]'.  If the patient denies having a symptom, say 'Denies [SYMPTOM]'. This should be an array, the JSON key is 'ros'.  Example: '[\"Asserts Headache\", \"Denies Nausea\", \"Asserts Blurred Vision\"]' \n
 Looking over the transcript, write a detailed list of the doctor's assessment and the plan for that assessment. The assessment is the issue the doctor thinks they have or what needs to be addressed.  The plan is how the doctor is going to address the issue.  The format is '[ASSESSMENT]: [PLAN]'.  This should be an array, the JSON key is 'problems'.  Example: '[\"Nausea: Have patient take OTC Bismuth subsalicylate; Monitor and address during follow-up if persistent\", \"Possible meningitis: Order CT scan of the brain, followed by lumbar puncture if needed\", \"Pain: Administer morphine during visit; Prescribe Oxycodone (500mg; twice a day or as needed)\"] \n
+Looking over the symptoms, social history, and family history, write a list of the most probable diagnosis in order of the most probable and the percent odds it will be. This should be an array, the JSON key is 'diagnosis'.  Example: '[\"Meningitis: 85%\", \"Liver cancer: 50%\", \"Headache: 35%\"]' \n
 `},
     ]
   })).pipe(
@@ -509,6 +512,30 @@ const getFamilyHistorySummaryPrediction = ({
   };
 };
 
+const getDiagnosis = ({
+  vfMap,
+  pipelineId,
+  sections = {},
+}) => {
+  const vf = get(vfMap, 'diagnosis.0', {});
+  const family = get(sections, 'diagnosis', []);
+  const value = family.join('\n');
+  if (!value) {
+    return {};
+  }
+  return {
+    findingCode: 'F-Diagnosis',
+    pipelineId,
+    _id: vf._id,
+    findingAttributes: [{
+      findingAttributeKey: 'text',
+      stringValues: [value],
+      findingAttributeScore: 0.5,
+      pipelineId,
+    }]
+  };
+}
+
 const mapCodeToPredictions = ({
   pipelineId,
 }) => ([values]) => {
@@ -570,6 +597,10 @@ const mapCodeToPredictions = ({
       ...data,
     }),
     getSocialSummaryPrediction({
+      pipelineId,
+      ...data,
+    }),
+    getDiagnosis({
       pipelineId,
       ...data,
     })

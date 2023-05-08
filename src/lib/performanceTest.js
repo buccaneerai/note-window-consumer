@@ -87,6 +87,9 @@ const getSection = (val) => {
   if (section.includes('problems') || section.includes('assess')) {
     return 'problems';
   }
+  if (section.includes('diagnosis')) {
+    return 'diagnosis';
+  }
   return 'unknown';
 }
 
@@ -133,6 +136,7 @@ const handleMessage = ({
         problems: [],
         social: [],
         pmh: [],
+        diagnosis: [],
       };
       predictions.forEach((vf) => {
         if (vf.findingCode === 'F-Context') {
@@ -155,6 +159,8 @@ const handleMessage = ({
           vfMap.social.push(vf);
         } else if (vf.findingCode === 'F-Pmh') {
           vfMap.pmh.push(vf);
+        } else if (vf.findingCode === 'F-Diagnosis') {
+          vfMap.diagnosis.push(vf);
         }
       });
 
@@ -233,6 +239,14 @@ const handleMessage = ({
       problems = problems.join('\n- ');
       str += `- ${problems}`;
       str += `\n\n`;
+
+      // Diagnosis
+      // str += `#### Diagnosis \n`;
+      // let diagnosis = get(vfMap, 'diagnosis[0].findingAttributes[0].stringValues[0]', 'NONE') || 'NONE';
+      // diagnosis = diagnosis.split('\n');
+      // diagnosis = diagnosis.join('\n- ');
+      // str += `- ${diagnosis}`;
+      // str += `\n\n`;
 
       console.log(str); // eslint-disable-line
       fs.writeFileSync(`${dir}/${runId}.md`, str);
@@ -361,6 +375,7 @@ const performanceTest = () => {
         allergies: [],
         rx: [],
         problems: [],
+        diagnosis: [],
         duration: [],
       };
       let meanSum = 0;
@@ -377,6 +392,7 @@ const performanceTest = () => {
         grades.allergies.push(r.allergies);
         grades.rx.push(r.rx);
         grades.problems.push(r.problems);
+        grades.diagnosis.push(r.diagnosis);
         grades.duration.push(r.duration);
       });
       Object.keys(grades).forEach((s) => {
