@@ -1,3 +1,10 @@
+# [1.4.0-dev.8](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.7...v1.4.0-dev.8) (2023-05-08)
+
+
+### Features
+
+* add diagnosis prediction ([5bb609e](https://github.com/buccaneerai/note-window-consumer/commit/5bb609efa457e4b011a481d5175caa28531ae8bd))
+
 # [1.4.0-dev.7](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.6...v1.4.0-dev.7) (2023-05-04)
 
 
