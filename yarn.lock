@@ -3459,6 +3459,11 @@ nodemon@^2.0.2:
     undefsafe "^2.0.3"
     update-notifier "^4.1.0"
 
+nodestringtable@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/nodestringtable/-/nodestringtable-1.0.2.tgz#8a56290886ac9528d6b5869661556871417a8203"
+  integrity sha512-pmxD5aaJ3cy07+ncvtATvf+SuKE+uZufBuThpjkBsausXKGf0cASZqhArdxg1vT2vMLBv3BMPERMdu8iZoXRvw==
+
 nopt@^4.0.1:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/nopt/-/nopt-4.0.3.tgz#a375cad9d02fd921278d954c2254d5aa57e15e48"
