@@ -51,6 +51,7 @@ const handleMessage = ({
       _fetchWordsForWindow()({noteWindowId: m.noteWindowId}),
       _fetchNoteWindow()({noteWindowId: m.noteWindowId})
     )),
+    _logger.toLog('creatingPredictions'),
     mergeMap(([m, words, noteWindow]) => zip(
       of(m),
       _toPredictions()({message: {...m, start: noteWindow.start || 0}, words}),
