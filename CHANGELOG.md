@@ -1,3 +1,32 @@
+# [1.4.0](https://github.com/buccaneerai/note-window-consumer/compare/v1.3.1...v1.4.0) (2023-05-10)
+
+
+### Bug Fixes
+
+* Add duration ([259b921](https://github.com/buccaneerai/note-window-consumer/commit/259b9216b1fd9bd893d1161c17d120fca0195e8e))
+* Add the scores ([9a670ef](https://github.com/buccaneerai/note-window-consumer/commit/9a670ef4068653e2d1c7420c64b68b070e0b3f96))
+* Adjust promptl, re-run perf ([f4ebba4](https://github.com/buccaneerai/note-window-consumer/commit/f4ebba482d3d7d5f27eba5ab2008a95205fdabba))
+* Fix lint ([bc8afde](https://github.com/buccaneerai/note-window-consumer/commit/bc8afdeeb3ae7f3a1d0952ee589916bdf529d093))
+* Many fixes ([72ab9c8](https://github.com/buccaneerai/note-window-consumer/commit/72ab9c825fe8772a7da28358cdcac1d3ff685dbd))
+* Move files around ([a3da2e9](https://github.com/buccaneerai/note-window-consumer/commit/a3da2e9ee4a190c3165cf2f3a033ecf4d498c49c))
+* new model run ([8e6989b](https://github.com/buccaneerai/note-window-consumer/commit/8e6989b7bc3ce5f3a62abb43da8c0540a7a491be))
+* Remove groundtruth from transcripts file, as its not needed ([c9d826e](https://github.com/buccaneerai/note-window-consumer/commit/c9d826eeaf8bad967039c4a15a6be0099839ba83))
+* shx prompt fix ([cb264c5](https://github.com/buccaneerai/note-window-consumer/commit/cb264c5316fdb3ea081707302bb36faa5196753b))
+
+
+### Features
+
+* add diagnosis prediction ([5bb609e](https://github.com/buccaneerai/note-window-consumer/commit/5bb609efa457e4b011a481d5175caa28531ae8bd))
+* Add diff files ([9f69281](https://github.com/buccaneerai/note-window-consumer/commit/9f69281dfef18ca89e23ab3fe9ec98d896eba98b))
+* Add icd10 codes ([75947c6](https://github.com/buccaneerai/note-window-consumer/commit/75947c6c8288347058bde4bc79cfce02b7ac63dc))
+* add new stats ([5fce284](https://github.com/buccaneerai/note-window-consumer/commit/5fce284ce10bd8bfb93e510793806839566184bd))
+* added ground truth notes ([7626545](https://github.com/buccaneerai/note-window-consumer/commit/76265455d9ba3ffec8bf488213d7ebaf0cafafe8))
+* Added stats file ([0d4ad1b](https://github.com/buccaneerai/note-window-consumer/commit/0d4ad1b8403b8e61dd1fe578cfa43fc7c29a89f4))
+* more ground truth notes ([18941fd](https://github.com/buccaneerai/note-window-consumer/commit/18941fdb5437cd3ac29c2e860ffdf95c2959af37))
+* Move ROS mapping to gpt ([2bb529b](https://github.com/buccaneerai/note-window-consumer/commit/2bb529bd612f3504c1949e489830bb9c5466f3d7))
+* move scores file ([6ebf97f](https://github.com/buccaneerai/note-window-consumer/commit/6ebf97f75113d217682ce9856f80eeb773b082fb))
+* Re-write prompts ([87f5f08](https://github.com/buccaneerai/note-window-consumer/commit/87f5f082b3024ccf398cebb91100ba47b4db269a))
+
 # [1.4.0-dev.8](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.7...v1.4.0-dev.8) (2023-05-08)
 
 
