@@ -1,3 +1,11 @@
+# [1.4.0-dev.9](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.8...v1.4.0-dev.9) (2023-05-10)
+
+
+### Bug Fixes
+
+* increase timeout ([660c97c](https://github.com/buccaneerai/note-window-consumer/commit/660c97cbbfa9b98ab714063696e340423e757c1a))
+* Testing error ([74b872e](https://github.com/buccaneerai/note-window-consumer/commit/74b872e039bc58cd1789f61b2f102d7720783b09))
+
 # [1.4.0-dev.8](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0-dev.7...v1.4.0-dev.8) (2023-05-08)
 
 
