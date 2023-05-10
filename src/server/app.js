@@ -38,7 +38,7 @@ const startConsumer = ({
   const app = Consumer.create({
     queueUrl,
     handleMessage: _handleMessage,
-    handleMessageTimeout: 90000,
+    handleMessageTimeout: 240000,
     pollingWaitTimeMs: 5000,
   });
   app.on('error', _logErr);
