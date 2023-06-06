@@ -3,7 +3,7 @@ const get = require('lodash/get');
 const isString = require('lodash/isString');
 const _map = require('lodash/map');
 const isArray = require('lodash/isArray');
-const { map, mergeMap, toArray, catchError, filter, tap } = require('rxjs/operators');
+const { map, mergeMap, toArray, catchError, filter } = require('rxjs/operators');
 const {Configuration, OpenAIApi} = require('openai');
 
 const {client} = require('@buccaneerai/graphql-sdk');
