@@ -1,3 +1,15 @@
+# [1.5.0-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.1-dev.2...v1.5.0-dev.1) (2023-06-06)
+
+
+### Bug Fixes
+
+* THR-425 Fix lint ([53ed2f0](https://github.com/buccaneerai/note-window-consumer/commit/53ed2f054063ae93b298cc0fc59ef208015488c1))
+
+
+### Features
+
+* THR-425 Add code to skip predictions if stream complete and not final note window ([c1c5f80](https://github.com/buccaneerai/note-window-consumer/commit/c1c5f804f074e78c85a6e8055011784a4b1c22dc))
+
 ## [1.4.1-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.1-dev.1...v1.4.1-dev.2) (2023-05-23)
 
 
