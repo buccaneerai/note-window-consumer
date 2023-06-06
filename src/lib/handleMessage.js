@@ -7,10 +7,12 @@ const logger = require('@buccaneerai/logging-utils');
 const validateJob = require('./validateJob');
 const toPredictions = require('../operators/toPredictions');
 const createTask = require('./createTask');
+const fetchRun = require('./fetchRun');
 const fetchWordsForWindow = require('./fetchWordsForWindow');
 const fetchNoteWindow = require('./fetchNoteWindow');
 const storePredictions = require('./storePredictions');
 const updateWorkStatus = require('./updateWorkStatus');
+const updateStatus = require('./updateStatus');
 
 // LEAVING IN FOR TESTING PURPOSES
 // eslint-disable-next-line
@@ -23,10 +25,12 @@ const updateWorkStatus = require('./updateWorkStatus');
 
 // this should return an observable
 const handleMessage = ({
+  _fetchRun = fetchRun,
   _fetchWordsForWindow = fetchWordsForWindow,
   _fetchNoteWindow = fetchNoteWindow,
   // _getPatternMatchingPredictions = getPatternMatchingPredictions,
   _updateWorkStatus = updateWorkStatus,
+  _updateStatus = updateStatus,
   _toPredictions = toPredictions,
   _createTask = createTask,
   _storePredictions = storePredictions,
@@ -48,17 +52,22 @@ const handleMessage = ({
     _logger.toLog('validatedJob'),
     mergeMap(m => zip(
       of(m),
+      _fetchRun()({runId: m.runId}),
       _fetchWordsForWindow()({noteWindowId: m.noteWindowId}),
       _fetchNoteWindow()({noteWindowId: m.noteWindowId})
     )),
     _logger.toLog('creatingPredictions'),
-    mergeMap(([m, words, noteWindow]) => zip(
+    mergeMap(([m, run, words, noteWindow]) => zip(
       of(m),
-      _toPredictions()({message: {...m, start: noteWindow.start || 0}, words}),
+      of(run),
+      of(noteWindow),
+      _toPredictions()({message: {...m, start: noteWindow.start || 0, run, noteWindow}, words}),
     )),
     _logger.toLog('createdPredictions'),
-    mergeMap(([m, predictions]) => zip(
+    mergeMap(([m, run, noteWindow, predictions]) => zip(
       of(m),
+      of(run),
+      of(noteWindow),
       of(predictions),
       shouldStorePredictions && predictions && predictions.length
       ? _storePredictions()({
@@ -71,9 +80,12 @@ const handleMessage = ({
       : of(predictions),
     )),
     _logger.toLog('storedPredictions.done'),
-    mergeMap(([m, predictions]) => zip(
+    mergeMap(([m, run, noteWindow, predictions]) => zip(
       of(m),
       of(predictions),
+      run.status !== 'running' && noteWindow.lastNoteWindow ?
+        _updateStatus({ runId: run._id })
+      : of(null),
       shouldUpdateWorkStatus
       ? _updateWorkStatus({
         noteWindowId: m.noteWindowId,

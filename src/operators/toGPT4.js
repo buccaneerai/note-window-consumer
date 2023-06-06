@@ -796,7 +796,7 @@ ${fullText}
       try {
         arr = JSON.parse(value);
       } catch (e) {
-        console.error(`Unable to parse response: ${e}`);
+        console.error(`Unable to parse response: ${e}`);  // eslint-disable-line
       }
       const values = arr.map((a) => a.key || 'UNKNOWN');
       logger.info(`usage: ${JSON.stringify(usage)}`);
@@ -904,7 +904,9 @@ const toMedicalComprehend = ({
 
 const toGPT4 = ({
   runId,
+  run,
   noteWindowId,
+  noteWindow,
   pipelineId,
   model,
   start,
@@ -916,6 +918,51 @@ const toGPT4 = ({
   _toMedicalComprehend = toMedicalComprehend,
   _logger = logger,
 } = {}) => words$ => {
+  let runPredictions = true;
+  if (run.status !== 'running' && noteWindow.lastNoteWindow !== true) {
+    runPredictions = false;
+  }
+  // Only store the context prediction
+  if (runPredictions === false) {
+    return words$.pipe(
+      map((words) => {
+        return words.reduce((acc, w) => {
+          if (acc.text !== undefined) {
+            return `${acc.text} ${w.text}`;
+          }
+          return (acc ? `${acc} ${w.text}` : w.text);
+        });
+      }),
+      filter((f) => f && f.length),
+      mergeMap(_fetchVerifiedFindings({
+        runId
+      })),
+      map(([text, vfMap]) => {
+        const context = vfMap.context[0] || { stringValues: [] };
+        const contextStr = context.stringValues[0] || '[]';
+        const contextArr = JSON.parse(contextStr) || [];
+        contextArr.push({start, text});
+        const sortedStrings = contextArr.sort((a,b) => a.start - b.start);
+        const newContext = JSON.stringify(sortedStrings);
+        return [getContextPrediction({
+          newContext,
+          vfMap,
+          pipelineId,
+        })]
+      }),
+      toArray(),
+      catchError((error) => {
+        _logger.error(error.toJSON ? error.toJSON().message : error);
+        return of({});
+      }),
+      map(([predictions]) => {
+        const flat = predictions.flat();
+        return flat.filter((f) => f.findingCode);
+      })
+    );
+  }
+
+  // Run and store all predictions
   return words$.pipe(
     map((words) => {
       return words.reduce((acc, w) => {

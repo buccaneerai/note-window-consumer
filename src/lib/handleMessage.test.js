@@ -27,6 +27,8 @@ describe('handleMessage', () => {
     const options = {
       _fetchWordsForWindow: () => sinon.stub().returns(of(fakeWords)),
       _fetchNoteWindow: () => sinon.stub().returns(of({start: 0})),
+      _fetchRun: () => sinon.stub().returns(of({_id: 'foo', status: 'running'})),
+      _updateStatus: () => sinon.stub().returns(of({})),
       _updateWorkStatus: sinon.stub().returns(of({fake: 'response'})),
       _toPredictions: predictionStub,
       _storePredictions: storageStub,
