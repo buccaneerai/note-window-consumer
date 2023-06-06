@@ -1,3 +1,10 @@
+## [1.4.1-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.1-dev.1...v1.4.1-dev.2) (2023-05-23)
+
+
+### Bug Fixes
+
+* remove catch errors ([966d2af](https://github.com/buccaneerai/note-window-consumer/commit/966d2af7bb02f277a1fc5ea525173087f9c9c227))
+
 ## [1.4.1-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.0...v1.4.1-dev.1) (2023-05-12)
 
 
