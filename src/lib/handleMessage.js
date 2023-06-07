@@ -1,17 +1,17 @@
 const get = require('lodash/get');
 const {of,zip} = require('rxjs');
-const {map,mergeMap} = require('rxjs/operators');
+const {mergeMap,map} = require('rxjs/operators');
 
 const logger = require('@buccaneerai/logging-utils');
 
 const validateJob = require('./validateJob');
 const toPredictions = require('../operators/toPredictions');
-const createTask = require('./createTask');
 const fetchRun = require('./fetchRun');
 const fetchWordsForWindow = require('./fetchWordsForWindow');
 const fetchNoteWindow = require('./fetchNoteWindow');
+const fetchNoteWindows = require('./fetchNoteWindows');
+const updateNoteWindow = require('./updateNoteWindow');
 const storePredictions = require('./storePredictions');
-const updateWorkStatus = require('./updateWorkStatus');
 const updateStatus = require('./updateStatus');
 
 // LEAVING IN FOR TESTING PURPOSES
@@ -28,11 +28,11 @@ const handleMessage = ({
   _fetchRun = fetchRun,
   _fetchWordsForWindow = fetchWordsForWindow,
   _fetchNoteWindow = fetchNoteWindow,
+  _fetchNoteWindows = fetchNoteWindows,
   // _getPatternMatchingPredictions = getPatternMatchingPredictions,
-  _updateWorkStatus = updateWorkStatus,
   _updateStatus = updateStatus,
   _toPredictions = toPredictions,
-  _createTask = createTask,
+  _updateNoteWindow = updateNoteWindow,
   _storePredictions = storePredictions,
   _validateJob = validateJob,
   _logger = logger
@@ -86,16 +86,31 @@ const handleMessage = ({
       run.status !== 'running' && noteWindow.lastNoteWindow ?
         _updateStatus({ runId: run._id })
       : of(null),
-      shouldUpdateWorkStatus
-      ? _updateWorkStatus({
-        noteWindowId: m.noteWindowId,
-      })
-      : of(null),
-      shouldCreateTask
-      ? _createTask({noteWindowId: m.noteWindowId})
-      : of(null)
+      // shouldUpdateWorkStatus
+      // ? _updateWorkStatus({
+      //   noteWindowId: m.noteWindowId,
+      // })
+      // : of(null),
+      // shouldCreateTask
+      // ? _createTask({noteWindowId: m.noteWindowId})
+      // : of(null)
     )),
     _logger.toLog('completedJob'),
+    _logger.toLog('queueNextWindow'),
+    mergeMap(([m,predictions]) => {
+      return zip(
+        of(m),
+        of(predictions),
+        _fetchNoteWindows()({filter: {runId: m.runId, queueWindow: {ne: true}}}).pipe(
+          mergeMap(({_id: noteWindowId}) => {
+            if (noteWindowId) {
+              return _updateNoteWindow({noteWindowId});
+            }
+            return of(null);
+          })
+        )
+      );
+    }),
     map(([,predictions]) => predictions),
     _logger.trace()
   );

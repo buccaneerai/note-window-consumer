@@ -27,13 +27,13 @@ describe('handleMessage', () => {
     const options = {
       _fetchWordsForWindow: () => sinon.stub().returns(of(fakeWords)),
       _fetchNoteWindow: () => sinon.stub().returns(of({start: 0})),
+      _fetchNoteWindows: () => sinon.stub().returns(of({_id: 'foo'})),
       _fetchRun: () => sinon.stub().returns(of({_id: 'foo', status: 'running'})),
       _updateStatus: () => sinon.stub().returns(of({})),
-      _updateWorkStatus: sinon.stub().returns(of({fake: 'response'})),
       _toPredictions: predictionStub,
       _storePredictions: storageStub,
       _validateJob: sinon.stub().returns(m => of(m)),
-      _createTask: sinon.stub().returns(of({_id: 'atask'})),
+      _updateNoteWindow: sinon.stub().returns(of(null)),
     };
     const out$ = handleMessage(options)(message);
     const expected$ = m.cold('(0|)', [['prediction']]);

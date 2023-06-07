@@ -39,7 +39,10 @@ const startConsumer = ({
     queueUrl,
     handleMessage: _handleMessage,
     handleMessageTimeout: 240000,
-    pollingWaitTimeMs: 5000,
+    visibilityTimeout: 60,
+    heartbeatInterval: 30,
+    terminateVisibilityTimeout: true,
+    pollingWaitTimeMs: 2000,
   });
   app.on('error', _logErr);
   app.on('processing_error', _logErr);
