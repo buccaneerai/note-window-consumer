@@ -1,3 +1,15 @@
+# [1.5.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.5.0-dev.1...v1.5.0-dev.2) (2023-06-07)
+
+
+### Bug Fixes
+
+* Add missing files ([d7f4948](https://github.com/buccaneerai/note-window-consumer/commit/d7f494803c89cac344807d9c11f8beaebca39124))
+
+
+### Features
+
+* THR-425 Add sqs message stuff ([f2b54b7](https://github.com/buccaneerai/note-window-consumer/commit/f2b54b7a8c2368b822071a7b8aa393c9599a08d2))
+
 # [1.5.0-dev.1](https://github.com/buccaneerai/note-window-consumer/compare/v1.4.1-dev.2...v1.5.0-dev.1) (2023-06-06)
 
 
