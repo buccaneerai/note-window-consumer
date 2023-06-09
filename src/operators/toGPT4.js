@@ -538,8 +538,8 @@ const getDiagnosis = ({
 
 const mapCodeToPredictions = ({
   pipelineId,
-}) => ([values]) => {
-  let data = {};
+}) => ([values = []]) => {
+  let data = {sections: {}};
   const ros = [];
   values.forEach((v) => {
     if (v.sections) {
