@@ -1,3 +1,10 @@
+# [1.5.0-dev.3](https://github.com/buccaneerai/note-window-consumer/compare/v1.5.0-dev.2...v1.5.0-dev.3) (2023-06-09)
+
+
+### Bug Fixes
+
+* Remove catchERror for fetching words ([fb66599](https://github.com/buccaneerai/note-window-consumer/commit/fb6659955e8ff611cb982ea2df5088fd667ccf91))
+
 # [1.5.0-dev.2](https://github.com/buccaneerai/note-window-consumer/compare/v1.5.0-dev.1...v1.5.0-dev.2) (2023-06-07)
 
 
